@@ -39,14 +39,14 @@ export function Footer() {
       {/* Living background accent */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -bottom-20 -left-20 h-[300px] w-[300px] rounded-full bg-leaf/[0.04] blur-[100px]" />
-        <div className="absolute -top-10 -right-10 h-[200px] w-[200px] rounded-full bg-tidal/[0.04] blur-[80px]" />
+        <div className="absolute -top-10 -right-10 h-[200px] w-[200px] rounded-full bg-leaf/[0.04] blur-[80px]" />
       </div>
 
       <div className="relative mx-auto grid max-w-6xl gap-10 px-6 sm:grid-cols-3">
         {/* Brand */}
         <div>
           <Link to="/" className="font-display text-lg text-ink transition-colors hover:text-deep-water">
-            macancela<span className="text-tidal">.</span>tech
+            macancela<span className="text-leaf">.</span>tech
           </Link>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-muted">
             Creative web consulting for clothing brands that want to stand out online.

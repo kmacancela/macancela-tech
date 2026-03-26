@@ -3,55 +3,59 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Vivid earthy palette — alive, not dusty */
+  /* Palette extracted from the hero — deep bokeh greens, ladybug red, flower cream */
   --color-clay: #c4613a;
   --color-clay-light: #d88a5e;
   --color-clay-dark: #a14b2b;
-  --color-sand: #f3e8da;
-  --color-sand-dark: #e2cdb5;
-  --color-parchment: #faf5ee;
-  --color-moss: #3d7a3a;
-  --color-moss-light: #5a9e4f;
-  --color-deep-water: #1a4d5e;
-  --color-deep-water-light: #2d6e82;
-  --color-tidal: #3a96ad;
-  --color-tidal-light: #5eb8cc;
-  --color-ink: #1c1a17;
-  --color-ink-light: #3d3830;
-  --color-ink-muted: #6e6358;
-  --color-warm-white: #fdfbf7;
-  --color-leaf: #2e8b57;
-  --color-leaf-light: #48a870;
+  --color-sand: #eef0ea;
+  --color-sand-dark: #d4d8cc;
+  --color-parchment: #f6f7f3;
+  --color-moss: #3a6b48;
+  --color-moss-light: #5a8e62;
+  --color-deep-water: #1a3d3a;
+  --color-deep-water-light: #2a5e55;
+  --color-tidal: #3a8a7a;
+  --color-tidal-light: #5aab98;
+  --color-ink: #1a1e1a;
+  --color-ink-light: #2e352e;
+  --color-ink-muted: #5c6658;
+  --color-warm-white: #f8f9f5;
+  --color-leaf: #2d7a4a;
+  --color-leaf-light: #48a868;
   --color-sun: #e8a838;
   --color-sun-light: #f0c060;
+  --color-ladybug: #c23030;
+  --color-ladybug-light: #d84848;
 
   --font-display: "DM Serif Display", serif;
   --font-body: "DM Sans", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
 }
 
-/* Dark mode — deep forest at dusk */
+/* Dark mode — deep forest at night */
 .dark {
   --color-clay: #d88a5e;
   --color-clay-light: #e6a87a;
   --color-clay-dark: #c4613a;
-  --color-sand: #1a1816;
-  --color-sand-dark: #252220;
-  --color-parchment: #141210;
-  --color-moss: #5a9e4f;
-  --color-moss-light: #72b866;
-  --color-deep-water: #5eb8cc;
-  --color-deep-water-light: #7acce0;
-  --color-tidal: #5eb8cc;
-  --color-tidal-light: #88d0e0;
-  --color-ink: #ece7df;
-  --color-ink-light: #ccc5bb;
-  --color-ink-muted: #8a7e72;
-  --color-warm-white: #100e0c;
-  --color-leaf: #48a870;
-  --color-leaf-light: #62c48a;
+  --color-sand: #161a16;
+  --color-sand-dark: #1e241e;
+  --color-parchment: #111410;
+  --color-moss: #5a8e62;
+  --color-moss-light: #72b87a;
+  --color-deep-water: #5aab98;
+  --color-deep-water-light: #7acca8;
+  --color-tidal: #5aab98;
+  --color-tidal-light: #80c8b0;
+  --color-ink: #e4e8e0;
+  --color-ink-light: #c0c8ba;
+  --color-ink-muted: #7a8474;
+  --color-warm-white: #0e100e;
+  --color-leaf: #48a868;
+  --color-leaf-light: #62c882;
   --color-sun: #f0c060;
   --color-sun-light: #f5d080;
+  --color-ladybug: #d84848;
+  --color-ladybug-light: #e86060;
 }
 
 html {

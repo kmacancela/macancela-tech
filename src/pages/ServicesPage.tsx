@@ -74,7 +74,7 @@ export function ServicesPage() {
                 }`}>
                   {/* Content */}
                   <div className={i % 2 === 1 ? 'md:order-2 md:text-left' : ''}>
-                    <div className="mb-4 text-tidal">
+                    <div className="mb-4 text-leaf">
                       <ServiceIcon icon={service.icon} />
                     </div>
                     <h3 className="mb-3 font-display text-2xl text-ink md:text-3xl">{service.title}</h3>
@@ -86,7 +86,7 @@ export function ServicesPage() {
                     <ul className="space-y-3">
                       {service.features.map((feature, j) => (
                         <li key={j} className="flex items-start gap-3 text-sm text-ink-light leading-relaxed">
-                          <span className="mt-2 h-px w-4 shrink-0 bg-tidal/50" />
+                          <span className="mt-2 h-px w-4 shrink-0 bg-leaf/50" />
                           {feature}
                         </li>
                       ))}
@@ -123,14 +123,14 @@ export function ServicesPage() {
                         <span className="font-display text-lg text-ink-muted/40">{study.client}</span>
                       </div>
                       <div className={`absolute bottom-0 h-32 w-32 rounded-full blur-[50px] ${
-                        i % 3 === 0 ? 'right-0 bg-tidal/10' : i % 3 === 1 ? 'left-0 bg-clay/10' : 'right-0 bg-moss/10'
+                        i % 3 === 0 ? 'right-0 bg-leaf/10' : i % 3 === 1 ? 'left-0 bg-clay/10' : 'right-0 bg-moss/10'
                       }`} />
                     </div>
                   </div>
 
                   {/* Content */}
                   <div className={`md:col-span-3 ${i % 2 === 1 ? 'md:order-1' : ''}`}>
-                    <p className="mb-2 text-xs font-medium uppercase tracking-[0.15em] text-tidal">{study.client}</p>
+                    <p className="mb-2 text-xs font-medium uppercase tracking-[0.15em] text-leaf">{study.client}</p>
                     <h3 className="mb-4 font-display text-2xl text-ink">{study.title}</h3>
                     <p className="mb-5 text-ink-muted leading-relaxed">{study.description}</p>
                     <div className="flex flex-wrap gap-1.5">

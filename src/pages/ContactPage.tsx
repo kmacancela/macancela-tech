@@ -34,7 +34,7 @@ function SocialIcon({ icon }: { icon: string }) {
   }
 }
 
-const inputClasses = 'w-full bg-parchment border border-sand-dark/60 px-4 py-3 text-sm text-ink placeholder:text-ink-muted/50 transition-colors focus:border-tidal focus:outline-none focus:ring-1 focus:ring-tidal'
+const inputClasses = 'w-full bg-parchment border border-sand-dark/60 px-4 py-3 text-sm text-ink placeholder:text-ink-muted/50 transition-colors focus:border-leaf focus:outline-none focus:ring-1 focus:ring-leaf'
 
 export function ContactPage() {
   const [form, setForm] = useState<ContactFormData>({
@@ -69,7 +69,7 @@ export function ContactPage() {
       <section className="relative overflow-hidden px-6 pt-32 pb-20 md:pt-40 md:pb-28">
         {/* Background washes */}
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-24 right-1/4 h-[400px] w-[400px] rounded-full bg-tidal/[0.05] blur-[120px]" />
+          <div className="absolute -top-24 right-1/4 h-[400px] w-[400px] rounded-full bg-leaf/[0.05] blur-[120px]" />
           <div className="absolute bottom-0 left-1/3 h-[300px] w-[300px] rounded-full bg-clay/[0.04] blur-[100px]" />
         </div>
 
@@ -90,7 +90,7 @@ export function ContactPage() {
                   <p className="mb-2 font-display text-2xl text-ink">Email client opened</p>
                   <p className="text-ink-muted">
                     If it didn't open automatically, send your inquiry to{' '}
-                    <a href={`mailto:${siteConfig.email}`} className="text-tidal underline underline-offset-4 hover:text-deep-water">
+                    <a href={`mailto:${siteConfig.email}`} className="text-leaf underline underline-offset-4 hover:text-deep-water">
                       {siteConfig.email}
                     </a>
                   </p>

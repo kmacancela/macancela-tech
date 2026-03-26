@@ -9,6 +9,10 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const location = useLocation()
   const { theme, toggleTheme } = useTheme()
+  const isHome = location.pathname === '/'
+
+  // On homepage before scroll: text is white (over hero image)
+  const isOverHero = isHome && !scrolled
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
@@ -34,8 +38,15 @@ export function Navbar() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-        <Link to="/" className="font-display text-xl text-ink transition-colors hover:text-deep-water">
-          macancela<span className="text-tidal">.</span>tech
+        <Link
+          to="/"
+          className={`font-display text-xl transition-colors ${
+            isOverHero
+              ? 'text-white hover:text-white/80'
+              : 'text-ink hover:text-deep-water'
+          }`}
+        >
+          macancela<span className={isOverHero ? 'text-leaf-light' : 'text-leaf'}>.</span>tech
         </Link>
 
         {/* Desktop nav */}
@@ -45,16 +56,20 @@ export function Navbar() {
               key={link.label}
               to={link.href}
               className={`relative px-3 py-2 text-sm font-medium transition-colors ${
-                isActive(link.href)
-                  ? 'text-deep-water'
-                  : 'text-ink-muted hover:text-ink'
+                isOverHero
+                  ? isActive(link.href)
+                    ? 'text-white'
+                    : 'text-white/60 hover:text-white'
+                  : isActive(link.href)
+                    ? 'text-deep-water'
+                    : 'text-ink-muted hover:text-ink'
               }`}
             >
               {link.label}
               {isActive(link.href) && (
                 <motion.div
                   layoutId="nav-underline"
-                  className="absolute right-3 bottom-0 left-3 h-px bg-tidal"
+                  className={`absolute right-3 bottom-0 left-3 h-px ${isOverHero ? 'bg-leaf-light' : 'bg-leaf'}`}
                 />
               )}
             </Link>
@@ -63,7 +78,9 @@ export function Navbar() {
           {/* Theme toggle */}
           <button
             onClick={toggleTheme}
-            className="ml-3 flex h-9 w-9 items-center justify-center text-ink-muted transition-colors hover:text-ink"
+            className={`ml-3 flex h-9 w-9 items-center justify-center transition-colors ${
+              isOverHero ? 'text-white/60 hover:text-white' : 'text-ink-muted hover:text-ink'
+            }`}
             aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
           >
             <motion.div
@@ -89,7 +106,9 @@ export function Navbar() {
         <div className="flex items-center gap-2 md:hidden">
           <button
             onClick={toggleTheme}
-            className="flex h-10 w-10 items-center justify-center text-ink-muted transition-colors hover:text-ink"
+            className={`flex h-10 w-10 items-center justify-center transition-colors ${
+              isOverHero ? 'text-white/60 hover:text-white' : 'text-ink-muted hover:text-ink'
+            }`}
             aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
           >
             {theme === 'light' ? (
@@ -110,17 +129,17 @@ export function Navbar() {
             <div className="flex flex-col gap-1.5">
               <span
                 className={`block h-px w-5 transition-all duration-300 ${
-                  mobileOpen ? 'translate-y-[3.5px] rotate-45 bg-ink' : 'bg-ink-light'
+                  mobileOpen ? 'translate-y-[3.5px] rotate-45 bg-ink' : isOverHero ? 'bg-white/70' : 'bg-ink-light'
                 }`}
               />
               <span
                 className={`block h-px w-5 transition-all duration-300 ${
-                  mobileOpen ? 'opacity-0' : 'bg-ink-light'
+                  mobileOpen ? 'opacity-0' : isOverHero ? 'bg-white/70' : 'bg-ink-light'
                 }`}
               />
               <span
                 className={`block h-px w-5 transition-all duration-300 ${
-                  mobileOpen ? '-translate-y-[3.5px] -rotate-45 bg-ink' : 'bg-ink-light'
+                  mobileOpen ? '-translate-y-[3.5px] -rotate-45 bg-ink' : isOverHero ? 'bg-white/70' : 'bg-ink-light'
                 }`}
               />
             </div>
@@ -149,7 +168,7 @@ export function Navbar() {
                   <Link
                     to={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="font-display text-3xl text-ink transition-colors hover:text-deep-water"
+                    className="font-display text-3xl text-ink transition-colors hover:text-leaf"
                   >
                     {link.label}
                   </Link>

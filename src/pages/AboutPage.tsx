@@ -47,8 +47,8 @@ export function AboutPage() {
               <div className="relative aspect-[4/5] overflow-hidden bg-sand">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
-                    <div className="mx-auto mb-3 h-16 w-16 rounded-full bg-tidal/10 flex items-center justify-center">
-                      <span className="font-display text-2xl text-tidal">
+                    <div className="mx-auto mb-3 h-16 w-16 rounded-full bg-leaf/10 flex items-center justify-center">
+                      <span className="font-display text-2xl text-leaf">
                         {siteConfig.firstName[0]}{siteConfig.lastName[0]}
                       </span>
                     </div>
@@ -57,7 +57,7 @@ export function AboutPage() {
                   </div>
                 </div>
                 {/* Subtle corner accent */}
-                <div className="absolute bottom-0 left-0 h-24 w-24 bg-tidal/[0.06] blur-[40px]" />
+                <div className="absolute bottom-0 left-0 h-24 w-24 bg-leaf/[0.06] blur-[40px]" />
               </div>
             </AnimatedSection>
 
@@ -106,10 +106,10 @@ export function AboutPage() {
                     </p>
                     <p className="mt-1 font-medium text-ink">{exp.company}</p>
                     {exp.current && (
-                      <span className="mt-2 inline-flex items-center gap-1.5 text-xs text-tidal">
+                      <span className="mt-2 inline-flex items-center gap-1.5 text-xs text-leaf">
                         <span className="relative flex h-1.5 w-1.5">
-                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-tidal opacity-60" />
-                          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-tidal" />
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-leaf opacity-60" />
+                          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-leaf" />
                         </span>
                         Current
                       </span>
@@ -122,7 +122,7 @@ export function AboutPage() {
                     <ul className="space-y-2">
                       {exp.description.map((item, j) => (
                         <li key={j} className="flex items-start gap-3 text-sm text-ink-muted leading-relaxed">
-                          <span className="mt-2 h-px w-3 shrink-0 bg-tidal/50" />
+                          <span className="mt-2 h-px w-3 shrink-0 bg-leaf/50" />
                           {item}
                         </li>
                       ))}
