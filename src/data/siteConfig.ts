@@ -3,7 +3,8 @@ export const siteConfig = {
   firstName: 'Karina',
   lastName: 'Macancela',
   role: 'Creative Web Consulting',
-  tagline: 'We craft websites that wear as well as your clothes.',
+  // tagline: 'We craft websites that wear as well as your clothes.',
+  tagline: 'Focus on your craft.',
   subtitle: 'Beautiful, high-performing digital experiences for clothing brands that want to stand out.',
   bio: [
     "We believe fashion deserves digital spaces as thoughtful as the garments themselves. At Macancela Tech, we partner with clothing brands to build websites that capture their identity — from fabric to pixel.",

@@ -2,6 +2,35 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@font-face {
+  font-family: "Ogg";
+  src: url("/fonts/Ogg-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Ogg";
+  src: url("/fonts/Ogg-RegularItalic.woff") format("woff");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Ogg";
+  src: url("/fonts/Ogg-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Ogg";
+  src: url("/fonts/Ogg-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   /* Palette extracted from the hero — deep bokeh greens, ladybug red, flower cream */
   --color-clay: #c4613a;
@@ -27,7 +56,7 @@
   --color-ladybug: #c23030;
   --color-ladybug-light: #d84848;
 
-  --font-display: "DM Serif Display", serif;
+  --font-display: "Ogg", "DM Serif Display", serif;
   --font-body: "DM Sans", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
 }

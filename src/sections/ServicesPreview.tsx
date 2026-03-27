@@ -1,91 +1,261 @@
-import { motion } from 'motion/react'
+import { motion, useInView } from 'motion/react'
+import { useRef } from 'react'
 import { services } from '../data/services'
 import { Button } from '../components/ui/Button'
-import { AnimatedSection } from '../components/ui/AnimatedSection'
-import { SectionHeading } from '../components/ui/SectionHeading'
-
-function ServiceIcon({ icon }: { icon: string }) {
-  const cls = "h-6 w-6"
-  switch (icon) {
-    case 'palette':
-      return (
-        <svg className={cls} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" />
-        </svg>
-      )
-    case 'store':
-      return (
-        <svg className={cls} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z" />
-        </svg>
-      )
-    case 'layers':
-      return (
-        <svg className={cls} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L12 12.75l-5.571-3m11.142 0l4.179 2.25L12 17.25 2.25 12l4.179-2.25m11.142 0l4.179 2.25L12 22.5l-9.75-5.25 4.179-2.25" />
-        </svg>
-      )
-    default:
-      return null
-  }
-}
 
 const highlighted = services.filter(s => s.highlighted)
-const accentColors = ['bg-tidal/10 text-tidal', 'bg-leaf/10 text-leaf', 'bg-clay/10 text-clay']
-const hoverAccents = ['group-hover:bg-tidal/20', 'group-hover:bg-leaf/20', 'group-hover:bg-clay/20']
-const lineColors = ['group-hover:bg-tidal', 'group-hover:bg-leaf', 'group-hover:bg-clay']
+
+function StaggeredWord({ word, delay, className = '' }: { word: string; delay: number; className?: string }) {
+  return (
+    <motion.span
+      className={`inline-block ${className}`}
+      initial={{ opacity: 0, y: 40, rotateX: 40 }}
+      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{
+        duration: 0.6,
+        delay,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+    >
+      {word}
+    </motion.span>
+  )
+}
+
+function ServiceCard({ service, index }: { service: typeof highlighted[0]; index: number }) {
+  const colors = ['bg-leaf/8 hover:bg-leaf/14', 'bg-deep-water/8 hover:bg-deep-water/14', 'bg-clay/8 hover:bg-clay/14']
+  const iconColors = ['text-leaf', 'text-deep-water', 'text-clay']
+  const borderColors = ['hover:border-leaf/30', 'hover:border-deep-water/30', 'hover:border-clay/30']
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.6 + index * 0.15, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <motion.div
+        className={`group relative overflow-hidden border border-transparent p-8 transition-all duration-500 ${colors[index]} ${borderColors[index]}`}
+        whileHover={{ y: -6, scale: 1.02 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+      >
+        {/* Floating number */}
+        <span className="absolute top-5 right-6 font-mono text-xs text-ink-muted/30 transition-colors group-hover:text-ink-muted/50">
+          0{index + 1}
+        </span>
+
+        {/* Animated accent dot */}
+        <motion.div
+          className={`mb-6 h-2 w-2 rounded-full ${iconColors[index].replace('text-', 'bg-')}`}
+          animate={{ scale: [1, 1.4, 1] }}
+          transition={{ duration: 3, repeat: Infinity, delay: index * 0.8 }}
+        />
+
+        <h3 className={`mb-3 font-display text-2xl ${iconColors[index]}`}>{service.title}</h3>
+        <p className="text-sm leading-relaxed text-ink-muted">{service.description}</p>
+
+        {/* Reveal arrow on hover */}
+        <motion.div
+          className={`mt-5 flex items-center gap-2 text-xs font-medium tracking-wide ${iconColors[index]} opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
+        >
+          <span>Learn more</span>
+          <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  )
+}
 
 export function ServicesPreview() {
+  const sectionRef = useRef(null)
+  const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
+
   return (
-    <section className="relative overflow-hidden py-24 md:py-32">
-      {/* Subtle nature background */}
+    <section ref={sectionRef} className="relative overflow-hidden py-28 md:py-40">
+      {/* Living background orbs */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-0 right-0 h-[400px] w-[400px] rounded-full bg-leaf/[0.04] blur-[120px]" />
-        <div className="absolute bottom-0 left-1/4 h-[300px] w-[300px] rounded-full bg-tidal/[0.04] blur-[100px]" />
+        <motion.div
+          className="absolute -top-40 right-[10%] h-[600px] w-[600px] rounded-full bg-leaf/[0.06] blur-[130px]"
+          animate={isInView ? { scale: [1, 1.15, 1], x: [0, 30, 0] } : {}}
+          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="absolute -bottom-32 left-[5%] h-[500px] w-[500px] rounded-full bg-deep-water/[0.05] blur-[120px]"
+          animate={isInView ? { scale: [1, 1.1, 1], y: [0, -20, 0] } : {}}
+          transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-clay/[0.04] blur-[100px]"
+          animate={isInView ? { scale: [1, 1.2, 1] } : {}}
+          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 6 }}
+        />
+      </div>
+
+      {/* Scrolling marquee */}
+      <div className="relative mb-16 md:mb-24 overflow-hidden">
+        <div className="flex items-center opacity-40">
+          {[0, 1].map((copy) => (
+            <motion.div
+              key={copy}
+              className="flex shrink-0 items-center gap-8 pr-8"
+              animate={{ x: '-50%' }}
+              transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+            >
+              {['Design', 'Fashion', 'E-Commerce', 'Branding', 'Identity', 'Shopify', 'Strategy', 'Typography'].map((word) => (
+                <span key={word} className="flex shrink-0 items-center gap-8">
+                  <span className="whitespace-nowrap font-display text-2xl italic text-ink-muted md:text-3xl">{word}</span>
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-leaf/50" />
+                </span>
+              ))}
+            </motion.div>
+          ))}
+        </div>
       </div>
 
       <div className="relative mx-auto max-w-6xl px-6">
-        <AnimatedSection>
-          <SectionHeading
-            accent="What We Do"
-            title="Crafted for fashion, rooted in purpose"
-            subtitle="From brand websites to full e-commerce platforms, we help clothing brands own their digital presence — sustainably."
-          />
-        </AnimatedSection>
+        {/* Typographic statement + photo — two column on desktop */}
+        <div className="grid items-end gap-12 md:grid-cols-2 md:gap-16">
+          {/* Left: text */}
+          <div className="pb-24">
+            <h2 className="font-display text-4xl leading-[1.1] tracking-tight text-ink sm:text-5xl md:text-[3.25rem] lg:text-6xl">
+              <StaggeredWord word="Let" delay={0.05} />{' '}
+              <StaggeredWord word="us" delay={0.1} />{' '}
+              <StaggeredWord word="stylize" delay={0.15} className="text-leaf italic" />{' '}
+              <StaggeredWord word="your" delay={0.2} />
+              <br />{' '}
+              <StaggeredWord word="digital" delay={0.25} />{' '}
+              <StaggeredWord word="presence" delay={0.3} />
+              <br />{' '}
+              <StaggeredWord word="while" delay={0.35} className="text-ink-muted" />{' '}
+              <StaggeredWord word="you" delay={0.4} className="text-ink-muted" />{' '}
+              <StaggeredWord word="work" delay={0.45} className="text-ink-muted" />{' '}
+              <StaggeredWord word="on" delay={0.5} className="text-ink-muted" />{' '}
+              <StaggeredWord word="what" delay={0.55} className="text-ink-muted" />
+              <br />{' '}
+              <StaggeredWord word="you" delay={0.6} className="text-ink-muted" />{' '}
+              <StaggeredWord word="love." delay={0.65} className="text-leaf" />
+            </h2>
 
-        <div className="mt-4 grid gap-6 md:grid-cols-3">
+          </div>
+
+          {/* Right: photo with wavy creative background */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="relative flex justify-center"
+          >
+            {/* Wavy organic blob behind the photo */}
+            <motion.svg
+              viewBox="0 0 500 500"
+              className="absolute -inset-6 h-[calc(100%+48px)] w-[calc(100%+48px)]"
+              animate={{ rotate: [0, 4, -4, 0] }}
+              transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <defs>
+                <linearGradient id="wave-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="var(--color-leaf)" stopOpacity="0.15" />
+                  <stop offset="50%" stopColor="var(--color-deep-water)" stopOpacity="0.1" />
+                  <stop offset="100%" stopColor="var(--color-moss)" stopOpacity="0.12" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M250,50 C330,30 420,80 440,160 C460,240 430,310 400,370 C370,430 300,470 230,460 C160,450 90,410 60,340 C30,270 40,190 70,130 C100,70 170,70 250,50Z"
+                fill="url(#wave-grad)"
+              />
+            </motion.svg>
+
+            {/* Secondary smaller blob — offset for depth */}
+            <motion.svg
+              viewBox="0 0 400 400"
+              className="absolute -top-4 -right-8 h-[80%] w-[80%]"
+              animate={{ rotate: [0, -6, 6, 0], scale: [1, 1.03, 1] }}
+              transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+            >
+              <path
+                d="M200,30 C280,20 350,70 360,150 C370,230 330,300 280,340 C230,380 160,370 110,330 C60,290 30,230 40,160 C50,90 120,40 200,30Z"
+                fill="var(--color-clay)"
+                fillOpacity="0.08"
+              />
+            </motion.svg>
+
+            {/* Photo with organic clip shape */}
+            <div className="relative z-10 w-full max-w-sm overflow-hidden" style={{
+              clipPath: 'polygon(8% 0%, 100% 0%, 100% 4%, 96% 8%, 100% 12%, 100% 88%, 96% 92%, 100% 96%, 100% 100%, 0% 100%, 0% 96%, 4% 92%, 0% 88%, 0% 12%, 4% 8%, 0% 4%)',
+            }}>
+              <motion.img
+                src="/model-reading.png"
+                alt="Fashion designers at work"
+                className="h-full w-full object-cover"
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              />
+            </div>
+
+            {/* Floating accent dots around the photo */}
+            <motion.div
+              className="absolute -top-2 right-8 h-3 w-3 rounded-full bg-leaf/40"
+              animate={{ y: [0, -8, 0], scale: [1, 1.2, 1] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            />
+            <motion.div
+              className="absolute -bottom-1 left-12 h-2 w-2 rounded-full bg-clay/40"
+              animate={{ y: [0, 6, 0], scale: [1, 1.3, 1] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+            />
+            <motion.div
+              className="absolute top-1/3 -left-3 h-2.5 w-2.5 rounded-full bg-deep-water/30"
+              animate={{ x: [0, -5, 0], scale: [1, 1.2, 1] }}
+              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
+            />
+          </motion.div>
+        </div>
+
+        {/* Full-width underline + keyword pills — aligned to bottom of photo */}
+        <motion.div
+          className="h-px bg-leaf/40"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          style={{ transformOrigin: 'left' }}
+        />
+        <div className="mb-20 md:mb-28" />
+
+        {/* Service cards */}
+        <div className="grid gap-5 md:grid-cols-3">
           {highlighted.map((service, i) => (
-            <AnimatedSection key={service.id} delay={i * 0.12}>
-              <motion.div
-                className="group relative overflow-hidden py-8 pr-6 pl-6 md:py-10"
-                whileHover={{ y: -4 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              >
-                {/* Left accent line */}
-                <div className={`absolute top-8 bottom-8 left-0 w-px bg-sand-dark/60 transition-all duration-500 ${lineColors[i]}`} />
-
-                {/* Icon with colored background */}
-                <div className={`mb-5 inline-flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-300 ${accentColors[i]} ${hoverAccents[i]}`}>
-                  <ServiceIcon icon={service.icon} />
-                </div>
-
-                <h3 className="mb-3 font-display text-xl text-ink">{service.title}</h3>
-                <p className="text-sm leading-relaxed text-ink-muted">{service.description}</p>
-              </motion.div>
-            </AnimatedSection>
+            <ServiceCard key={service.id} service={service} index={i} />
           ))}
         </div>
 
-        <AnimatedSection delay={0.4}>
-          <div className="mt-14">
-            <Button to="/services" variant="outline">
-              View All Services
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-              </svg>
-            </Button>
-          </div>
-        </AnimatedSection>
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-16 flex items-center gap-6"
+        >
+          <Button to="/services" variant="outline">
+            View All Services
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </Button>
+          <motion.span
+            className="hidden text-sm text-ink-muted md:block"
+            initial={{ opacity: 0, x: -10 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+          >
+            5 services tailored for fashion brands
+          </motion.span>
+        </motion.div>
       </div>
     </section>
   )

@@ -39,7 +39,7 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="mb-6 font-display text-5xl leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-[5.5rem]"
           >
-            {siteConfig.tagline}
+            Focus on<br /> your craft.
           </motion.h1>
 
           <motion.p
