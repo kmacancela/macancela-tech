@@ -1,26 +1,135 @@
-import { motion } from 'motion/react'
+import {
+  motion,
+  useMotionValue,
+  useTransform,
+  animate,
+  useReducedMotion,
+} from 'motion/react'
+import { useEffect, useRef, useState } from 'react'
 import { Button } from '../components/ui/Button'
 import { siteConfig } from '../data/siteConfig'
 
+const RIPPLE_DURATION = 3.5
+
+function HeroBackground() {
+  return (
+    <>
+      <img
+        src="/ladybug-nature.jpg"
+        alt=""
+        className="h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0a1a12]/85 via-[#0a1a12]/50 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0a1a12]/60 to-transparent" />
+    </>
+  )
+}
+
 export function Hero() {
+  const prefersReduced = useReducedMotion()
+  const [settled, setSettled] = useState(!!prefersReduced)
+  const filterRef = useRef<SVGFEDisplacementMapElement>(null)
+
+  // Animated radius drives the mask that clears distortion from center outward
+  const radius = useMotionValue(0)
+  const maskImage = useTransform(radius, (r) => {
+    const soft = 60
+    const inner = Math.max(0, r - soft)
+    return `radial-gradient(circle at 50% 50%, transparent ${inner}px, black ${r + soft}px)`
+  })
+
+  // Three rings travel together, offset from each other
+  const RING_GAP = 80
+  const ring1 = useTransform(radius, (r) => Math.max(0, r * 2))
+  const ring2 = useTransform(radius, (r) => Math.max(0, (r - RING_GAP) * 2))
+  const ring3 = useTransform(radius, (r) => Math.max(0, (r - RING_GAP * 2) * 2))
+
+  useEffect(() => {
+    if (prefersReduced) return
+
+    const maxR = Math.hypot(window.innerWidth, window.innerHeight)
+
+    const controls = animate(radius, maxR, {
+      duration: RIPPLE_DURATION,
+      ease: 'easeOut',
+      onComplete: () => setSettled(true),
+    })
+
+    return () => controls.stop()
+  }, [prefersReduced, radius])
+
   return (
     <section className="relative flex min-h-screen items-end overflow-hidden md:items-center">
-      {/* Full-bleed background image */}
-      <div className="absolute inset-0">
-        <img
-          src="/ladybug-nature.jpg"
-          alt=""
-          className="h-full w-full object-cover"
-        />
-        {/* Gradient overlay — heavier on left for text, transparent on right to show subject */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a1a12]/85 via-[#0a1a12]/50 to-transparent" />
-        {/* Bottom fade */}
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0a1a12]/60 to-transparent" />
+      {/* SVG filter for water distortion */}
+      <svg className="absolute h-0 w-0" aria-hidden="true">
+        <defs>
+          <filter id="water-distort" colorInterpolationFilters="sRGB">
+            <feTurbulence
+              type="turbulence"
+              baseFrequency="0.012"
+              numOctaves="3"
+              seed="4"
+              result="noise"
+            />
+            <feDisplacementMap
+              ref={filterRef}
+              in="SourceGraphic"
+              in2="noise"
+              scale="25"
+              xChannelSelector="R"
+              yChannelSelector="G"
+            />
+          </filter>
+        </defs>
+      </svg>
+
+      {/* Clear background (bottom layer — revealed as ripple passes) */}
+      <div className="absolute inset-0 origin-center" style={{ transform: 'scale(1.1)' }}>
+        <HeroBackground />
       </div>
 
+      {/* Distorted background (top layer — masked away from center outward) */}
+      {!settled && (
+        <motion.div
+          className="absolute inset-0 overflow-hidden"
+          style={{ maskImage, WebkitMaskImage: maskImage }}
+        >
+          {/* Scaled up slightly so the SVG filter doesn't expose edges */}
+          <div
+            className="absolute inset-0 origin-center"
+            style={{ filter: 'url(#water-distort)', transform: 'scale(1.1)' }}
+          >
+            <HeroBackground />
+          </div>
+        </motion.div>
+      )}
+
+      {/* Three ripple rings traveling together */}
+      {!settled && !prefersReduced && (
+        <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
+          {[
+            { size: ring1, opacity: 0.12 },
+            { size: ring2, opacity: 0.08 },
+            { size: ring3, opacity: 0.05 },
+          ].map((ring, i) => (
+            <motion.div
+              key={i}
+              className="absolute left-1/2 top-1/2 rounded-full"
+              style={{
+                translate: '-50% -50%',
+                width: ring.size,
+                height: ring.size,
+                border: `1px solid rgba(255,255,255,${ring.opacity})`,
+                boxShadow: `0 0 16px 4px rgba(255,255,255,${ring.opacity * 0.3}), inset 0 0 16px 4px rgba(255,255,255,${ring.opacity * 0.15})`,
+              }}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* Content */}
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-28 pt-36 md:pb-0 md:pt-0">
         <div className="max-w-2xl">
-          {/* Eco badge */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
