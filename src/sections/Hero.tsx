@@ -10,6 +10,7 @@ import { Button } from '../components/ui/Button'
 import { siteConfig } from '../data/siteConfig'
 
 const RIPPLE_DURATION = 3.5
+const RING_GAP = 80
 
 function HeroBackground() {
   return (
@@ -30,7 +31,6 @@ export function Hero() {
   const [settled, setSettled] = useState(!!prefersReduced)
   const filterRef = useRef<SVGFEDisplacementMapElement>(null)
 
-  // Animated radius drives the mask that clears distortion from center outward
   const radius = useMotionValue(0)
   const maskImage = useTransform(radius, (r) => {
     const soft = 60
@@ -38,8 +38,6 @@ export function Hero() {
     return `radial-gradient(circle at 50% 50%, transparent ${inner}px, black ${r + soft}px)`
   })
 
-  // Three rings travel together, offset from each other
-  const RING_GAP = 80
   const ring1 = useTransform(radius, (r) => Math.max(0, r * 2))
   const ring2 = useTransform(radius, (r) => Math.max(0, (r - RING_GAP) * 2))
   const ring3 = useTransform(radius, (r) => Math.max(0, (r - RING_GAP * 2) * 2))
@@ -67,7 +65,7 @@ export function Hero() {
             <feTurbulence
               type="turbulence"
               baseFrequency="0.012"
-              numOctaves="3"
+              numOctaves="2"
               seed="4"
               result="noise"
             />
@@ -94,10 +92,13 @@ export function Hero() {
           className="absolute inset-0 overflow-hidden"
           style={{ maskImage, WebkitMaskImage: maskImage }}
         >
-          {/* Scaled up slightly so the SVG filter doesn't expose edges */}
           <div
             className="absolute inset-0 origin-center"
-            style={{ filter: 'url(#water-distort)', transform: 'scale(1.1)' }}
+            style={{
+              filter: 'url(#water-distort)',
+              transform: 'scale(1.1) translateZ(0)',
+              willChange: 'transform',
+            }}
           >
             <HeroBackground />
           </div>
