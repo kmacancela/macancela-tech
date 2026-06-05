@@ -55,7 +55,15 @@ const capabilityNotes = [
 export function HomePage() {
   return (
     <>
-      <section className="border-b border-sand-dark/70 px-6 pt-32 pb-16 md:pt-36">
+      <section className="relative isolate overflow-hidden border-b border-sand-dark/70 px-6 pt-32 pb-16 md:pt-36">
+        <img
+          src="/ladybug-nature.jpg"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 -z-30 h-full w-full scale-105 object-cover object-[54%_34%] opacity-70"
+        />
+        <div className="absolute inset-0 -z-20 bg-night/36" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_58%_34%,rgba(90,171,152,0.32),transparent_36%),linear-gradient(90deg,rgba(14,16,14,0.68)_0%,rgba(14,16,14,0.58)_42%,rgba(14,16,14,0.25)_100%)]" />
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(340px,0.74fr)] lg:items-start">
             <AnimatedSection>
@@ -90,7 +98,7 @@ export function HomePage() {
             </AnimatedSection>
 
             <AnimatedSection delay={0.12}>
-              <aside className="border border-sand-dark/70 bg-parchment p-5 sm:shadow-[12px_12px_0_var(--color-sand)]">
+              <aside className="border border-sand-dark/70 bg-parchment/90 p-5 backdrop-blur-sm sm:shadow-[12px_12px_0_var(--color-sand)]">
                 <div className="flex items-start justify-between gap-4 border-b border-sand-dark/70 pb-5">
                   <div>
                     <p className="text-sm font-semibold text-deep-water">Hiring snapshot</p>

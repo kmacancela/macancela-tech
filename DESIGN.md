@@ -23,6 +23,12 @@ Polished product-profile portfolio.
 - Support: clay and leaf used sparingly for status or secondary emphasis.
 - Rules: subtle borders only where they help separate dense information.
 
+## Imagery
+
+- `ladybug-nature.jpg` may be used as hero atmosphere only, never as a standalone decorative image card.
+- Hero image treatment: full-bleed background, visible through the left copy area, text-first contrast.
+- The image should add personal texture while the foreground remains focused on SWE role fit, proof, current project, and contact paths.
+
 ## Typography
 
 ### Problem With The Previous Stack
