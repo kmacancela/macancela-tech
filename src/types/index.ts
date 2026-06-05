@@ -1,28 +1,32 @@
-export interface Service {
-  id: string
-  title: string
-  description: string
-  features: string[]
-  icon: string
-  highlighted: boolean
+export interface ProjectLink {
+  label: string
+  href: string
+  external?: boolean
 }
 
-export interface CaseStudy {
+export interface Project {
   id: string
   title: string
-  client: string
-  description: string
-  services: string[]
+  status: 'Active' | 'Shipped' | 'Exploring' | 'Paused'
+  kind: string
+  summary: string
+  problem: string
+  role: string
+  highlights: string[]
+  tech: string[]
+  links: ProjectLink[]
+  featured: boolean
   image?: string
-  link?: string
 }
 
 export interface Experience {
   id: string
   company: string
   role: string
+  location: string
   startDate: string
   endDate: string | 'Present'
+  context: string
   description: string[]
   tech: string[]
   current: boolean
@@ -38,10 +42,13 @@ export interface BlogPost {
   slug: string
 }
 
-export interface SocialLink {
+export interface ProfileLink {
   name: string
-  url: string
-  icon: 'github' | 'linkedin' | 'email'
+  label: string
+  href: string
+  icon: 'github' | 'linkedin' | 'email' | 'resume'
+  external?: boolean
+  download?: boolean
 }
 
 export interface NavLink {
@@ -53,7 +60,15 @@ export interface NavLink {
 export interface ContactFormData {
   name: string
   email: string
-  company: string
-  service: string
   message: string
+}
+
+export interface SkillGroup {
+  title: string
+  skills: string[]
+}
+
+export interface HobbyGroup {
+  title: string
+  items: string[]
 }

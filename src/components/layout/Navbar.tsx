@@ -1,8 +1,21 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router'
-import { AnimatePresence, motion } from 'motion/react'
-import { navLinks } from '../../data/socialLinks'
+import { navLinks } from '../../data/profileLinks'
+import { siteConfig } from '../../data/siteConfig'
 import { useTheme } from '../../hooks/useTheme'
+import type { Theme } from '../../context/themeContextValue'
+
+function ThemeIcon({ theme }: { theme: Theme }) {
+  return theme === 'light' ? (
+    <svg className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+    </svg>
+  ) : (
+    <svg className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+    </svg>
+  )
+}
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -12,7 +25,7 @@ export function Navbar() {
   const isHome = location.pathname === '/'
 
   // On homepage before scroll: text is white (over hero image)
-  const isOverHero = isHome && !scrolled
+  const isOverHero = isHome && !scrolled && !mobileOpen
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
@@ -46,7 +59,7 @@ export function Navbar() {
               : 'text-ink hover:text-deep-water'
           }`}
         >
-          macancela<span className={isOverHero ? 'text-leaf-light' : 'text-leaf'}>.</span>tech
+          {siteConfig.firstName}<span className={isOverHero ? 'text-leaf-light' : 'text-leaf'}>.</span>
         </Link>
 
         {/* Desktop nav */}
@@ -67,8 +80,7 @@ export function Navbar() {
             >
               {link.label}
               {isActive(link.href) && (
-                <motion.div
-                  layoutId="nav-underline"
+                <span
                   className={`absolute right-3 bottom-0 left-3 h-px ${isOverHero ? 'bg-leaf-light' : 'bg-leaf'}`}
                 />
               )}
@@ -83,22 +95,12 @@ export function Navbar() {
             }`}
             aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
           >
-            <motion.div
+            <div
               key={theme}
-              initial={{ rotate: -30, opacity: 0, scale: 0.8 }}
-              animate={{ rotate: 0, opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+              className="animate-[spin-in_0.3s_cubic-bezier(0.25,0.1,0.25,1)_both]"
             >
-              {theme === 'light' ? (
-                <svg className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
-                </svg>
-              ) : (
-                <svg className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-                </svg>
-              )}
-            </motion.div>
+              <ThemeIcon theme={theme} />
+            </div>
           </button>
         </div>
 
@@ -111,15 +113,7 @@ export function Navbar() {
             }`}
             aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
           >
-            {theme === 'light' ? (
-              <svg className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
-              </svg>
-            ) : (
-              <svg className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-              </svg>
-            )}
+            <ThemeIcon theme={theme} />
           </button>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -148,36 +142,31 @@ export function Navbar() {
       </div>
 
       {/* Mobile overlay */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-warm-white/97 backdrop-blur-sm md:hidden"
-          >
-            <div className="flex flex-col items-center gap-8">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.label}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 16 }}
-                  transition={{ delay: i * 0.06 }}
-                >
-                  <Link
-                    to={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="font-display text-3xl text-ink transition-colors hover:text-leaf"
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
+      <div
+        className={`fixed inset-0 z-40 flex flex-col items-center justify-center bg-warm-white/97 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+          mobileOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
+        }`}
+      >
+        <div className="flex flex-col items-center gap-8">
+          {navLinks.map((link, i) => (
+            <div
+              key={link.label}
+              className={`transition-all duration-300 ${
+                mobileOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+              }`}
+              style={{ transitionDelay: mobileOpen ? `${i * 60}ms` : '0ms' }}
+            >
+              <Link
+                to={link.href}
+                onClick={() => setMobileOpen(false)}
+                className="font-display text-3xl text-ink transition-colors hover:text-leaf"
+              >
+                {link.label}
+              </Link>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          ))}
+        </div>
+      </div>
     </nav>
   )
 }

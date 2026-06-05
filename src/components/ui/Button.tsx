@@ -1,5 +1,4 @@
 import { Link } from 'react-router'
-import { motion } from 'motion/react'
 
 interface ButtonProps {
   children: React.ReactNode
@@ -9,10 +8,26 @@ interface ButtonProps {
   onClick?: () => void
   type?: 'button' | 'submit'
   className?: string
+  target?: string
+  rel?: string
+  download?: boolean | string
+  ariaLabel?: string
 }
 
-export function Button({ children, variant = 'primary', to, href, onClick, type = 'button', className = '' }: ButtonProps) {
-  const base = 'inline-flex items-center gap-2 px-6 py-3 font-body font-semibold text-sm tracking-wide transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-leaf focus-visible:ring-offset-2 focus-visible:ring-offset-warm-white'
+export function Button({
+  children,
+  variant = 'primary',
+  to,
+  href,
+  onClick,
+  type = 'button',
+  className = '',
+  target,
+  rel,
+  download,
+  ariaLabel,
+}: ButtonProps) {
+  const base = 'inline-flex items-center gap-2 px-6 py-3 font-body font-semibold text-sm tracking-wide transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-leaf focus-visible:ring-offset-2 focus-visible:ring-offset-warm-white'
 
   const variants: Record<string, string> = {
     primary: 'bg-deep-water text-warm-white hover:bg-deep-water-light',
@@ -22,33 +37,32 @@ export function Button({ children, variant = 'primary', to, href, onClick, type 
 
   const classes = `${base} ${variants[variant]} ${className}`
 
-  const motionProps = {
-    whileHover: { y: -2 },
-    whileTap: { y: 0 },
-    transition: { type: 'spring' as const, stiffness: 400, damping: 20 },
-  }
-
   if (to) {
     return (
-      <motion.div {...motionProps} className="inline-block">
-        <Link to={to} className={classes}>
-          {children}
-        </Link>
-      </motion.div>
+      <Link to={to} className={classes}>
+        {children}
+      </Link>
     )
   }
 
   if (href) {
     return (
-      <motion.a href={href} className={classes} {...motionProps}>
+      <a
+        href={href}
+        className={classes}
+        target={target}
+        rel={rel ?? (target === '_blank' ? 'noopener noreferrer' : undefined)}
+        download={download}
+        aria-label={ariaLabel}
+      >
         {children}
-      </motion.a>
+      </a>
     )
   }
 
   return (
-    <motion.button onClick={onClick} type={type} className={classes} {...motionProps}>
+    <button onClick={onClick} type={type} className={classes} aria-label={ariaLabel}>
       {children}
-    </motion.button>
+    </button>
   )
 }

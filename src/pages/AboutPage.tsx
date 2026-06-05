@@ -1,137 +1,106 @@
-import { motion } from 'motion/react'
-import { siteConfig } from '../data/siteConfig'
-import { experience } from '../data/experience'
 import { AnimatedSection } from '../components/ui/AnimatedSection'
-import { SectionHeading } from '../components/ui/SectionHeading'
 import { Badge } from '../components/ui/Badge'
+import { Button } from '../components/ui/Button'
+import { SectionHeading } from '../components/ui/SectionHeading'
+import { hobbies } from '../data/hobbies'
+import { profileLinks } from '../data/profileLinks'
+import { siteConfig } from '../data/siteConfig'
+import { skillGroups } from '../data/skills'
 
-const capabilities = [
-  { label: 'Brand Strategy', variant: 'tidal' as const },
-  { label: 'Custom Web Design', variant: 'tidal' as const },
-  { label: 'E-Commerce Platforms', variant: 'moss' as const },
-  { label: 'Shopify Development', variant: 'moss' as const },
-  { label: 'React & Next.js', variant: 'clay' as const },
-  { label: 'Responsive Design', variant: 'clay' as const },
-  { label: 'Performance Optimization', variant: 'water' as const },
-  { label: 'Design Systems', variant: 'water' as const },
-  { label: 'SEO & Analytics', variant: 'tidal' as const },
-  { label: 'Figma & Prototyping', variant: 'moss' as const },
+const resumeLink = profileLinks.find((link) => link.name === 'Resume')
+
+const workingValues = [
+  'Clear product thinking before code',
+  'Interfaces that make complex systems legible',
+  'Security and data boundaries treated as product quality',
+  'Calm collaboration across engineering, product, design, and stakeholders',
 ]
 
 export function AboutPage() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
-    >
-      {/* Header */}
+    <div className="animate-[fade-in_0.4s_ease_both]">
       <section className="px-6 pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="mx-auto max-w-6xl">
           <AnimatedSection>
             <SectionHeading
               accent="About"
-              title="The story behind the studio"
-              subtitle="We're a small team with big opinions about what fashion brands deserve from the web."
+              title="A product-minded engineer with a craft streak"
+              subtitle="I build software with a full-stack sense of the system and a front-end sense of how the work should feel."
             />
           </AnimatedSection>
         </div>
       </section>
 
-      {/* Bio section */}
       <section className="px-6 pb-20 md:pb-28">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid items-start gap-12 md:grid-cols-5 md:gap-16">
-            {/* Photo placeholder */}
-            <AnimatedSection className="md:col-span-2">
-              <div className="relative aspect-[4/5] overflow-hidden bg-sand">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="mx-auto mb-3 h-16 w-16 rounded-full bg-leaf/10 flex items-center justify-center">
-                      <span className="font-display text-2xl text-leaf">
-                        {siteConfig.firstName[0]}{siteConfig.lastName[0]}
-                      </span>
-                    </div>
-                    <p className="text-sm text-ink-muted">{siteConfig.firstName} {siteConfig.lastName}</p>
-                    <p className="text-xs text-ink-muted/60">{siteConfig.location}</p>
+        <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[0.8fr_1.2fr] md:gap-16">
+          <AnimatedSection>
+            <div className="border border-sand-dark/50 bg-sand/30 p-8">
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-leaf">{siteConfig.location}</p>
+              <h2 className="mt-5 font-display text-4xl leading-tight text-ink">
+                {siteConfig.firstName} {siteConfig.lastName}
+              </h2>
+              <p className="mt-4 text-ink-muted leading-relaxed">
+                {siteConfig.role} / {siteConfig.roleDetail}
+              </p>
+              <div className="mt-8 space-y-4">
+                {workingValues.map((value) => (
+                  <div key={value} className="flex items-start gap-3 text-sm leading-relaxed text-ink-light">
+                    <span className="mt-2 h-px w-4 shrink-0 bg-leaf/50" />
+                    {value}
                   </div>
-                </div>
-                {/* Subtle corner accent */}
-                <div className="absolute bottom-0 left-0 h-24 w-24 bg-leaf/[0.06] blur-[40px]" />
-              </div>
-            </AnimatedSection>
-
-            {/* Bio + capabilities */}
-            <AnimatedSection className="md:col-span-3" delay={0.15}>
-              <div className="space-y-5">
-                {siteConfig.bio.map((paragraph, i) => (
-                  <p key={i} className="text-ink-light leading-relaxed text-lg">
-                    {paragraph}
-                  </p>
                 ))}
               </div>
-
-              <div className="mt-10">
-                <h3 className="mb-4 text-xs font-medium uppercase tracking-[0.15em] text-ink-muted">Capabilities</h3>
-                <div className="flex flex-wrap gap-2">
-                  {capabilities.map(({ label, variant }) => (
-                    <Badge key={label} variant={variant}>{label}</Badge>
-                  ))}
+              {resumeLink && (
+                <div className="mt-8">
+                  <Button href={resumeLink.href} download variant="outline">Download resume</Button>
                 </div>
+              )}
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.15}>
+            <div className="space-y-5">
+              {siteConfig.bio.map((paragraph) => (
+                <p key={paragraph} className="text-lg leading-relaxed text-ink-light">
+                  {paragraph}
+                </p>
+              ))}
+              <p className="text-lg leading-relaxed text-ink-light">
+                I am especially drawn to products where the interface is not just the surface, but the place where people learn to trust the data, workflow, and system underneath it.
+              </p>
+            </div>
+
+            <div className="mt-10">
+              <h3 className="mb-4 text-xs font-medium uppercase tracking-[0.15em] text-ink-muted">Technical center of gravity</h3>
+              <div className="flex flex-wrap gap-2">
+                {skillGroups.flatMap((group) => group.skills).slice(0, 18).map((skill) => (
+                  <Badge key={skill} variant="tidal">{skill}</Badge>
+                ))}
               </div>
-            </AnimatedSection>
-          </div>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
-      {/* Experience section */}
       <section className="border-t border-sand-dark/40 bg-sand/30 px-6 py-20 md:py-28">
         <div className="mx-auto max-w-6xl">
           <AnimatedSection>
             <SectionHeading
-              accent="Experience"
-              title="Where we've been"
-              subtitle="Years of building for fashion, design, and e-commerce."
+              accent="Outside work"
+              title="What keeps me attentive"
+              subtitle="The same habits that make good software easier to build also show up away from the keyboard: patience, rhythm, observation, and a little play."
             />
           </AnimatedSection>
 
-          <div className="mt-4 space-y-0">
-            {experience.map((exp, i) => (
-              <AnimatedSection key={exp.id} delay={i * 0.1}>
-                <div className="grid gap-4 border-b border-sand-dark/40 py-10 last:border-b-0 md:grid-cols-4 md:gap-8">
-                  {/* Left: dates + company */}
-                  <div className="md:col-span-1">
-                    <p className="text-sm text-ink-muted">
-                      {exp.startDate} &mdash; {exp.endDate}
-                    </p>
-                    <p className="mt-1 font-medium text-ink">{exp.company}</p>
-                    {exp.current && (
-                      <span className="mt-2 inline-flex items-center gap-1.5 text-xs text-leaf">
-                        <span className="relative flex h-1.5 w-1.5">
-                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-leaf opacity-60" />
-                          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-leaf" />
-                        </span>
-                        Current
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Right: role + details */}
-                  <div className="md:col-span-3">
-                    <h3 className="mb-3 font-display text-xl text-ink">{exp.role}</h3>
-                    <ul className="space-y-2">
-                      {exp.description.map((item, j) => (
-                        <li key={j} className="flex items-start gap-3 text-sm text-ink-muted leading-relaxed">
-                          <span className="mt-2 h-px w-3 shrink-0 bg-leaf/50" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="mt-4 flex flex-wrap gap-1.5">
-                      {exp.tech.map((t) => (
-                        <Badge key={t}>{t}</Badge>
-                      ))}
-                    </div>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {hobbies.map((group, index) => (
+              <AnimatedSection key={group.title} delay={index * 0.06}>
+                <div className="h-full border border-sand-dark/40 bg-warm-white p-6">
+                  <h3 className="text-xs font-medium uppercase tracking-[0.15em] text-leaf">{group.title}</h3>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {group.items.map((item) => (
+                      <Badge key={item} variant="moss">{item}</Badge>
+                    ))}
                   </div>
                 </div>
               </AnimatedSection>
@@ -139,6 +108,6 @@ export function AboutPage() {
           </div>
         </div>
       </section>
-    </motion.div>
+    </div>
   )
 }

@@ -1,4 +1,3 @@
-import { motion } from 'motion/react'
 import { AnimatedSection } from '../components/ui/AnimatedSection'
 import { SectionHeading } from '../components/ui/SectionHeading'
 import { Badge } from '../components/ui/Badge'
@@ -6,19 +5,13 @@ import { blogPosts } from '../data/blogPosts'
 
 export function BlogPage() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
-      className="pt-28 pb-24 px-6"
-    >
+    <div className="pt-28 pb-24 px-6 animate-[fade-in_0.3s_ease_both]">
       <div className="mx-auto max-w-3xl">
         <AnimatedSection>
           <SectionHeading
             title="Blog"
             accent="Thoughts & writing"
-            subtitle="Thoughts on web design, fashion branding, and building beautiful digital experiences."
+            subtitle="A future home for engineering notes, project writeups, and reflections on product craft."
           />
         </AnimatedSection>
 
@@ -44,6 +37,6 @@ export function BlogPage() {
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
