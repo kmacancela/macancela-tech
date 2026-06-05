@@ -1,35 +1,20 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router'
-import { navLinks } from '../../data/profileLinks'
+import { navLinks, profileLinks } from '../../data/profileLinks'
 import { siteConfig } from '../../data/siteConfig'
-import { useTheme } from '../../hooks/useTheme'
-import type { Theme } from '../../context/themeContextValue'
+import { ProfileIcon } from '../ui/ProfileIcon'
 
-function ThemeIcon({ theme }: { theme: Theme }) {
-  return theme === 'light' ? (
-    <svg className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
-    </svg>
-  ) : (
-    <svg className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-    </svg>
-  )
-}
+const resumeLink = profileLinks.find((link) => link.name === 'Resume')
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const location = useLocation()
-  const { theme, toggleTheme } = useTheme()
-  const isHome = location.pathname === '/'
-
-  // On homepage before scroll: text is white (over hero image)
-  const isOverHero = isHome && !scrolled && !mobileOpen
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50)
+    const onScroll = () => setScrolled(window.scrollY > 12)
     window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
@@ -43,128 +28,77 @@ export function Navbar() {
   }
 
   return (
-    <nav
-      className={`fixed top-0 right-0 left-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'bg-warm-white/80 backdrop-blur-lg shadow-[0_1px_12px_rgba(0,0,0,0.04)]'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-        <Link
-          to="/"
-          className={`font-display text-xl transition-colors ${
-            isOverHero
-              ? 'text-white hover:text-white/80'
-              : 'text-ink hover:text-deep-water'
-          }`}
-        >
-          {siteConfig.firstName}<span className={isOverHero ? 'text-leaf-light' : 'text-leaf'}>.</span>
-        </Link>
+    <nav className={`fixed inset-x-0 top-0 z-50 border-b border-sand-dark/70 bg-warm-white/90 backdrop-blur-xl transition-shadow duration-300 ${scrolled ? 'shadow-[0_12px_30px_rgba(23,26,21,0.08)]' : ''}`}>
+      <div className="relative mx-auto grid h-[4.75rem] max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 sm:px-6">
+        <div aria-hidden="true" />
 
-        {/* Desktop nav */}
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-1 rounded-full border border-sand-dark/70 bg-parchment/70 p-1 md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.label}
               to={link.href}
-              className={`relative px-3 py-2 text-sm font-medium transition-colors ${
-                isOverHero
-                  ? isActive(link.href)
-                    ? 'text-white'
-                    : 'text-white/60 hover:text-white'
-                  : isActive(link.href)
-                    ? 'text-deep-water'
-                    : 'text-ink-muted hover:text-ink'
+              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                isActive(link.href) ? 'bg-ink text-warm-white' : 'text-ink-muted hover:bg-warm-white hover:text-ink'
               }`}
             >
               {link.label}
-              {isActive(link.href) && (
-                <span
-                  className={`absolute right-3 bottom-0 left-3 h-px ${isOverHero ? 'bg-leaf-light' : 'bg-leaf'}`}
-                />
-              )}
             </Link>
           ))}
-
-          {/* Theme toggle */}
-          <button
-            onClick={toggleTheme}
-            className={`ml-3 flex h-9 w-9 items-center justify-center transition-colors ${
-              isOverHero ? 'text-white/60 hover:text-white' : 'text-ink-muted hover:text-ink'
-            }`}
-            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-          >
-            <div
-              key={theme}
-              className="animate-[spin-in_0.3s_cubic-bezier(0.25,0.1,0.25,1)_both]"
-            >
-              <ThemeIcon theme={theme} />
-            </div>
-          </button>
         </div>
 
-        {/* Hamburger + theme toggle (mobile) */}
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="hidden items-center justify-end gap-2 md:flex">
+          {resumeLink && (
+            <a
+              href={resumeLink.href}
+              download={resumeLink.download}
+              className="inline-flex min-h-10 items-center gap-2 border border-sand-dark/70 bg-warm-white px-4 text-sm font-semibold text-ink transition-colors hover:border-deep-water hover:text-deep-water"
+            >
+              <ProfileIcon icon={resumeLink.icon} className="h-4 w-4" />
+              Resume
+            </a>
+          )}
+        </div>
+
+        <div className="absolute right-4 top-1/2 flex shrink-0 -translate-y-1/2 items-center gap-1 md:hidden">
+          {resumeLink && (
+            <a
+              href={resumeLink.href}
+              download={resumeLink.download}
+              className="inline-flex h-11 items-center gap-2 border border-sand-dark/70 bg-parchment px-3 text-sm font-semibold text-ink"
+            >
+              <ProfileIcon icon={resumeLink.icon} className="h-4 w-4" />
+              Resume
+            </a>
+          )}
           <button
-            onClick={toggleTheme}
-            className={`flex h-10 w-10 items-center justify-center transition-colors ${
-              isOverHero ? 'text-white/60 hover:text-white' : 'text-ink-muted hover:text-ink'
-            }`}
-            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-          >
-            <ThemeIcon theme={theme} />
-          </button>
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="relative z-50 flex h-10 w-10 items-center justify-center"
+            onClick={() => setMobileOpen((open) => !open)}
+            className="relative z-50 flex h-11 w-11 items-center justify-center border border-sand-dark/70 bg-parchment"
             aria-label="Toggle menu"
           >
             <div className="flex flex-col gap-1.5">
-              <span
-                className={`block h-px w-5 transition-all duration-300 ${
-                  mobileOpen ? 'translate-y-[3.5px] rotate-45 bg-ink' : isOverHero ? 'bg-white/70' : 'bg-ink-light'
-                }`}
-              />
-              <span
-                className={`block h-px w-5 transition-all duration-300 ${
-                  mobileOpen ? 'opacity-0' : isOverHero ? 'bg-white/70' : 'bg-ink-light'
-                }`}
-              />
-              <span
-                className={`block h-px w-5 transition-all duration-300 ${
-                  mobileOpen ? '-translate-y-[3.5px] -rotate-45 bg-ink' : isOverHero ? 'bg-white/70' : 'bg-ink-light'
-                }`}
-              />
+              <span className={`block h-px w-5 bg-ink transition-transform duration-300 ${mobileOpen ? 'translate-y-[3.5px] rotate-45' : ''}`} />
+              <span className={`block h-px w-5 bg-ink transition-opacity duration-300 ${mobileOpen ? 'opacity-0' : ''}`} />
+              <span className={`block h-px w-5 bg-ink transition-transform duration-300 ${mobileOpen ? '-translate-y-[3.5px] -rotate-45' : ''}`} />
             </div>
           </button>
         </div>
       </div>
 
-      {/* Mobile overlay */}
-      <div
-        className={`fixed inset-0 z-40 flex flex-col items-center justify-center bg-warm-white/97 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
-          mobileOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
-        }`}
-      >
-        <div className="flex flex-col items-center gap-8">
-          {navLinks.map((link, i) => (
-            <div
-              key={link.label}
-              className={`transition-all duration-300 ${
-                mobileOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-              }`}
-              style={{ transitionDelay: mobileOpen ? `${i * 60}ms` : '0ms' }}
-            >
+      <div className={`fixed inset-0 top-[4.75rem] z-40 bg-warm-white transition-opacity duration-300 md:hidden ${mobileOpen ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+        <div className="flex min-h-[calc(100vh-4.75rem)] flex-col justify-between px-6 py-10">
+          <div className="space-y-1">
+            {navLinks.map((link) => (
               <Link
+                key={link.label}
                 to={link.href}
-                onClick={() => setMobileOpen(false)}
-                className="font-display text-3xl text-ink transition-colors hover:text-leaf"
+                className="flex items-baseline justify-between border-b border-sand-dark/70 py-5 font-display text-3xl text-ink"
               >
                 {link.label}
+                <span className="text-sm font-medium text-ink-muted">Open</span>
               </Link>
-            </div>
-          ))}
+            ))}
+          </div>
+          <p className="max-w-xs text-sm leading-relaxed text-ink-muted">{siteConfig.subtitle}</p>
         </div>
       </div>
     </nav>

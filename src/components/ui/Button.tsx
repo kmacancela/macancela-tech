@@ -27,12 +27,12 @@ export function Button({
   download,
   ariaLabel,
 }: ButtonProps) {
-  const base = 'inline-flex items-center gap-2 px-6 py-3 font-body font-semibold text-sm tracking-wide transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-leaf focus-visible:ring-offset-2 focus-visible:ring-offset-warm-white'
+  const base = 'inline-flex min-h-11 items-center justify-center gap-2 border px-5 py-2.5 font-body text-sm font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-leaf focus-visible:ring-offset-2 focus-visible:ring-offset-warm-white'
 
   const variants: Record<string, string> = {
-    primary: 'bg-deep-water text-warm-white hover:bg-deep-water-light',
-    outline: 'border border-ink-muted/30 text-ink hover:border-leaf hover:text-leaf',
-    ghost: 'text-ink-muted hover:text-ink hover:bg-sand/60',
+    primary: 'border-deep-water bg-deep-water text-warm-white hover:-translate-y-0.5 hover:bg-deep-water-light',
+    outline: 'border-sand-dark bg-warm-white text-ink hover:-translate-y-0.5 hover:border-deep-water hover:text-deep-water',
+    ghost: 'border-transparent text-deep-water hover:border-sand-dark hover:bg-sand/70 hover:text-ink',
   }
 
   const classes = `${base} ${variants[variant]} ${className}`

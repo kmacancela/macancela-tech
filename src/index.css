@@ -2,73 +2,48 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@font-face {
-  font-family: "Ogg";
-  src: url("/fonts/Ogg-Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Ogg";
-  src: url("/fonts/Ogg-RegularItalic.woff") format("woff");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Ogg";
-  src: url("/fonts/Ogg-Medium.woff") format("woff");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Ogg";
-  src: url("/fonts/Ogg-Bold.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
 @theme {
-  /* Palette extracted from the hero — deep bokeh greens, ladybug red, flower cream */
+  /* Product-profile portfolio palette */
   --color-clay: #c4613a;
   --color-clay-light: #d88a5e;
   --color-clay-dark: #a14b2b;
-  --color-sand: #eef0ea;
-  --color-sand-dark: #d4d8cc;
-  --color-parchment: #f6f7f3;
+  --color-sand: #ece9df;
+  --color-sand-dark: #d8d1c2;
+  --color-parchment: #f7f4ec;
   --color-moss: #3a6b48;
   --color-moss-light: #5a8e62;
-  --color-deep-water: #1a3d3a;
-  --color-deep-water-light: #2a5e55;
-  --color-tidal: #3a8a7a;
+  --color-deep-water: #123b39;
+  --color-deep-water-light: #235d58;
+  --color-tidal: #397d70;
   --color-tidal-light: #5aab98;
-  --color-ink: #1a1e1a;
-  --color-ink-light: #2e352e;
-  --color-ink-muted: #5c6658;
-  --color-warm-white: #f8f9f5;
+  --color-ink: #171a15;
+  --color-ink-light: #30372f;
+  --color-ink-muted: #697061;
+  --color-warm-white: #fbf7ed;
+  --color-night: #0e100e;
+  --color-night-panel: #171c16;
+  --color-night-border: #2c352b;
+  --color-night-text: #e4e8e0;
+  --color-night-muted: #9aa393;
   --color-leaf: #2d7a4a;
   --color-leaf-light: #48a868;
   --color-sun: #e8a838;
   --color-sun-light: #f0c060;
-  --color-ladybug: #c23030;
-  --color-ladybug-light: #d84848;
+  --color-paper-line: #ded7c7;
 
-  --font-display: "Ogg", "DM Serif Display", serif;
-  --font-body: "DM Sans", sans-serif;
-  --font-mono: "IBM Plex Mono", monospace;
+  --font-display: "Archivo", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-body: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
 }
 
-/* Dark mode — deep forest at night */
+/* Dark mode */
 .dark {
   --color-clay: #d88a5e;
   --color-clay-light: #e6a87a;
   --color-clay-dark: #c4613a;
-  --color-sand: #161a16;
-  --color-sand-dark: #1e241e;
-  --color-parchment: #111410;
+  --color-sand: #20241f;
+  --color-sand-dark: #31382f;
+  --color-parchment: #181b17;
   --color-moss: #5a8e62;
   --color-moss-light: #72b87a;
   --color-deep-water: #5aab98;
@@ -79,35 +54,51 @@
   --color-ink-light: #c0c8ba;
   --color-ink-muted: #7a8474;
   --color-warm-white: #0e100e;
+  --color-night: #0e100e;
+  --color-night-panel: #171c16;
+  --color-night-border: #2c352b;
+  --color-night-text: #e4e8e0;
+  --color-night-muted: #9aa393;
   --color-leaf: #48a868;
   --color-leaf-light: #62c882;
   --color-sun: #f0c060;
   --color-sun-light: #f5d080;
-  --color-ladybug: #d84848;
-  --color-ladybug-light: #e86060;
+  --color-paper-line: #252c24;
 }
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
   font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.55;
   background-color: var(--color-warm-white);
   color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: clip;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+p {
+  font-weight: 400;
+  text-wrap: pretty;
 }
 
 ::selection {
   background-color: var(--color-leaf);
-  color: #fff;
+  color: var(--color-warm-white);
 }
 
 ::-webkit-scrollbar {
@@ -130,8 +121,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(30px); }
+  from { opacity: 0; transform: translateY(22px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes reveal-rule {
+  from { transform: scaleX(0); transform-origin: left; }
+  to { transform: scaleX(1); transform-origin: left; }
+}
+
+@keyframes soft-slide {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .animate-fade-up {

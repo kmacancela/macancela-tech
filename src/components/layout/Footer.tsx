@@ -7,57 +7,52 @@ const quickLinks = navLinks.filter((link) => link.href !== '/')
 
 export function Footer() {
   return (
-    <footer className="bg-sand/50 py-16">
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 sm:grid-cols-3">
-        {/* Brand */}
-        <div>
-          <Link to="/" className="font-display text-lg text-ink transition-colors hover:text-deep-water">
-            {siteConfig.name}<span className="text-leaf">.</span>
-          </Link>
-          <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-muted">
-            {siteConfig.role} in {siteConfig.location}, building SaaS products, analytics platforms, and polished web systems.
-          </p>
-          <p className="mt-4 text-xs font-medium tracking-wide text-leaf">{siteConfig.domain}</p>
-        </div>
-
-        {/* Quick links */}
-        <div>
-          <h4 className="mb-4 text-xs font-medium uppercase tracking-[0.15em] text-ink-muted">Navigate</h4>
-          <ul className="space-y-2.5">
-            {quickLinks.map((link) => (
-              <li key={link.label}>
-                <Link
-                  to={link.href}
-                  className="text-sm text-ink-light transition-colors hover:text-deep-water"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Social */}
-        <div>
-          <h4 className="mb-4 text-xs font-medium uppercase tracking-[0.15em] text-ink-muted">Connect</h4>
-          <div className="flex gap-4">
-            {profileLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                target={link.external ? '_blank' : undefined}
-                rel={link.external ? 'noopener noreferrer' : undefined}
-                download={link.download}
-                className="text-ink-muted transition-colors duration-300 hover:text-leaf"
-                aria-label={link.name}
-              >
-                <ProfileIcon icon={link.icon} />
-              </a>
-            ))}
+    <footer className="border-t border-night-border bg-night text-night-text">
+      <div className="mx-auto max-w-7xl px-6 py-14">
+        <div className="grid gap-12 lg:grid-cols-[1.4fr_0.8fr_0.8fr]">
+          <div>
+            <Link to="/" className="font-display text-5xl leading-none tracking-tight text-night-text">
+              Karina<span className="text-leaf-light">.</span>
+            </Link>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-night-muted">
+              {siteConfig.role} in {siteConfig.location}. Full-stack credibility, frontend taste, and product systems that hold up under real use.
+            </p>
           </div>
-          <p className="mt-6 text-xs tracking-wide text-ink-muted">
-            &copy; {new Date().getFullYear()} {siteConfig.name}
-          </p>
+
+          <div>
+            <h4 className="mb-4 text-sm font-semibold text-night-muted">Navigate</h4>
+            <ul className="space-y-3">
+              {quickLinks.map((link) => (
+                <li key={link.label}>
+                  <Link to={link.href} className="text-sm text-night-muted transition-colors hover:text-leaf-light">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="mb-4 text-sm font-semibold text-night-muted">Connect</h4>
+            <div className="flex gap-4">
+              {profileLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  target={link.external ? '_blank' : undefined}
+                  rel={link.external ? 'noopener noreferrer' : undefined}
+                  download={link.download}
+                  className="text-night-muted transition-colors hover:text-leaf-light"
+                  aria-label={link.name}
+                >
+                  <ProfileIcon icon={link.icon} />
+                </a>
+              ))}
+            </div>
+            <p className="mt-8 text-xs text-night-muted/70">
+              &copy; {new Date().getFullYear()} {siteConfig.domain}
+            </p>
+          </div>
         </div>
       </div>
     </footer>
