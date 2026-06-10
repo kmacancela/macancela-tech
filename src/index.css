@@ -2,6 +2,38 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@font-face {
+  font-family: "Ogg";
+  src: url("/fonts/Ogg-Regular.woff") format("woff");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Ogg";
+  src: url("/fonts/Ogg-Medium.woff") format("woff");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Ogg";
+  src: url("/fonts/Ogg-Bold.woff") format("woff");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Ogg";
+  src: url("/fonts/Ogg-RegularItalic.woff") format("woff");
+  font-display: swap;
+  font-style: italic;
+  font-weight: 400;
+}
+
 @theme {
   /* Product-profile portfolio palette */
   --color-clay: #c4613a;
@@ -31,7 +63,8 @@
   --color-sun-light: #f0c060;
   --color-paper-line: #ded7c7;
 
-  --font-display: "Archivo", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-display: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-editorial: "Ogg", "Georgia", serif;
   --font-body: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
 }

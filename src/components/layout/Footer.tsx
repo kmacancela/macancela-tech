@@ -11,8 +11,17 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-14">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_0.8fr_0.8fr]">
           <div>
-            <Link to="/" className="font-display text-5xl leading-none tracking-tight text-night-text">
-              Karina<span className="text-leaf-light">.</span>
+            <Link
+              to="/"
+              aria-label="macancela.tech"
+              className="inline-flex items-baseline ![font-family:var(--font-editorial)] text-5xl leading-none !font-normal !tracking-normal text-night-text transition-colors hover:text-leaf-light"
+            >
+              <span aria-hidden="true">macancela</span>
+              <span className="relative mx-[0.04em] inline-flex h-[0.16em] w-[0.16em] shrink-0 -translate-y-[0.05em]" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-leaf-light opacity-60" />
+                <span className="relative inline-flex h-full w-full rounded-full bg-leaf-light" />
+              </span>
+              <span aria-hidden="true">tech</span>
             </Link>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-night-muted">
               {siteConfig.role} in {siteConfig.location}. Full-stack credibility, frontend taste, and product systems that hold up under real use.

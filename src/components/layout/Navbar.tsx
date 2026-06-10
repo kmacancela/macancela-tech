@@ -51,7 +51,7 @@ export function Navbar() {
             <a
               href={resumeLink.href}
               download={resumeLink.download}
-              className="inline-flex min-h-10 items-center gap-2 border border-sand-dark/70 bg-warm-white px-4 text-sm font-semibold text-ink transition-colors hover:border-deep-water hover:text-deep-water"
+              className="inline-flex min-h-10 items-center gap-2 rounded-full border border-sand-dark/70 bg-warm-white px-4 text-sm font-semibold text-ink transition-colors hover:border-deep-water hover:text-deep-water"
             >
               <ProfileIcon icon={resumeLink.icon} className="h-4 w-4" />
               Resume
@@ -64,7 +64,7 @@ export function Navbar() {
             <a
               href={resumeLink.href}
               download={resumeLink.download}
-              className="inline-flex h-11 items-center gap-2 border border-sand-dark/70 bg-parchment px-3 text-sm font-semibold text-ink"
+              className="inline-flex h-11 items-center gap-2 rounded-full border border-sand-dark/70 bg-parchment px-3 text-sm font-semibold text-ink"
             >
               <ProfileIcon icon={resumeLink.icon} className="h-4 w-4" />
               Resume

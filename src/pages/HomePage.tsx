@@ -73,11 +73,11 @@ export function HomePage() {
                 <Badge variant="water">Frontend SWE focus</Badge>
               </div>
 
-              <h1 className="mt-8 max-w-5xl font-display text-4xl leading-[1.02] tracking-[-0.02em] text-ink sm:text-6xl lg:text-[5.8rem]">
+              <h1 className="mt-8 max-w-5xl ![font-family:var(--font-editorial)] text-4xl leading-[0.96] !font-normal !tracking-normal text-ink sm:text-7xl lg:text-[5.9rem]">
                 Karina Macancela
               </h1>
 
-              <p className="mt-5 max-w-4xl font-display text-2xl leading-[1.12] tracking-[-0.015em] text-deep-water sm:text-3xl md:text-5xl">
+              <p className="mt-5 max-w-4xl font-display text-xl leading-[1.12] tracking-[-0.015em] text-deep-water sm:text-2xl md:text-4xl">
                 Full-stack SWE with frontend taste and product range.
               </p>
 
@@ -106,7 +106,10 @@ export function HomePage() {
                       Open to full-stack and frontend-leaning SWE roles.
                     </p>
                   </div>
-                  <span className="h-3 w-3 shrink-0 rounded-full bg-leaf" aria-hidden="true" />
+                  <span className="relative mt-1 flex h-3 w-3 shrink-0" aria-hidden="true">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-leaf opacity-60" />
+                    <span className="relative inline-flex h-3 w-3 rounded-full bg-leaf" />
+                  </span>
                 </div>
 
                 <div className="divide-y divide-sand-dark/70">

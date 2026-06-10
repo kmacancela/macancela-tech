@@ -33,30 +33,32 @@ Polished product-profile portfolio.
 
 ### Problem With The Previous Stack
 
-- Ogg made the site feel too fashion/editorial for a senior SWE portfolio.
+- Archivo worked, but it made the type system larger than the portfolio needs.
+- Ogg made the site feel too fashion/editorial when it owned every major heading.
 - DM Sans felt soft and generic next to the dark product-profile interface.
 - IBM Plex Mono pushed the site toward familiar developer-portfolio styling.
 - The type system leaned on big display-serif moments instead of crisp hiring readability.
 
 ### Chosen Stack
 
-- Display: `Archivo`, weights 500-700.
-- Body/UI: `Source Sans 3`, weights 400-700.
+- Display/UI/body: `Source Sans 3`, weights 400-700.
+- Editorial accent: `Ogg`, weights 400-500, used only for signature moments.
 - Technical labels: `JetBrains Mono`, weights 400-600, used sparingly.
 
 ### Why This Stack
 
-- `Archivo` gives headings a confident product/engineering voice without looking like a terminal or fashion magazine.
-- `Source Sans 3` keeps resumes, project summaries, and contact copy easy to scan.
+- `Source Sans 3` keeps resumes, project summaries, UI labels, and section headings easy to scan.
+- `Ogg` gives the portfolio a personal, editorial voice when used in very small doses, starting with the hero name.
 - `JetBrains Mono` is reserved for compact evidence labels, stack tags, and machine-like metadata only when the label genuinely benefits from alignment.
 
 ### Typography Rules
 
-- Display text should stay below `6rem` and use tracking no tighter than `-0.02em`.
+- Sans display text should stay below `6rem` and use tracking no tighter than `-0.02em`.
+- Ogg should be reserved for the hero name, one about-page pull quote, and future blog titles.
 - Body text should stay at `1rem` or larger with line-height around `1.55`.
 - Long prose should max out around `65ch`.
 - Use 3 useful levels most of the time: label, body, section heading.
-- Avoid decorative serif typography, oversized poster words, and all-caps label systems repeated across every section.
+- Avoid decorative serif typography in project titles, experience titles, nav, buttons, badges, metrics, and contact UI.
 
 ## Components
 
