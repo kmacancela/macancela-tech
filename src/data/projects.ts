@@ -55,6 +55,30 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: 'bird-haven',
+    title: "Karina's Bird Haven",
+    status: 'Shipped',
+    kind: 'Live data product',
+    summary: 'A public BirdNET-powered web app that turns neighborhood bird detections into a live collage, stats view, and species atlas.',
+    problem: 'A local BirdNET-Pi setup needed a more inviting public interface for real-time detections while keeping recordings, admin tools, and calibration controls appropriately private.',
+    role: 'Designed and built the public experience, data interactions, privacy boundary, and deployment surface for the live bird detection system.',
+    highlights: [
+      'Created a collage, stats, and atlas interface around live species detections from Sunnyside, Queens.',
+      'Built time-window controls and polling flows for recent detections, lifelist data, first sightings, and trend views.',
+      'Added species detail modals with generated illustrations, weather context, recordings, Wikipedia links, and eBird links.',
+      'Separated public exploration from authenticated local controls so sensitive recordings and system tools stay protected.',
+    ],
+    tech: ['JavaScript', 'BirdNET-Pi', 'PHP APIs', 'Cloudflare', 'Open-Meteo', 'Netlify'],
+    links: [
+      {
+        label: 'Live site',
+        href: 'https://karina-birdhaven.netlify.app/',
+        external: true,
+      },
+    ],
+    featured: false,
+  },
+  {
     id: 'aetna-oauth',
     title: 'Secure OAuth2 Mobile Authentication',
     status: 'Shipped',
