@@ -273,7 +273,7 @@ export function HomePage() {
         <div className="absolute inset-x-0 top-0 -z-10 h-1 bg-tidal" aria-hidden="true" />
         <div className="absolute top-28 right-[4vw] -z-10 h-72 w-72 rounded-full bg-sun/15 blur-3xl" aria-hidden="true" />
         <div className="mx-auto max-w-[94rem]">
-          <div className="grid gap-12 lg:min-h-[calc(100vh-10rem)] lg:grid-cols-[minmax(0,1.05fr)_minmax(34rem,0.95fr)] lg:items-start lg:pt-16">
+          <div className="grid gap-8 lg:min-h-[calc(100vh-10rem)] lg:grid-cols-[minmax(0,1.05fr)_minmax(34rem,0.95fr)] lg:items-start lg:gap-12 lg:pt-16">
             <AnimatedSection>
               <TypewriterHeading isActive={introHandoffComplete} />
 
@@ -304,8 +304,8 @@ export function HomePage() {
             </AnimatedSection>
 
             <AnimatedSection delay={0.08} className="relative lg:-ml-20 lg:justify-self-start xl:-ml-24 2xl:-ml-24">
-              <div className="relative mx-auto w-full max-w-[42rem] pt-16 lg:min-h-[36rem] lg:pt-6 xl:max-w-[46rem] xl:min-h-[38rem]">
-                <div className="relative z-10 mx-auto max-w-[28rem] lg:mx-0 lg:w-[58%] lg:max-w-none xl:w-[60%]">
+              <div className="relative mx-auto w-full max-w-[42rem] pt-8 md:pt-10 lg:min-h-[36rem] lg:pt-6 xl:max-w-[46rem] xl:min-h-[38rem]">
+                <div className="relative z-10 mx-auto max-w-96 sm:max-w-[28rem] lg:mx-0 lg:w-[58%] lg:max-w-none xl:w-[60%]">
                   <img
                     src="/karina-portrait.jpg"
                     alt="Karina Macancela"
@@ -313,7 +313,7 @@ export function HomePage() {
                   />
                 </div>
 
-                <div className="relative z-30 mt-8 max-w-sm origin-top -rotate-1 border border-sand-dark bg-sun-light p-6 text-night shadow-2xl transition-transform duration-300 hover:rotate-0 lg:absolute lg:top-24 lg:left-[50%] lg:mt-0 lg:w-80 xl:top-20 xl:left-[51%] xl:w-96">
+                <div className="relative z-30 mx-auto mt-6 max-w-sm origin-top -rotate-1 border border-sand-dark bg-sun-light p-5 text-night shadow-xl transition-transform duration-300 hover:rotate-0 sm:p-6 md:max-w-md lg:absolute lg:top-24 lg:left-[50%] lg:mt-0 lg:w-80 lg:max-w-sm lg:shadow-2xl xl:top-20 xl:left-[51%] xl:w-96 xl:max-w-none">
                   <div
                     className="pointer-events-none absolute top-0 left-1/2 h-10 w-24 -translate-x-1/2 -translate-y-1/2 rotate-3 border border-paper-line bg-warm-white/80 shadow-md"
                     aria-hidden="true"
@@ -331,7 +331,7 @@ export function HomePage() {
                     {siteConfig.email}
                   </a>
 
-                  <p className="mt-9 text-2xl font-semibold leading-snug tracking-normal text-night">
+                  <p className="mt-8 text-xl font-semibold leading-snug tracking-normal text-night sm:mt-9 sm:text-2xl">
                     Full-stack SWE with an eye for frontend and a habit of turning complex product ideas into clear systems.
                   </p>
 

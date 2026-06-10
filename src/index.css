@@ -5,7 +5,7 @@
 @font-face {
   font-family: "Ogg";
   src: url("/fonts/Ogg-Regular.woff") format("woff");
-  font-display: swap;
+  font-display: block;
   font-style: normal;
   font-weight: 400;
 }
