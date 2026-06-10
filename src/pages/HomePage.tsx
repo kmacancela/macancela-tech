@@ -251,7 +251,7 @@ export function HomePage() {
                 tech
               </p>
               <p className="mt-5 font-mono text-xs uppercase tracking-[0.18em] text-ink-muted">
-                product systems / frontend craft / nyc
+                product systems / product design / data driven
               </p>
             </div>
           </div>
