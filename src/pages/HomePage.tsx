@@ -17,17 +17,17 @@ const heroBuildMetadata = [
   {
     field: 'experience',
     value: `${siteConfig.yearsExperience} years`,
-    detail: 'product systems / frontend craft',
+    detail: 'Healthcare / AdTech / SaaS startups',
   },
   {
     field: 'region',
     value: siteConfig.location,
-    detail: 'NYC based',
+    detail: 'NYC based / remote experience',
   },
   {
     field: 'stack',
     value: 'TypeScript / React / Node',
-    detail: 'JavaScript / Java / SQL',
+    detail: 'Java / SQL / backend APIs',
   },
   {
     field: 'availability',
@@ -68,6 +68,8 @@ const serviceCards = [
 
 const timelineColors = ['bg-tidal', 'bg-clay', 'bg-sun']
 const introStorageKey = 'macancela-home-intro-seen'
+const introOverlayMs = 1650
+const introHandoffMs = 2500
 
 function shouldPlayIntro() {
   if (typeof window === 'undefined') return false
@@ -167,6 +169,7 @@ function TypewriterHeading({ isActive }: { isActive: boolean }) {
 
   const [visibleFirstLine = '', visibleSecondLine = ''] = displayText.split('\n')
   const cursorIsOnSecondLine = displayText.includes('\n')
+  const shouldShowCursor = isActive || displayText.length > 0
 
   return (
     <div
@@ -196,11 +199,11 @@ function TypewriterHeading({ isActive }: { isActive: boolean }) {
         <span aria-hidden="true">
           <span className="block min-h-[0.96em]">
             {visibleFirstLine}
-            {!cursorIsOnSecondLine && <TypewriterCursor />}
+            {shouldShowCursor && !cursorIsOnSecondLine && <TypewriterCursor />}
           </span>
           <span className="block min-h-[0.96em]">
             {visibleSecondLine}
-            {cursorIsOnSecondLine && <TypewriterCursor />}
+            {shouldShowCursor && cursorIsOnSecondLine && <TypewriterCursor />}
           </span>
         </span>
       </h1>
@@ -215,10 +218,12 @@ function TypewriterCursor() {
 }
 
 export function HomePage() {
-  const [showIntro, setShowIntro] = useState(shouldPlayIntro)
+  const [introShouldPlay] = useState(shouldPlayIntro)
+  const [showIntro, setShowIntro] = useState(introShouldPlay)
+  const [introHandoffComplete, setIntroHandoffComplete] = useState(!introShouldPlay)
 
   useEffect(() => {
-    if (!showIntro) return
+    if (!introShouldPlay) return
 
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
@@ -230,13 +235,19 @@ export function HomePage() {
         // Session storage can be unavailable in strict browser modes.
       }
       setShowIntro(false)
-    }, 1650)
+    }, introOverlayMs)
+
+    const handoffTimer = window.setTimeout(() => {
+      setIntroHandoffComplete(true)
+      document.body.style.overflow = previousOverflow
+    }, introHandoffMs)
 
     return () => {
       window.clearTimeout(introTimer)
+      window.clearTimeout(handoffTimer)
       document.body.style.overflow = previousOverflow
     }
-  }, [showIntro])
+  }, [introShouldPlay])
 
   return (
     <>
@@ -251,7 +262,7 @@ export function HomePage() {
                 tech
               </p>
               <p className="mt-5 font-mono text-xs uppercase tracking-[0.18em] text-ink-muted">
-                product systems / product design / data driven
+                product design / full-stack engineering / data-driven
               </p>
             </div>
           </div>
@@ -264,9 +275,12 @@ export function HomePage() {
         <div className="mx-auto max-w-[94rem]">
           <div className="grid gap-12 lg:min-h-[calc(100vh-10rem)] lg:grid-cols-[minmax(0,1.05fr)_minmax(34rem,0.95fr)] lg:items-start lg:pt-16">
             <AnimatedSection>
-              <TypewriterHeading isActive={!showIntro} />
+              <TypewriterHeading isActive={introHandoffComplete} />
 
-              <div className="mt-12 max-w-2xl border border-paper-line bg-parchment/70 text-deep-water shadow-[8px_8px_0_rgba(47,126,120,0.08)]" aria-label="Profile facts">
+              <div
+                className={`mt-12 max-w-2xl border border-paper-line bg-parchment/70 text-deep-water shadow-[8px_8px_0_rgba(47,126,120,0.08)] ${introShouldPlay && !introHandoffComplete ? 'build-profile-intro-handoff' : ''}`}
+                aria-label="Profile facts"
+              >
                 <div className="flex items-center justify-between gap-4 border-b border-paper-line px-4 py-2.5">
                   <p className="font-mono text-xs font-bold tracking-[0.14em] text-ink-muted">build.profile</p>
                   <p className="inline-flex items-center gap-2 font-mono text-[0.68rem] font-bold uppercase tracking-[0.12em] text-leaf">

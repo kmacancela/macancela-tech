@@ -206,6 +206,11 @@ p {
   50% { box-shadow: 0 0 0 7px rgba(93, 141, 99, 0); }
 }
 
+@keyframes build-profile-handoff {
+  from { opacity: 0.96; transform: translate3d(0, var(--build-profile-start-y, -8rem), 0) scale(0.985); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
 .home-intro-overlay {
   animation: intro-overlay-exit 1.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   will-change: opacity;
@@ -232,6 +237,24 @@ p {
 
 .status-dot-pulse {
   animation: status-dot-pulse 2.4s ease-out infinite;
+}
+
+.build-profile-intro-handoff {
+  --build-profile-start-y: -8rem;
+  animation: build-profile-handoff 1.04s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.34s both;
+  will-change: opacity, transform;
+}
+
+@media (min-width: 768px) {
+  .build-profile-intro-handoff {
+    --build-profile-start-y: -10.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .build-profile-intro-handoff {
+    --build-profile-start-y: -11.5rem;
+  }
 }
 
 .animate-fade-up {
