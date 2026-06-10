@@ -35,33 +35,33 @@
 }
 
 @theme {
-  /* Product-profile portfolio palette */
-  --color-clay: #c4613a;
-  --color-clay-light: #d88a5e;
-  --color-clay-dark: #a14b2b;
-  --color-sand: #ece9df;
-  --color-sand-dark: #d8d1c2;
-  --color-parchment: #f7f4ec;
-  --color-moss: #3a6b48;
-  --color-moss-light: #5a8e62;
-  --color-deep-water: #123b39;
-  --color-deep-water-light: #235d58;
-  --color-tidal: #397d70;
-  --color-tidal-light: #5aab98;
-  --color-ink: #171a15;
-  --color-ink-light: #30372f;
-  --color-ink-muted: #697061;
-  --color-warm-white: #fbf7ed;
+  /* Warm editorial portfolio palette */
+  --color-clay: #d7684b;
+  --color-clay-light: #e39578;
+  --color-clay-dark: #a84f39;
+  --color-sand: #e8eadf;
+  --color-sand-dark: #cfd3c4;
+  --color-parchment: #f0f1e6;
+  --color-moss: #526a4c;
+  --color-moss-light: #6f8d65;
+  --color-deep-water: #123640;
+  --color-deep-water-light: #1f5660;
+  --color-tidal: #2f7e78;
+  --color-tidal-light: #78b7aa;
+  --color-ink: #19251f;
+  --color-ink-light: #344238;
+  --color-ink-muted: #73796b;
+  --color-warm-white: #fbfaf1;
   --color-night: #0e100e;
   --color-night-panel: #171c16;
   --color-night-border: #2c352b;
   --color-night-text: #e4e8e0;
   --color-night-muted: #9aa393;
-  --color-leaf: #2d7a4a;
-  --color-leaf-light: #48a868;
-  --color-sun: #e8a838;
-  --color-sun-light: #f0c060;
-  --color-paper-line: #ded7c7;
+  --color-leaf: #5d8d63;
+  --color-leaf-light: #79aa78;
+  --color-sun: #efb73e;
+  --color-sun-light: #f5cd6c;
+  --color-paper-line: #d9dccd;
 
   --font-display: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-editorial: "Ogg", "Georgia", serif;
@@ -173,6 +173,80 @@ p {
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+@keyframes intro-overlay-exit {
+  0%, 72% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+@keyframes intro-wordmark {
+  0% { opacity: 0; transform: translateY(16px); }
+  18%, 62% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-8px); }
+}
+
+@keyframes intro-dot-pulse {
+  0% { opacity: 0; transform: scale(0.55); }
+  24% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(47, 126, 120, 0.3); }
+  55% { box-shadow: 0 0 0 12px rgba(47, 126, 120, 0); }
+  100% { opacity: 0; transform: scale(0.85); box-shadow: 0 0 0 0 rgba(47, 126, 120, 0); }
+}
+
+@keyframes intro-brush-sweep {
+  0% { opacity: 0; transform: translate3d(-120%, -50%, 0) rotate(-6deg) scaleX(0.46); }
+  18% { opacity: 1; }
+  52% { opacity: 1; transform: translate3d(-8%, -50%, 0) rotate(-6deg) scaleX(1); }
+  100% { opacity: 0; transform: translate3d(108%, -50%, 0) rotate(-6deg) scaleX(0.9); }
+}
+
+@keyframes hero-after-intro {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes typewriter-cursor-blink {
+  0%, 48% { opacity: 1; }
+  49%, 100% { opacity: 0; }
+}
+
+@keyframes status-dot-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(93, 141, 99, 0.28); }
+  50% { box-shadow: 0 0 0 7px rgba(93, 141, 99, 0); }
+}
+
+.home-intro-overlay {
+  animation: intro-overlay-exit 1.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: opacity;
+}
+
+.home-intro-wordmark {
+  animation: intro-wordmark 1.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: opacity, transform;
+}
+
+.home-intro-dot {
+  animation: intro-dot-pulse 1.15s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+
+.home-intro-brush {
+  animation: intro-brush-sweep 1.28s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
+  clip-path: polygon(0 28%, 88% 0, 100% 68%, 12% 100%);
+  will-change: opacity, transform;
+}
+
+.home-hero-after-intro {
+  opacity: 0;
+  animation: hero-after-intro 0.72s cubic-bezier(0.22, 1, 0.36, 1) 1.05s both;
+  will-change: opacity, transform;
+}
+
+.typewriter-cursor {
+  animation: typewriter-cursor-blink 1s steps(1, end) infinite;
+}
+
+.status-dot-pulse {
+  animation: status-dot-pulse 2.4s ease-out infinite;
+}
+
 .animate-fade-up {
   animation: fade-in-up 0.8s ease-out forwards;
 }
@@ -217,5 +291,9 @@ p {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  .typewriter-cursor {
+    animation: none !important;
+    opacity: 1;
   }
 }

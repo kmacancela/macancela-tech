@@ -4,11 +4,11 @@ A locked design direction for the Macancela portfolio. Every page should use thi
 
 ## Genre
 
-Polished product-profile portfolio.
+Warm editorial software portfolio.
 
 ## Macrostructure
 
-- Home: candidate summary plus workbench snapshot.
+- Home: Binjan-inspired personal hero, Serene-inspired work strip, proof, experience, and stack range.
 - Projects: case-study index with proof-first rows.
 - Experience: timeline with readable role summaries.
 - About: personal context and technical values.
@@ -16,18 +16,18 @@ Polished product-profile portfolio.
 
 ## Theme
 
-- Background: dark charcoal only.
-- Ink: high-contrast near-black or warm white.
-- Stable dark surfaces: use `night` tokens for intentional dark bands so surfaces stay consistent.
-- Accent: deep teal used for actions, focus, and selective highlights.
+- Background: warm cream and pale sage, not stark white.
+- Ink: deep-water teal for primary identity moments, warm ink for body.
+- Accent: teal brush marks and actions, with warm gold used as a soft supporting field.
 - Support: clay and leaf used sparingly for status or secondary emphasis.
-- Rules: subtle borders only where they help separate dense information.
+- Rules: pale sage borders and bracketed labels should create the Serene Fit Illustrator restraint.
+- Avoid returning to dark-mode-first sections unless a page has a strong reason.
 
 ## Imagery
 
-- `ladybug-nature.jpg` may be used as hero atmosphere only, never as a standalone decorative image card.
-- Hero image treatment: full-bleed background, visible through the left copy area, text-first contrast.
-- The image should add personal texture while the foreground remains focused on SWE role fit, proof, current project, and contact paths.
+- `karina-portrait.jpg` is the main personal portrait for the Binjan-style hero.
+- `ladybug-nature.jpg` can return as subtle texture later, but it should not compete with the portrait-led homepage.
+- Imagery should feel personal and calm, not random stock atmosphere.
 
 ## Typography
 
@@ -42,19 +42,19 @@ Polished product-profile portfolio.
 ### Chosen Stack
 
 - Display/UI/body: `Source Sans 3`, weights 400-700.
-- Editorial accent: `Ogg`, weights 400-500, used only for signature moments.
+- Editorial accent: `Ogg`, weights 400-500, used only for signature/brand moments.
 - Technical labels: `JetBrains Mono`, weights 400-600, used sparingly.
 
 ### Why This Stack
 
 - `Source Sans 3` keeps resumes, project summaries, UI labels, and section headings easy to scan.
-- `Ogg` gives the portfolio a personal, editorial voice when used in very small doses, starting with the hero name.
+- `Ogg` gives the portfolio a personal, editorial voice when used in very small doses, starting with the macancela.tech wordmark.
 - `JetBrains Mono` is reserved for compact evidence labels, stack tags, and machine-like metadata only when the label genuinely benefits from alignment.
 
 ### Typography Rules
 
 - Sans display text should stay below `6rem` and use tracking no tighter than `-0.02em`.
-- Ogg should be reserved for the hero name, one about-page pull quote, and future blog titles.
+- Ogg should be reserved for the macancela.tech wordmark, one about-page pull quote, and future blog titles.
 - Body text should stay at `1rem` or larger with line-height around `1.55`.
 - Long prose should max out around `65ch`.
 - Use 3 useful levels most of the time: label, body, section heading.
@@ -62,15 +62,17 @@ Polished product-profile portfolio.
 
 ## Components
 
-- Buttons use clear labels, strong focus states, and restrained borders.
-- Badges are small status indicators, not decorative pills.
+- Buttons use rounded Binjan-style capsules with strong focus states.
+- Badges are bracket-like status indicators, not decorative pills.
 - Panels should hold real evidence, links, or workflow context.
 - Avoid cards inside cards and avoid ornamental image containers.
 
 ## Motion
 
-Use restrained reveal and hover motion. Respect reduced-motion preferences.
+- Use restrained reveal and hover motion. Respect reduced-motion preferences.
+- Homepage can use a once-per-session opening: Ogg wordmark, pulsing teal dot, teal brush sweep, then hero reveal.
+- The opening should stay under two seconds and never be required for reading or navigation.
 
 ## What To Avoid
 
-Random hero photography, giant split-name typography, fake technical chrome, heavy grids, repeated numbered nav/section markers, and invented metrics.
+Random hero photography, dark generic developer chrome, giant split-name typography, heavy grids, invented metrics, and portfolio-copy phrases that sound like placeholder agency templates.
