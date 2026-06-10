@@ -191,13 +191,6 @@ p {
   100% { opacity: 0; transform: scale(0.85); box-shadow: 0 0 0 0 rgba(47, 126, 120, 0); }
 }
 
-@keyframes intro-brush-sweep {
-  0% { opacity: 0; transform: translate3d(-120%, -50%, 0) rotate(-6deg) scaleX(0.46); }
-  18% { opacity: 1; }
-  52% { opacity: 1; transform: translate3d(-8%, -50%, 0) rotate(-6deg) scaleX(1); }
-  100% { opacity: 0; transform: translate3d(108%, -50%, 0) rotate(-6deg) scaleX(0.9); }
-}
-
 @keyframes hero-after-intro {
   from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
@@ -225,12 +218,6 @@ p {
 
 .home-intro-dot {
   animation: intro-dot-pulse 1.15s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
-}
-
-.home-intro-brush {
-  animation: intro-brush-sweep 1.28s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
-  clip-path: polygon(0 28%, 88% 0, 100% 68%, 12% 100%);
-  will-change: opacity, transform;
 }
 
 .home-hero-after-intro {

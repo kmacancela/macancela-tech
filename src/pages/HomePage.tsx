@@ -243,7 +243,6 @@ export function HomePage() {
       {showIntro && (
         <div className="home-intro-overlay pointer-events-none fixed inset-0 z-[80] overflow-hidden bg-warm-white text-deep-water" aria-hidden="true">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(239,183,62,0.2),transparent_35%)]" />
-          <div className="home-intro-brush absolute top-1/2 left-0 h-24 w-[132vw] bg-tidal md:h-32" />
           <div className="home-intro-wordmark absolute inset-0 grid place-items-center px-6 text-center">
             <div>
               <p className="inline-flex items-baseline ![font-family:var(--font-editorial)] text-5xl leading-none !font-normal !tracking-normal sm:text-7xl">
