@@ -471,8 +471,7 @@ export function HomePage() {
 
           <AnimatedSection delay={0.15}>
             <div id="selected-work" className="mt-20 scroll-mt-28">
-              <div className="mb-4 flex items-end justify-between gap-4">
-                <p className="text-sm font-bold uppercase tracking-[0.08em] text-ink-muted">Selected Work</p>
+              <div className="mb-4 flex justify-end">
                 <Button to="/projects" variant="ghost">Explore more work</Button>
               </div>
 
@@ -519,8 +518,7 @@ export function HomePage() {
           </AnimatedSection>
 
           <AnimatedSection delay={0.12}>
-            <p className="text-sm font-bold uppercase tracking-[0.08em] text-clay">What do I help?</p>
-            <h2 className="mt-5 max-w-2xl text-5xl font-bold leading-[1.02] tracking-[-0.03em] text-deep-water md:text-6xl">
+            <h2 className="max-w-2xl text-5xl font-bold leading-[1.02] tracking-[-0.03em] text-deep-water md:text-6xl">
               I make software feel calm, capable, and ready for real users.
             </h2>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-ink-muted">
@@ -544,8 +542,7 @@ export function HomePage() {
           <AnimatedSection>
             <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
               <div>
-                <p className="text-sm font-bold uppercase tracking-[0.08em] text-ink-muted">My Work Experience</p>
-                <h2 className="mt-5 max-w-xl text-5xl font-bold leading-[1.02] tracking-[-0.03em] text-deep-water md:text-6xl">
+                <h2 className="max-w-xl text-5xl font-bold leading-[1.02] tracking-[-0.03em] text-deep-water md:text-6xl">
                   Product sense from both sides of the table.
                 </h2>
               </div>
@@ -576,8 +573,7 @@ export function HomePage() {
       <section className="bg-parchment px-6 py-20 md:py-28">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
           <AnimatedSection>
-            <p className="text-sm font-bold uppercase tracking-[0.08em] text-clay">Stack Range</p>
-            <h2 className="mt-5 max-w-2xl text-5xl font-bold leading-[1.02] tracking-[-0.03em] text-deep-water md:text-6xl">
+            <h2 className="max-w-2xl text-5xl font-bold leading-[1.02] tracking-[-0.03em] text-deep-water md:text-6xl">
               Technical range, edited for hiring readers.
             </h2>
           </AnimatedSection>
@@ -600,8 +596,7 @@ export function HomePage() {
             <div className="mx-auto mt-16 max-w-7xl border-t border-paper-line pt-10">
               <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
                 <div>
-                  <Badge variant="leaf">Current build</Badge>
-                  <h2 className="mt-5 max-w-xl text-4xl font-bold leading-[1.05] tracking-[-0.02em] text-deep-water md:text-5xl">
+                  <h2 className="max-w-xl text-4xl font-bold leading-[1.05] tracking-[-0.02em] text-deep-water md:text-5xl">
                     {leadProject.title}
                   </h2>
                 </div>
