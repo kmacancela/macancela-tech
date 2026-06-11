@@ -70,6 +70,7 @@ const timelineColors = ['bg-tidal', 'bg-clay', 'bg-sun']
 const introStorageKey = 'macancela-home-intro-seen'
 const introOverlayMs = 1650
 const introHandoffMs = 2500
+const initialGreetingHoldMs = 420
 
 function shouldPlayIntro() {
   if (typeof window === 'undefined') return false
@@ -95,14 +96,18 @@ function shouldTypeHeroGreeting() {
 
 function TypewriterHeading({ isActive }: { isActive: boolean }) {
   const returnTimerId = useRef<number | null>(null)
+  const initialGreetingTimerId = useRef<number | null>(null)
+  const pointerInsideRef = useRef(false)
   const [targetText, setTargetText] = useState(heroGreetingText)
   const [displayText, setDisplayText] = useState(() => (
     shouldTypeHeroGreeting() ? '' : heroGreetingText
   ))
   const [returnAfterRole, setReturnAfterRole] = useState(false)
+  const [initialGreetingComplete, setInitialGreetingComplete] = useState(() => !shouldTypeHeroGreeting())
 
   useEffect(() => () => {
     if (returnTimerId.current !== null) window.clearTimeout(returnTimerId.current)
+    if (initialGreetingTimerId.current !== null) window.clearTimeout(initialGreetingTimerId.current)
   }, [])
 
   function clearReturnTimer() {
@@ -111,14 +116,30 @@ function TypewriterHeading({ isActive }: { isActive: boolean }) {
     returnTimerId.current = null
   }
 
+  function clearInitialGreetingTimer() {
+    if (initialGreetingTimerId.current === null) return
+    window.clearTimeout(initialGreetingTimerId.current)
+    initialGreetingTimerId.current = null
+  }
+
   function showRoleText() {
+    pointerInsideRef.current = true
+    if (!initialGreetingComplete) return
+
     clearReturnTimer()
     setReturnAfterRole(false)
     setTargetText((currentText) => (currentText === heroRoleText ? currentText : heroRoleText))
   }
 
   function showGreetingText() {
+    pointerInsideRef.current = false
     clearReturnTimer()
+    if (!initialGreetingComplete) {
+      setReturnAfterRole(false)
+      setTargetText((currentText) => (currentText === heroGreetingText ? currentText : heroGreetingText))
+      return
+    }
+
     setReturnAfterRole(true)
     setTargetText((currentText) => (currentText === heroRoleText ? currentText : heroRoleText))
   }
@@ -151,6 +172,24 @@ function TypewriterHeading({ isActive }: { isActive: boolean }) {
       window.clearTimeout(timerId)
     }
   }, [displayText, isActive, targetText])
+
+  useEffect(() => {
+    if (initialGreetingComplete || targetText !== heroGreetingText || displayText !== heroGreetingText) return
+
+    clearInitialGreetingTimer()
+    initialGreetingTimerId.current = window.setTimeout(() => {
+      setInitialGreetingComplete(true)
+      initialGreetingTimerId.current = null
+      if (!pointerInsideRef.current) return
+
+      setReturnAfterRole(false)
+      setTargetText((currentText) => (currentText === heroRoleText ? currentText : heroRoleText))
+    }, initialGreetingHoldMs)
+
+    return () => {
+      clearInitialGreetingTimer()
+    }
+  }, [displayText, initialGreetingComplete, targetText])
 
   useEffect(() => {
     if (!returnAfterRole || targetText !== heroRoleText || displayText !== heroRoleText) return

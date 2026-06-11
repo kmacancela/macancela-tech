@@ -14,7 +14,7 @@ export function Footer() {
             <Link
               to="/"
               aria-label="macancela.tech"
-              className="inline-flex items-baseline ![font-family:var(--font-editorial)] text-5xl leading-none !font-normal !tracking-normal text-deep-water transition-colors hover:text-tidal"
+              className="inline-flex items-baseline ![font-family:var(--font-editorial)] text-5xl leading-none !font-normal !tracking-normal text-deep-water"
             >
               <span aria-hidden="true">macancela</span>
               <span className="relative mx-[0.04em] inline-flex h-[0.16em] w-[0.16em] shrink-0 -translate-y-[0.05em]" aria-hidden="true">
@@ -59,7 +59,7 @@ export function Footer() {
               ))}
             </div>
             <p className="mt-8 text-xs text-ink-muted">
-              &copy; {new Date().getFullYear()} {siteConfig.domain}
+              &copy; {new Date().getFullYear()} Macancela Technologies
             </p>
           </div>
         </div>

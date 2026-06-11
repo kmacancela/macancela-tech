@@ -5,10 +5,6 @@ import { siteConfig } from '../../data/siteConfig'
 import { ProfileIcon } from '../ui/ProfileIcon'
 
 const resumeLink = profileLinks.find((link) => link.name === 'Resume')
-const homeSectionTabs = [
-  { href: '/projects', id: 'selected-work' },
-  { href: '/experience', id: 'experience' },
-]
 
 function getActiveRoute(pathname: string) {
   const match = navLinks.find((link) => {
@@ -22,10 +18,8 @@ function getActiveRoute(pathname: string) {
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [activeHref, setActiveHref] = useState(() => (
-    typeof window === 'undefined' ? '/' : getActiveRoute(window.location.pathname)
-  ))
   const location = useLocation()
+  const activeHref = getActiveRoute(location.pathname)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -33,34 +27,6 @@ export function Navbar() {
     onScroll()
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-
-  useEffect(() => {
-    if (location.pathname !== '/') {
-      setActiveHref(getActiveRoute(location.pathname))
-      return
-    }
-
-    const updateHomeTab = () => {
-      const markerY = window.innerHeight * 0.42
-      const currentSection = homeSectionTabs.find(({ id }) => {
-        const element = document.getElementById(id)
-        if (!element) return false
-        const rect = element.getBoundingClientRect()
-        return rect.top <= markerY && rect.bottom >= markerY
-      })
-
-      setActiveHref(currentSection?.href ?? '/')
-    }
-
-    window.addEventListener('scroll', updateHomeTab, { passive: true })
-    window.addEventListener('resize', updateHomeTab)
-    updateHomeTab()
-
-    return () => {
-      window.removeEventListener('scroll', updateHomeTab)
-      window.removeEventListener('resize', updateHomeTab)
-    }
-  }, [location.pathname])
 
   useEffect(() => {
     setMobileOpen(false)
@@ -76,7 +42,7 @@ export function Navbar() {
         <Link
           to="/"
           aria-label={siteConfig.domain}
-          className="inline-flex ![font-family:var(--font-editorial)] text-xl leading-none !font-normal !tracking-normal text-deep-water transition-colors hover:text-tidal sm:text-2xl"
+          className="inline-flex ![font-family:var(--font-editorial)] text-xl leading-none !font-normal !tracking-normal text-deep-water sm:text-2xl"
         >
           macancela.tech
         </Link>
