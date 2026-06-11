@@ -9,8 +9,11 @@ import { projects } from '../data/projects'
 import { siteConfig } from '../data/siteConfig'
 import { skillGroups } from '../data/skills'
 
-const featuredProjects = projects.filter((project) => project.featured)
-const leadProject = featuredProjects[0]
+const homeProjectIds = ['bird-haven', 'kary-waves', 'atrilyx']
+const featuredProjects = homeProjectIds
+  .map((projectId) => projects.find((project) => project.id === projectId))
+  .filter((project) => project !== undefined)
+const leadProject = projects.find((project) => project.id === 'kary-waves')
 const resumeLink = profileLinks.find((link) => link.name === 'Resume')
 const socialLinks = profileLinks.filter((link) => link.name === 'LinkedIn' || link.name === 'GitHub')
 const heroBuildMetadata = [
