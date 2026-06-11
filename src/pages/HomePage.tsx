@@ -173,7 +173,7 @@ function TypewriterHeading({ isActive }: { isActive: boolean }) {
 
   return (
     <div
-      className="relative w-full max-w-3xl cursor-default"
+      className="relative w-full max-w-3xl cursor-default max-xl:max-w-none"
       onPointerEnter={showRoleText}
       onPointerLeave={showGreetingText}
     >
@@ -214,6 +214,35 @@ function TypewriterHeading({ isActive }: { isActive: boolean }) {
 function TypewriterCursor() {
   return (
     <span className="typewriter-cursor ml-2 inline-block h-10 w-1 translate-y-1 bg-clay align-baseline sm:h-14 lg:h-20" />
+  )
+}
+
+function BuildProfileCard({ className = '' }: { className?: string }) {
+  return (
+    <div
+      className={`${className} max-w-2xl border border-paper-line bg-parchment/70 text-deep-water shadow-[8px_8px_0_rgba(47,126,120,0.08)]`}
+      aria-label="Profile facts"
+    >
+      <div className="flex items-center justify-between gap-4 border-b border-paper-line px-4 py-2.5">
+        <p className="font-mono text-xs font-bold tracking-[0.14em] text-ink-muted">build.profile</p>
+        <p className="inline-flex items-center gap-2 font-mono text-[0.68rem] font-bold uppercase tracking-[0.12em] text-leaf">
+          <span className="status-dot-pulse h-2 w-2 rounded-full bg-leaf" aria-hidden="true" />
+          ready
+        </p>
+      </div>
+
+      <dl className="divide-y divide-paper-line">
+        {heroBuildMetadata.map((item) => (
+          <div key={item.field} className="grid gap-1 px-4 py-3 sm:grid-cols-[9rem_minmax(0,1fr)] sm:gap-6">
+            <dt className="font-mono text-[0.68rem] font-bold uppercase tracking-[0.14em] text-ink-muted">{item.field}</dt>
+            <dd className="min-w-0">
+              <p className="text-lg font-bold leading-tight tracking-normal text-deep-water sm:text-xl">{item.value}</p>
+              <p className="mt-1 text-sm font-semibold leading-tight text-ink-muted">{item.detail}</p>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
   )
 }
 
@@ -269,43 +298,22 @@ export function HomePage() {
         </div>
       )}
 
-      <section className={`relative isolate overflow-hidden border-b border-paper-line bg-warm-white px-6 pt-24 pb-14 text-ink md:pt-28 ${showIntro ? 'home-hero-after-intro' : ''}`}>
+      <section className={`relative isolate overflow-hidden border-b border-paper-line bg-warm-white px-6 pt-24 pb-14 text-ink max-xl:pt-32 md:pt-28 max-xl:md:pt-36 ${showIntro ? 'home-hero-after-intro' : ''}`}>
         <div className="absolute inset-x-0 top-0 -z-10 h-1 bg-tidal" aria-hidden="true" />
         <div className="absolute top-28 right-[4vw] -z-10 h-72 w-72 rounded-full bg-sun/15 blur-3xl" aria-hidden="true" />
         <div className="mx-auto max-w-[94rem]">
-          <div className="grid gap-8 lg:min-h-[calc(100vh-10rem)] lg:grid-cols-[minmax(0,1.05fr)_minmax(34rem,0.95fr)] lg:items-start lg:gap-12 lg:pt-16">
+          <div className="grid gap-8 xl:min-h-[calc(100vh-10rem)] xl:grid-cols-[minmax(0,1.05fr)_minmax(34rem,0.95fr)] xl:items-start xl:gap-12 xl:pt-16">
             <AnimatedSection>
               <TypewriterHeading isActive={introHandoffComplete} />
 
-              <div
-                className={`mt-12 max-w-2xl border border-paper-line bg-parchment/70 text-deep-water shadow-[8px_8px_0_rgba(47,126,120,0.08)] ${introShouldPlay && !introHandoffComplete ? 'build-profile-intro-handoff' : ''}`}
-                aria-label="Profile facts"
-              >
-                <div className="flex items-center justify-between gap-4 border-b border-paper-line px-4 py-2.5">
-                  <p className="font-mono text-xs font-bold tracking-[0.14em] text-ink-muted">build.profile</p>
-                  <p className="inline-flex items-center gap-2 font-mono text-[0.68rem] font-bold uppercase tracking-[0.12em] text-leaf">
-                    <span className="status-dot-pulse h-2 w-2 rounded-full bg-leaf" aria-hidden="true" />
-                    ready
-                  </p>
-                </div>
-
-                <dl className="divide-y divide-paper-line">
-                  {heroBuildMetadata.map((item) => (
-                    <div key={item.field} className="grid gap-1 px-4 py-3 sm:grid-cols-[9rem_minmax(0,1fr)] sm:gap-6">
-                      <dt className="font-mono text-[0.68rem] font-bold uppercase tracking-[0.14em] text-ink-muted">{item.field}</dt>
-                      <dd className="min-w-0">
-                        <p className="text-lg font-bold leading-tight tracking-normal text-deep-water sm:text-xl">{item.value}</p>
-                        <p className="mt-1 text-sm font-semibold leading-tight text-ink-muted">{item.detail}</p>
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
+              <BuildProfileCard
+                className={`mt-12 max-xl:hidden ${introShouldPlay && !introHandoffComplete ? 'build-profile-intro-handoff' : ''}`}
+              />
             </AnimatedSection>
 
-            <AnimatedSection delay={0.08} className="relative lg:-ml-20 lg:justify-self-start xl:-ml-24 2xl:-ml-24">
-              <div className="relative mx-auto w-full max-w-[42rem] pt-8 md:pt-10 lg:min-h-[36rem] lg:pt-6 xl:max-w-[46rem] xl:min-h-[38rem]">
-                <div className="relative z-10 mx-auto max-w-96 sm:max-w-[28rem] lg:mx-0 lg:w-[58%] lg:max-w-none xl:w-[60%]">
+            <AnimatedSection delay={0.08} className="relative xl:-ml-24 xl:justify-self-start 2xl:-ml-24">
+              <div className="relative mx-auto min-h-[29rem] w-full max-w-[50rem] pt-6 sm:min-h-[32rem] md:min-h-[34rem] xl:min-h-[38rem] xl:max-w-[46rem] xl:pt-6">
+                <div className="relative z-10 mr-auto w-[64%] max-w-[28rem] xl:mx-0 xl:w-[60%] xl:max-w-none">
                   <img
                     src="/karina-portrait.jpg"
                     alt="Karina Macancela"
@@ -313,7 +321,7 @@ export function HomePage() {
                   />
                 </div>
 
-                <div className="relative z-30 mx-auto mt-6 max-w-sm origin-top -rotate-1 border border-sand-dark bg-sun-light p-5 text-night shadow-xl transition-transform duration-300 hover:rotate-0 sm:p-6 md:max-w-md lg:absolute lg:top-24 lg:left-[50%] lg:mt-0 lg:w-80 lg:max-w-sm lg:shadow-2xl xl:top-20 xl:left-[51%] xl:w-96 xl:max-w-none">
+                <div className="absolute top-16 right-0 z-30 w-[60%] max-w-sm origin-top -rotate-1 border border-sand-dark bg-sun-light p-4 text-night shadow-xl transition-transform duration-300 hover:rotate-0 sm:top-20 sm:w-[58%] sm:p-5 md:w-[56%] md:p-6 xl:top-20 xl:left-[51%] xl:w-96 xl:max-w-none xl:shadow-2xl">
                   <div
                     className="pointer-events-none absolute top-0 left-1/2 h-10 w-24 -translate-x-1/2 -translate-y-1/2 rotate-3 border border-paper-line bg-warm-white/80 shadow-md"
                     aria-hidden="true"
@@ -323,23 +331,56 @@ export function HomePage() {
                     aria-hidden="true"
                   />
 
-                  <p className="pr-12 text-sm font-bold uppercase tracking-[0.08em] text-night">Contact Me</p>
+                  <p className="pr-12 text-sm font-bold uppercase tracking-[0.08em] text-night max-[360px]:text-xs">
+                    <span className="max-[360px]:hidden">Contact Me</span>
+                    <span className="hidden max-[360px]:inline">Contact</span>
+                  </p>
                   <a
                     href={`mailto:${siteConfig.email}`}
-                    className="mt-1 inline-block break-words text-sm font-semibold text-night/75 underline decoration-night/20 underline-offset-4 transition-colors hover:text-night"
+                    className="mt-1 inline-block break-words text-sm font-semibold text-night/75 underline decoration-night/20 underline-offset-4 transition-colors hover:text-night max-[360px]:text-xs"
                   >
-                    {siteConfig.email}
+                    <span className="max-[360px]:hidden">{siteConfig.email}</span>
+                    <span className="hidden max-[360px]:inline">Email me</span>
                   </a>
 
-                  <p className="mt-8 text-xl font-semibold leading-snug tracking-normal text-night sm:mt-9 sm:text-2xl">
+                  <p className="mt-5 text-base font-semibold leading-snug tracking-normal text-night max-[360px]:text-sm sm:text-lg xl:hidden">
+                    Full-stack SWE focused on frontend polish and clear systems.
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap gap-2 xl:hidden">
+                    {resumeLink && (
+                      <Button href={resumeLink.href} download className="min-h-10 px-4 py-2 text-xs">
+                        <ProfileIcon icon={resumeLink.icon} className="h-4 w-4" />
+                        Resume
+                      </Button>
+                    )}
+                    <Button to="/projects" variant="outline" className="min-h-10 px-4 py-2 text-xs">Projects</Button>
+                  </div>
+
+                  <div className="mt-4 flex flex-wrap gap-3 border-t border-sand-dark pt-4 xl:hidden">
+                    {socialLinks.map((link) => (
+                      <a
+                        key={link.name}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-night transition-colors hover:text-clay-dark"
+                      >
+                        {link.label}
+                        <ProfileIcon icon={link.icon} className="h-3.5 w-3.5" />
+                      </a>
+                    ))}
+                  </div>
+
+                  <p className="mt-8 hidden text-xl font-semibold leading-snug tracking-normal text-night sm:mt-9 sm:text-2xl xl:block">
                     Full-stack SWE with an eye for frontend and a habit of turning complex product ideas into clear systems.
                   </p>
 
-                  <p className="mt-5 text-base leading-relaxed text-night/75">
+                  <p className="mt-5 hidden text-base leading-relaxed text-night/75 xl:block">
                     {siteConfig.subtitle}
                   </p>
 
-                  <div className="mt-8 flex flex-wrap gap-3">
+                  <div className="mt-8 hidden flex-wrap gap-3 xl:flex">
                     {resumeLink && (
                       <Button href={resumeLink.href} download>
                         <ProfileIcon icon={resumeLink.icon} className="h-4 w-4" />
@@ -349,7 +390,7 @@ export function HomePage() {
                     <Button to="/projects" variant="outline">Projects</Button>
                   </div>
 
-                  <div className="mt-7 flex gap-5 border-t border-sand-dark pt-5">
+                  <div className="mt-7 hidden gap-5 border-t border-sand-dark pt-5 xl:flex">
                     {socialLinks.map((link) => (
                       <a
                         key={link.name}
@@ -365,6 +406,12 @@ export function HomePage() {
                   </div>
                 </div>
               </div>
+            </AnimatedSection>
+
+            <AnimatedSection className="xl:hidden">
+              <BuildProfileCard
+                className={introShouldPlay && !introHandoffComplete ? 'build-profile-intro-handoff' : ''}
+              />
             </AnimatedSection>
           </div>
 
