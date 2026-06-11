@@ -489,7 +489,6 @@ export function HomePage() {
                     <div className="flex min-h-[18rem] flex-col justify-between border border-paper-line bg-parchment p-5 transition-transform duration-300 group-hover:-translate-y-1">
                       <div>
                         <div className="flex flex-wrap gap-2">
-                          <Badge variant={project.status === 'Active' ? 'leaf' : 'tidal'}>{project.status}</Badge>
                           <Badge variant="sun">{project.kind}</Badge>
                           <Badge variant="water">{homeProjectStackChips[project.id]}</Badge>
                         </div>
