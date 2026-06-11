@@ -168,6 +168,7 @@ function TypewriterHeading({ isActive }: { isActive: boolean }) {
   }, [displayText, returnAfterRole, targetText])
 
   const [visibleFirstLine = '', visibleSecondLine = ''] = displayText.split('\n')
+  const visibleSingleLine = displayText.replace('\n', ' ')
   const cursorIsOnSecondLine = displayText.includes('\n')
   const shouldShowCursor = isActive || displayText.length > 0
 
@@ -179,7 +180,7 @@ function TypewriterHeading({ isActive }: { isActive: boolean }) {
     >
       <span
         aria-hidden="true"
-        className="invisible block select-none font-display text-5xl leading-[0.96] tracking-normal sm:text-7xl lg:text-[6.25rem]"
+        className="invisible hidden select-none font-display text-5xl leading-[0.96] tracking-normal sm:text-7xl lg:text-[6.25rem] xl:block"
       >
         <span className="block min-h-[0.96em]">
           {heroGreetingLines[0]}
@@ -188,15 +189,21 @@ function TypewriterHeading({ isActive }: { isActive: boolean }) {
           {heroGreetingLines[1]}
         </span>
       </span>
+      <span
+        aria-hidden="true"
+        className="invisible block w-full select-none whitespace-nowrap font-display text-[1.625rem] leading-[0.96] tracking-normal min-[380px]:text-4xl sm:text-5xl sm:max-md:text-[4rem] md:text-[4.5rem] md:max-lg:text-[5rem] lg:text-[5.25rem] xl:hidden"
+      >
+        {heroGreetingText.replace('\n', ' ')}
+      </span>
 
       <h1
-        className="pointer-events-none absolute inset-0 font-display text-5xl leading-[0.96] tracking-normal text-deep-water outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tidal sm:text-7xl lg:text-[6.25rem]"
+        className="pointer-events-none absolute inset-0 font-display text-[1.625rem] leading-[0.96] tracking-normal text-deep-water outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tidal min-[380px]:text-4xl sm:text-5xl sm:max-md:text-[4rem] md:text-[4.5rem] md:max-lg:text-[5rem] lg:text-[5.25rem] xl:text-[6.25rem]"
         aria-label={targetText.replace('\n', ' ')}
         onBlur={showGreetingText}
         onFocus={showRoleText}
         tabIndex={0}
       >
-        <span aria-hidden="true">
+        <span aria-hidden="true" className="hidden xl:block">
           <span className="block min-h-[0.96em]">
             {visibleFirstLine}
             {shouldShowCursor && !cursorIsOnSecondLine && <TypewriterCursor />}
@@ -206,18 +213,22 @@ function TypewriterHeading({ isActive }: { isActive: boolean }) {
             {shouldShowCursor && cursorIsOnSecondLine && <TypewriterCursor />}
           </span>
         </span>
+        <span aria-hidden="true" className="block w-full whitespace-nowrap xl:hidden">
+          {visibleSingleLine}
+          {shouldShowCursor && <TypewriterCursor className="max-sm:h-8 max-sm:w-0.5 lg:h-16" />}
+        </span>
       </h1>
     </div>
   )
 }
 
-function TypewriterCursor() {
+function TypewriterCursor({ className = '' }: { className?: string }) {
   return (
-    <span className="typewriter-cursor ml-2 inline-block h-10 w-1 translate-y-1 bg-clay align-baseline sm:h-14 lg:h-20" />
+    <span className={`typewriter-cursor ml-2 inline-block h-10 w-1 translate-y-1 bg-clay align-baseline sm:h-14 lg:h-20 ${className}`} />
   )
 }
 
-function BuildProfileCard({ className = '' }: { className?: string }) {
+function BuildProfileCard({ className = '', compact = false }: { className?: string; compact?: boolean }) {
   return (
     <div
       className={`${className} max-w-2xl border border-paper-line bg-parchment/70 text-deep-water shadow-[8px_8px_0_rgba(47,126,120,0.08)]`}
@@ -233,7 +244,10 @@ function BuildProfileCard({ className = '' }: { className?: string }) {
 
       <dl className="divide-y divide-paper-line">
         {heroBuildMetadata.map((item) => (
-          <div key={item.field} className="grid gap-1 px-4 py-3 sm:grid-cols-[9rem_minmax(0,1fr)] sm:gap-6">
+          <div
+            key={item.field}
+            className={`grid gap-1 px-4 py-3 ${compact ? '' : 'sm:grid-cols-[9rem_minmax(0,1fr)] sm:gap-6'}`}
+          >
             <dt className="font-mono text-[0.68rem] font-bold uppercase tracking-[0.14em] text-ink-muted">{item.field}</dt>
             <dd className="min-w-0">
               <p className="text-lg font-bold leading-tight tracking-normal text-deep-water sm:text-xl">{item.value}</p>
@@ -302,8 +316,8 @@ export function HomePage() {
         <div className="absolute inset-x-0 top-0 -z-10 h-1 bg-tidal" aria-hidden="true" />
         <div className="absolute top-28 right-[4vw] -z-10 h-72 w-72 rounded-full bg-sun/15 blur-3xl" aria-hidden="true" />
         <div className="mx-auto max-w-[94rem]">
-          <div className="grid gap-8 xl:min-h-[calc(100vh-10rem)] xl:grid-cols-[minmax(0,1.05fr)_minmax(34rem,0.95fr)] xl:items-start xl:gap-12 xl:pt-16">
-            <AnimatedSection>
+          <div className="grid gap-8 md:max-xl:grid-cols-[minmax(16rem,0.72fr)_minmax(0,1.28fr)] md:max-xl:items-stretch xl:min-h-[calc(100vh-10rem)] xl:grid-cols-[minmax(0,1.05fr)_minmax(34rem,0.95fr)] xl:items-start xl:gap-12 xl:pt-16">
+            <AnimatedSection className="md:max-xl:col-span-2 xl:max-2xl:relative xl:max-2xl:z-20">
               <TypewriterHeading isActive={introHandoffComplete} />
 
               <BuildProfileCard
@@ -311,27 +325,27 @@ export function HomePage() {
               />
             </AnimatedSection>
 
-            <AnimatedSection delay={0.08} className="relative xl:-ml-24 xl:justify-self-start 2xl:-ml-24">
-              <div className="relative mx-auto min-h-[29rem] w-full max-w-[50rem] pt-6 sm:min-h-[32rem] md:min-h-[34rem] xl:min-h-[38rem] xl:max-w-[46rem] xl:pt-6">
-                <div className="relative z-10 mr-auto w-[64%] max-w-[28rem] xl:mx-0 xl:w-[60%] xl:max-w-none">
+            <AnimatedSection delay={0.08} className="relative md:max-xl:col-start-2 md:max-xl:row-start-2 md:max-xl:h-full xl:-ml-24 xl:justify-self-start 2xl:-ml-24">
+              <div className="relative mx-auto grid w-full max-w-2xl grid-cols-2 items-stretch pt-4 md:block md:min-h-[28rem] md:max-w-none md:pt-6 md:max-xl:h-full xl:min-h-[38rem] xl:max-w-[46rem]">
+                <div className="relative z-10 h-full min-h-64 w-full md:min-h-[24rem] md:w-[82%] md:max-xl:min-h-full md:max-xl:w-[60%] md:max-xl:max-w-sm xl:mx-0 xl:h-auto xl:min-h-0 xl:w-[60%] xl:max-w-none">
                   <img
                     src="/karina-portrait.jpg"
                     alt="Karina Macancela"
-                    className="relative z-10 aspect-[4/5] w-full border border-paper-line bg-parchment object-cover object-center p-2"
+                    className="relative z-10 h-full w-full border border-r-0 border-paper-line bg-parchment object-cover object-center p-2 md:border-r xl:aspect-[4/5] xl:h-auto"
                   />
                 </div>
 
-                <div className="absolute top-16 right-0 z-30 w-[60%] max-w-sm origin-top -rotate-1 border border-sand-dark bg-sun-light p-4 text-night shadow-xl transition-transform duration-300 hover:rotate-0 sm:top-20 sm:w-[58%] sm:p-5 md:w-[56%] md:p-6 xl:top-20 xl:left-[51%] xl:w-96 xl:max-w-none xl:shadow-2xl">
+                <div className="relative z-30 -ml-3 flex h-full min-w-0 flex-col justify-between border border-l-0 border-paper-line bg-sun-light p-3 text-night sm:p-5 md:absolute md:top-16 md:right-4 md:ml-0 md:block md:h-auto md:w-[48%] md:border-l md:border-sand-dark md:p-5 md:shadow-xl md:transition-transform md:duration-300 md:-rotate-1 md:hover:rotate-0 lg:w-[47%] lg:p-6 xl:top-20 xl:right-auto xl:left-[52%] xl:w-96 xl:max-w-none xl:shadow-2xl">
                   <div
-                    className="pointer-events-none absolute top-0 left-1/2 h-10 w-24 -translate-x-1/2 -translate-y-1/2 rotate-3 border border-paper-line bg-warm-white/80 shadow-md"
+                    className="pointer-events-none absolute top-0 left-1/2 hidden h-10 w-24 -translate-x-1/2 -translate-y-1/2 rotate-3 border border-paper-line bg-warm-white/80 shadow-md md:block"
                     aria-hidden="true"
                   />
                   <div
-                    className="pointer-events-none absolute right-0 bottom-0 h-12 w-12 border-t border-l border-sand-dark bg-sand"
+                    className="pointer-events-none absolute right-0 bottom-0 hidden h-12 w-12 border-t border-l border-sand-dark bg-sand md:block"
                     aria-hidden="true"
                   />
 
-                  <p className="pr-12 text-sm font-bold uppercase tracking-[0.08em] text-night max-[360px]:text-xs">
+                  <p className="text-sm font-bold uppercase tracking-[0.08em] text-night max-[360px]:text-xs md:pr-12">
                     <span className="max-[360px]:hidden">Contact Me</span>
                     <span className="hidden max-[360px]:inline">Contact</span>
                   </p>
@@ -339,15 +353,15 @@ export function HomePage() {
                     href={`mailto:${siteConfig.email}`}
                     className="mt-1 inline-block break-words text-sm font-semibold text-night/75 underline decoration-night/20 underline-offset-4 transition-colors hover:text-night max-[360px]:text-xs"
                   >
-                    <span className="max-[360px]:hidden">{siteConfig.email}</span>
-                    <span className="hidden max-[360px]:inline">Email me</span>
+                    <span className="max-[420px]:hidden">{siteConfig.email}</span>
+                    <span className="hidden max-[420px]:inline">Email me</span>
                   </a>
 
-                  <p className="mt-5 text-base font-semibold leading-snug tracking-normal text-night max-[360px]:text-sm sm:text-lg xl:hidden">
+                  <p className="mt-3 text-sm font-semibold leading-snug tracking-normal text-night sm:mt-5 sm:text-lg xl:hidden">
                     Full-stack SWE focused on frontend polish and clear systems.
                   </p>
 
-                  <div className="mt-5 flex flex-wrap gap-2 xl:hidden">
+                  <div className="mt-4 flex flex-wrap gap-2 sm:mt-5 xl:hidden">
                     {resumeLink && (
                       <Button href={resumeLink.href} download className="min-h-10 px-4 py-2 text-xs">
                         <ProfileIcon icon={resumeLink.icon} className="h-4 w-4" />
@@ -357,7 +371,7 @@ export function HomePage() {
                     <Button to="/projects" variant="outline" className="min-h-10 px-4 py-2 text-xs">Projects</Button>
                   </div>
 
-                  <div className="mt-4 flex flex-wrap gap-3 border-t border-sand-dark pt-4 xl:hidden">
+                  <div className="mt-4 flex flex-wrap gap-2 border-t border-sand-dark pt-4 sm:gap-3 xl:hidden">
                     {socialLinks.map((link) => (
                       <a
                         key={link.name}
@@ -408,9 +422,10 @@ export function HomePage() {
               </div>
             </AnimatedSection>
 
-            <AnimatedSection className="xl:hidden">
+            <AnimatedSection className="md:max-xl:relative md:max-xl:z-20 md:max-xl:col-start-1 md:max-xl:row-start-2 md:max-xl:pt-6 xl:hidden">
               <BuildProfileCard
-                className={introShouldPlay && !introHandoffComplete ? 'build-profile-intro-handoff' : ''}
+                compact
+                className={`mx-auto w-full md:max-xl:max-w-none ${introShouldPlay && !introHandoffComplete ? 'build-profile-intro-handoff' : ''}`}
               />
             </AnimatedSection>
           </div>
