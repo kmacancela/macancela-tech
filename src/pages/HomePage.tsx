@@ -10,6 +10,11 @@ import { siteConfig } from '../data/siteConfig'
 import { skillGroups } from '../data/skills'
 
 const homeProjectIds = ['bird-haven', 'kary-waves', 'atrilyx']
+const homeProjectStackChips: Record<string, string> = {
+  'bird-haven': 'TS, Python, PHP',
+  'kary-waves': 'React Native, TS, Node.js, PostgreSQL',
+  atrilyx: 'Vue, TS, PHP, PostgreSQL',
+}
 const featuredProjects = homeProjectIds
   .map((projectId) => projects.find((project) => project.id === projectId))
   .filter((project) => project !== undefined)
@@ -479,14 +484,14 @@ export function HomePage() {
               </div>
 
               <div className="grid gap-5 md:grid-cols-3">
-                {featuredProjects.map((project, index) => (
+                {featuredProjects.map((project) => (
                   <article key={project.id} className="group">
-                    <p className="font-mono text-sm text-ink-muted">[{String(index + 1).padStart(2, '0')}]</p>
-                    <div className="mt-3 flex min-h-[18rem] flex-col justify-between border border-paper-line bg-parchment p-5 transition-transform duration-300 group-hover:-translate-y-1">
+                    <div className="flex min-h-[18rem] flex-col justify-between border border-paper-line bg-parchment p-5 transition-transform duration-300 group-hover:-translate-y-1">
                       <div>
                         <div className="flex flex-wrap gap-2">
                           <Badge variant={project.status === 'Active' ? 'leaf' : 'tidal'}>{project.status}</Badge>
                           <Badge variant="sun">{project.kind}</Badge>
+                          <Badge variant="water">{homeProjectStackChips[project.id]}</Badge>
                         </div>
                         <h2 className="mt-8 max-w-sm text-3xl font-bold leading-[1.05] tracking-[-0.02em] text-deep-water">
                           {project.title}
