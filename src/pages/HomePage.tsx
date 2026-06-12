@@ -11,10 +11,21 @@ import { siteConfig } from '../data/siteConfig'
 import { skillGroups } from '../data/skills'
 
 const homeProjectIds = ['bird-haven', 'kary-waves', 'atrilyx']
-const homeProjectStackChips: Record<string, string> = {
-  'bird-haven': 'TS, Python, PHP',
-  'kary-waves': 'React Native, TS, Node, PostgreSQL',
-  atrilyx: 'Vue, TS, PHP, PostgreSQL',
+
+type HomeProjectChipLabel = {
+  compact: string
+  full: string
+}
+
+const homeProjectKindChips: Record<string, HomeProjectChipLabel> = {
+  'bird-haven': { compact: 'Live', full: 'Live data' },
+  'kary-waves': { compact: 'App', full: 'Client app' },
+  atrilyx: { compact: 'SaaS', full: 'SaaS' },
+}
+const homeProjectStackChips: Record<string, HomeProjectChipLabel> = {
+  'bird-haven': { compact: 'TS/Py/PHP', full: 'TS, Python, PHP' },
+  'kary-waves': { compact: 'RN/TS/Node/PG', full: 'RN, TS, Node, Postgres' },
+  atrilyx: { compact: 'Vue/TS/PHP/PG', full: 'Vue, TS, PHP, Postgres' },
 }
 const featuredProjects = homeProjectIds
   .map((projectId) => projects.find((project) => project.id === projectId))
@@ -57,6 +68,21 @@ const proofPoints = [
   { value: '40%', label: 'Onboarding time reduced' },
 ]
 
+const clientLogos = [
+  { name: 'Mediacom Business', src: '/logos/clients/mediacom-business.svg' },
+  { name: 'Turtle Bay', src: '/logos/clients/turtle-bay.png' },
+  { name: 'Hard Rock Cafe', src: '/logos/clients/hard-rock-cafe.svg' },
+  { name: 'Spectrum', src: '/logos/clients/spectrum.svg' },
+  { name: 'Aetna', src: '/logos/clients/aetna.svg' },
+  { name: 'Ashley Furniture', src: '/logos/clients/ashley-furniture.svg' },
+  { name: 'Oscar de la Renta', src: '/logos/clients/oscar-de-la-renta.png' },
+  { name: 'Renewal by Andersen', src: '/logos/clients/renewal-by-andersen.png' },
+  { name: 'Apple', src: '/logos/clients/apple.svg' },
+  { name: 'Berkeley College', src: '/logos/clients/berkeley-college.png', tone: 'ink' },
+  { name: 'NSU', src: '/logos/clients/nsu.png', size: 'tall' },
+  { name: 'Azamara Cruises', src: '/logos/clients/azamara-cruises.png' },
+]
+
 const serviceCards = [
   {
     label: '01',
@@ -80,6 +106,50 @@ const introStorageKey = 'macancela-home-intro-seen'
 const introOverlayMs = 1650
 const introHandoffMs = 2500
 const initialGreetingHoldMs = 420
+
+function HomeProjectChipText({ label }: { label: HomeProjectChipLabel }) {
+  return (
+    <>
+      <span className="xl:hidden">{label.compact}</span>
+      <span className="hidden xl:inline">{label.full}</span>
+    </>
+  )
+}
+
+function getClientLogoClass(logo: (typeof clientLogos)[number]) {
+  const sizeClass = 'size' in logo && logo.size === 'tall' ? 'max-h-14 max-w-44' : 'max-h-12 max-w-44'
+  const baseClass = `${sizeClass} object-contain transition-opacity duration-300 hover:opacity-100`
+  if ('tone' in logo && logo.tone === 'ink') {
+    return `${baseClass} opacity-75 brightness-0 dark:invert`
+  }
+
+  return `${baseClass} opacity-80 grayscale contrast-125 mix-blend-multiply dark:mix-blend-normal dark:invert`
+}
+
+function ClientLogoGrid() {
+  return (
+    <AnimatedSection delay={0.18} className="mt-14 md:mt-18">
+      <div
+        className="py-8"
+        aria-label="Client and brand experience"
+      >
+        <div className="mx-auto grid max-w-[86rem] grid-cols-2 items-center gap-x-5 gap-y-7 sm:grid-cols-3 sm:gap-x-7 lg:grid-cols-6 lg:gap-x-8">
+          {clientLogos.map((logo) => (
+            <div key={logo.name} className="flex h-16 items-center justify-center">
+              <img
+                src={logo.src}
+                alt={`${logo.name} logo`}
+                loading="eager"
+                decoding="async"
+                className={getClientLogoClass(logo)}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </AnimatedSection>
+  )
+}
 
 function shouldPlayIntro() {
   if (typeof window === 'undefined') return false
@@ -488,9 +558,13 @@ export function HomePage() {
                     <article key={project.id} className="group">
                       <div className="relative flex h-full min-h-[15rem] flex-col border border-paper-line bg-parchment p-5 pb-12 transition-transform duration-300 group-hover:-translate-y-1">
                         <div>
-                          <div className="flex flex-nowrap gap-2 overflow-x-auto pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&>span]:shrink-0 [&>span]:whitespace-nowrap">
-                            <Badge variant="sun">{project.kind}</Badge>
-                            <Badge variant="water">{homeProjectStackChips[project.id]}</Badge>
+                          <div className="flex flex-nowrap gap-2 [&>span]:shrink-0 [&>span]:whitespace-nowrap">
+                            <Badge variant="sun">
+                              <HomeProjectChipText label={homeProjectKindChips[project.id]} />
+                            </Badge>
+                            <Badge variant="water">
+                              <HomeProjectChipText label={homeProjectStackChips[project.id]} />
+                            </Badge>
                           </div>
                           <h2 className="mt-8 max-w-sm text-3xl font-bold leading-[1.05] tracking-[-0.02em] text-deep-water">
                             {project.title}
@@ -535,40 +609,53 @@ export function HomePage() {
       </section>
 
       <section className="border-b border-paper-line bg-parchment px-6 py-20 md:py-28">
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
-          <AnimatedSection>
-            <div className="space-y-4">
-              {serviceCards.map((item) => (
-                <article key={item.title} className="grid gap-5 border border-paper-line bg-warm-white p-5 sm:grid-cols-[4.5rem_minmax(0,1fr)]">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-tidal text-sm font-bold text-warm-white">
-                    {item.label}
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold tracking-[-0.01em] text-deep-water">{item.title}</h2>
-                    <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink-muted">{item.body}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.12}>
-            <h2 className="max-w-2xl text-5xl font-bold leading-[1.02] tracking-[-0.03em] text-deep-water md:text-6xl">
-              I make software feel calm, capable, and ready for real users.
+        <div className="mx-auto max-w-7xl">
+          <AnimatedSection
+            className="origin-left transition duration-700 ease-out"
+            initialClassName="translate-y-4 scale-95 opacity-100"
+            animationClassName="translate-y-0 scale-100 opacity-100"
+          >
+            <h2 className="text-5xl font-bold leading-[1.02] tracking-[-0.03em] text-deep-water md:text-7xl">
+              I turn product ideas into efficient, scalable software that’s ready for real users.
             </h2>
-            <p className="mt-7 max-w-2xl text-lg leading-relaxed text-ink-muted">
-              I like the middle space where product questions, frontend craft, backend reliability, and user trust all meet. That is where SaaS dashboards, mobile workflows, and internal tools either feel solid or start to fray.
-            </p>
-
-            <div className="mt-10 grid gap-5 sm:grid-cols-2">
-              {proofPoints.map((item) => (
-                <div key={item.label} className="border-t border-paper-line pt-5">
-                  <p className="font-display text-5xl font-bold leading-none text-deep-water">{item.value}</p>
-                  <p className="mt-2 max-w-44 text-sm font-semibold leading-tight text-ink-muted">{item.label}</p>
-                </div>
-              ))}
-            </div>
           </AnimatedSection>
+
+          <div className="mt-12 grid gap-12 lg:grid-cols-[0.86fr_1.14fr] lg:items-start">
+            <AnimatedSection>
+              <div className="space-y-4">
+                {serviceCards.map((item) => (
+                  <article key={item.title} className="grid gap-5 border border-paper-line bg-warm-white p-5 sm:grid-cols-[4.5rem_minmax(0,1fr)]">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-tidal text-sm font-bold text-warm-white">
+                      {item.label}
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold tracking-[-0.01em] text-deep-water">{item.title}</h3>
+                      <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink-muted">{item.body}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.12}>
+              <p className="max-w-2xl text-lg leading-relaxed text-ink-muted">
+                I like the middle space where product questions, frontend craft, backend reliability, and user trust all meet. That is where SaaS dashboards, mobile workflows, and internal tools either feel solid or start to fray.
+              </p>
+
+              <div className="mt-10 grid gap-5 sm:grid-cols-2">
+                {proofPoints.map((item) => (
+                  <div key={item.label} className="border-t border-paper-line pt-5">
+                    <p className="font-display text-5xl font-bold leading-none text-deep-water">{item.value}</p>
+                    <p className="mt-2 max-w-44 text-sm font-semibold leading-tight text-ink-muted">{item.label}</p>
+                  </div>
+                ))}
+              </div>
+            </AnimatedSection>
+          </div>
+
+        </div>
+        <div className="mx-auto max-w-[94rem]">
+          <ClientLogoGrid />
         </div>
       </section>
 
