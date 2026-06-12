@@ -3,9 +3,9 @@ import type { Project } from '../types'
 export const projects: Project[] = [
   {
     id: 'kary-waves',
-    title: 'Kary Waves App',
+    title: 'Kary Waves',
     status: 'Active',
-    kind: 'Mobile product',
+    kind: 'Client app',
     summary: 'A React Native app for a NYC apparel manufacturing company to centralize client project updates, bookings, messaging, and files.',
     problem: 'Clients needed one place to understand project progress, communicate with the team, manage bookings, and access project materials without fragmented handoffs.',
     role: 'Full-stack mobile engineer owning product iteration, app architecture, API design, and beta feedback loops.',
@@ -16,14 +16,20 @@ export const projects: Project[] = [
       'Shipping iterative beta updates based on user testing ahead of a planned App Store launch.',
     ],
     tech: ['React Native', 'TypeScript', 'Fastify', 'PostgreSQL', 'Expo'],
-    links: [],
+    links: [
+      {
+        label: 'Check it out',
+        href: 'https://karywaves.com/',
+        external: true,
+      },
+    ],
     featured: true,
   },
   {
     id: 'atrilyx',
     title: 'Atrilyx AI Analytics Platform',
     status: 'Shipped',
-    kind: 'SaaS analytics platform',
+    kind: 'SaaS platform',
     summary: 'A client-facing attribution and analytics platform for cross-channel customer journey insight across 300+ SaaS clients.',
     problem: 'An internal AngularJS admin tool needed to evolve into a market-ready SaaS product with real-time analytics, secure data access, and extensible client reporting.',
     role: 'Senior software engineer leading major front-end migration, dashboard development, plugin architecture, and secure reporting workflows.',
@@ -34,7 +40,13 @@ export const projects: Project[] = [
       'Implemented multi-tenant data isolation and Power BI row-level security for report access.',
     ],
     tech: ['Vue.js', 'TypeScript', 'Node.js', 'SQL', 'Power BI', 'JWT'],
-    links: [],
+    links: [
+      {
+        label: 'Check it out',
+        href: 'https://www.aimediagroup.com/atrilyx',
+        external: true,
+      },
+    ],
     featured: true,
   },
   {
@@ -56,7 +68,7 @@ export const projects: Project[] = [
   },
   {
     id: 'bird-haven',
-    title: "Karina's Bird Haven",
+    title: "Bird Haven",
     status: 'Shipped',
     kind: 'Live data product',
     summary: 'A public BirdNET-powered web app that turns neighborhood bird detections into a live collage, stats view, and species atlas.',
@@ -71,7 +83,7 @@ export const projects: Project[] = [
     tech: ['JavaScript', 'BirdNET-Pi', 'PHP APIs', 'Cloudflare', 'Open-Meteo', 'Netlify'],
     links: [
       {
-        label: 'Live site',
+        label: 'Check it out',
         href: 'https://karina-birdhaven.netlify.app/',
         external: true,
       },

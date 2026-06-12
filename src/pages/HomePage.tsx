@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router'
 import { AnimatedSection } from '../components/ui/AnimatedSection'
 import { Badge } from '../components/ui/Badge'
 import { Button } from '../components/ui/Button'
@@ -12,7 +13,7 @@ import { skillGroups } from '../data/skills'
 const homeProjectIds = ['bird-haven', 'kary-waves', 'atrilyx']
 const homeProjectStackChips: Record<string, string> = {
   'bird-haven': 'TS, Python, PHP',
-  'kary-waves': 'React Native, TS, Node.js, PostgreSQL',
+  'kary-waves': 'React Native, TS, Node, PostgreSQL',
   atrilyx: 'Vue, TS, PHP, PostgreSQL',
 }
 const featuredProjects = homeProjectIds
@@ -479,27 +480,54 @@ export function HomePage() {
 
           <AnimatedSection delay={0.15}>
             <div id="selected-work" className="mt-20 scroll-mt-28">
-              <div className="mb-4 flex justify-end">
-                <Button to="/projects" variant="ghost">Explore more work</Button>
-              </div>
-
               <div className="grid gap-5 md:grid-cols-3">
-                {featuredProjects.map((project) => (
-                  <article key={project.id} className="group">
-                    <div className="flex min-h-[18rem] flex-col justify-between border border-paper-line bg-parchment p-5 transition-transform duration-300 group-hover:-translate-y-1">
-                      <div>
-                        <div className="flex flex-wrap gap-2">
-                          <Badge variant="sun">{project.kind}</Badge>
-                          <Badge variant="water">{homeProjectStackChips[project.id]}</Badge>
+                {featuredProjects.map((project) => {
+                  const projectLink = project.links[0]
+
+                  return (
+                    <article key={project.id} className="group">
+                      <div className="relative flex h-full min-h-[15rem] flex-col border border-paper-line bg-parchment p-5 pb-12 transition-transform duration-300 group-hover:-translate-y-1">
+                        <div>
+                          <div className="flex flex-nowrap gap-2 overflow-x-auto pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&>span]:shrink-0 [&>span]:whitespace-nowrap">
+                            <Badge variant="sun">{project.kind}</Badge>
+                            <Badge variant="water">{homeProjectStackChips[project.id]}</Badge>
+                          </div>
+                          <h2 className="mt-8 max-w-sm text-3xl font-bold leading-[1.05] tracking-[-0.02em] text-deep-water">
+                            {project.title}
+                          </h2>
                         </div>
-                        <h2 className="mt-8 max-w-sm text-3xl font-bold leading-[1.05] tracking-[-0.02em] text-deep-water">
-                          {project.title}
-                        </h2>
+                        <div className="mt-5">
+                          <p className="text-sm leading-relaxed text-ink-light">{project.summary}</p>
+                        </div>
+                        {projectLink && (
+                          <a
+                            href={projectLink.href}
+                            target={projectLink.external ? '_blank' : undefined}
+                            rel={projectLink.external ? 'noopener noreferrer' : undefined}
+                            aria-label={`Open ${project.title}`}
+                            className="absolute right-5 bottom-5 inline-flex min-h-11 min-w-11 items-end justify-end text-xl font-bold leading-none text-deep-water transition-[color,transform] duration-300 hover:-translate-y-0.5 hover:translate-x-0.5 hover:text-tidal focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tidal"
+                          >
+                            <span aria-hidden="true">↗</span>
+                          </a>
+                        )}
                       </div>
-                      <p className="mt-8 text-sm leading-relaxed text-ink-muted">{project.summary}</p>
-                    </div>
-                  </article>
-                ))}
+                    </article>
+                  )
+                })}
+              </div>
+              <div className="mt-6 flex justify-end">
+                <Link
+                  to="/projects"
+                  className="group inline-flex items-center gap-2 py-2 text-sm font-bold text-tidal transition-colors duration-300 hover:text-deep-water focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tidal"
+                >
+                  Explore more work
+                  <span
+                    aria-hidden="true"
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                  >
+                    →
+                  </span>
+                </Link>
               </div>
             </div>
           </AnimatedSection>
