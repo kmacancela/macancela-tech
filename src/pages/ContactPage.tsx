@@ -72,14 +72,8 @@ export function ContactPage() {
             <SectionHeading
               title="Reach out about roles, contract opportunities, or nonprofit volunteer work."
             />
-            <a
-              href={`mailto:${siteConfig.email}`}
-              className="mt-8 block max-w-full wrap-anywhere font-display text-2xl leading-none text-deep-water underline decoration-sand-dark underline-offset-8 transition-colors hover:text-leaf sm:text-4xl xl:text-5xl"
-            >
-              {siteConfig.email}
-            </a>
 
-            <div className="mt-12 grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2">
               {profileLinks.map((link, index) => (
                 <a
                   key={link.name}
@@ -202,6 +196,20 @@ export function ContactPage() {
             </div>
           </AnimatedSection>
         </div>
+
+        <AnimatedSection delay={0.18} className="mx-auto mt-16 max-w-7xl text-center md:mt-20">
+          <div className="mx-auto flex max-w-xl items-center gap-4 text-xs font-semibold uppercase tracking-[0.24em] text-ink-muted">
+            <span className="h-px flex-1 bg-sand-dark" />
+            <span>or</span>
+            <span className="h-px flex-1 bg-sand-dark" />
+          </div>
+          <a
+            href={`mailto:${siteConfig.email}`}
+            className="mx-auto mt-6 block max-w-full wrap-anywhere font-display text-2xl leading-none text-deep-water underline decoration-sand-dark underline-offset-8 transition-colors hover:text-leaf sm:text-4xl xl:text-5xl"
+          >
+            {siteConfig.email}
+          </a>
+        </AnimatedSection>
       </section>
     </div>
   )
