@@ -21,6 +21,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const location = useLocation()
   const activeHref = getActiveRoute(location.pathname)
+  const mobileMenuId = 'mobile-navigation'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -33,17 +34,36 @@ export function Navbar() {
     setMobileOpen(false)
   }, [location.pathname, location.search, location.hash])
 
+  useEffect(() => {
+    if (!mobileOpen) return
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMobileOpen(false)
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = previousOverflow
+    }
+  }, [mobileOpen])
+
   function isActive(href: string) {
     return activeHref === href
   }
 
   return (
-    <nav className={`fixed inset-x-0 top-0 z-50 border-b border-paper-line bg-warm-white/88 backdrop-blur-xl transition-shadow duration-300 ${scrolled ? 'shadow-[0_16px_34px_rgba(18,59,57,0.08)]' : ''}`}>
+    <>
+      <nav className={`fixed inset-x-0 top-0 z-50 border-b border-paper-line bg-warm-white/88 backdrop-blur-xl transition-shadow duration-300 ${scrolled || mobileOpen ? 'shadow-[0_16px_34px_rgba(18,59,57,0.08)]' : ''}`}>
       <div className="relative mx-auto grid h-20 max-w-[94rem] grid-cols-[auto_1fr_auto] items-center gap-4 px-4 sm:px-6">
         <Link
           to="/"
           aria-label={siteConfig.domain}
-          className={`inline-flex ![font-family:var(--font-editorial)] text-xl leading-none !font-normal !tracking-normal text-deep-water sm:text-2xl ${focusRing}`}
+          className={`inline-flex ![font-family:var(--font-editorial)] text-xl leading-none !font-normal !tracking-normal text-deep-water max-[360px]:text-lg sm:text-2xl ${focusRing}`}
         >
           macancela.tech
         </Link>
@@ -81,46 +101,65 @@ export function Navbar() {
             <a
               href={resumeLink.href}
               download={resumeLink.download}
-              className={`inline-flex h-11 items-center gap-2 rounded-full border border-paper-line bg-parchment px-3 text-sm font-bold text-deep-water ${focusRing}`}
+              aria-label="Download resume"
+              className={`inline-flex h-11 items-center justify-center gap-2 rounded-full border border-paper-line bg-parchment px-3 text-sm font-bold text-deep-water max-[360px]:w-11 max-[360px]:px-0 ${focusRing}`}
             >
               <ProfileIcon icon={resumeLink.icon} className="h-4 w-4" />
-              Resume
+              <span className="max-[360px]:sr-only">Resume</span>
             </a>
           )}
           <button
             onClick={() => setMobileOpen((open) => !open)}
             className={`relative z-50 flex h-11 w-11 items-center justify-center rounded-full border border-paper-line bg-parchment ${focusRing}`}
-            aria-label="Toggle menu"
+            aria-controls={mobileMenuId}
+            aria-expanded={mobileOpen}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            type="button"
           >
-            <div className="flex flex-col gap-1.5">
-              <span className={`block h-px w-5 bg-deep-water transition-transform duration-300 ${mobileOpen ? 'translate-y-[3.5px] rotate-45' : ''}`} />
-              <span className={`block h-px w-5 bg-deep-water transition-opacity duration-300 ${mobileOpen ? 'opacity-0' : ''}`} />
-              <span className={`block h-px w-5 bg-deep-water transition-transform duration-300 ${mobileOpen ? '-translate-y-[3.5px] -rotate-45' : ''}`} />
-            </div>
+            <span aria-hidden="true" className="relative block h-5 w-5">
+              <span className={`absolute left-0 h-px w-5 bg-deep-water transition-[top,transform] duration-300 ${mobileOpen ? 'top-1/2 -translate-y-1/2 rotate-45' : 'top-[4px]'}`} />
+              <span className={`absolute left-0 top-1/2 h-px w-5 -translate-y-1/2 bg-deep-water transition-opacity duration-200 ${mobileOpen ? 'opacity-0' : 'opacity-100'}`} />
+              <span className={`absolute left-0 h-px w-5 bg-deep-water transition-[top,transform] duration-300 ${mobileOpen ? 'top-1/2 -translate-y-1/2 -rotate-45' : 'top-[16px]'}`} />
+            </span>
           </button>
         </div>
       </div>
+      </nav>
 
-      <div className={`fixed inset-0 top-20 z-40 bg-warm-white transition-opacity duration-300 md:hidden ${mobileOpen ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
-        <div className="flex min-h-[calc(100vh-5rem)] flex-col justify-between px-6 py-10">
-          <div className="space-y-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                to={link.href}
-                aria-current={isActive(link.href) ? 'page' : undefined}
-                className={`flex items-baseline justify-between border-b border-paper-line py-5 text-3xl font-bold transition-colors ${focusRing} ${
-                  isActive(link.href) ? 'text-tidal' : 'text-deep-water'
-                }`}
-              >
-                {link.label}
-                <span className="text-sm font-medium text-ink-muted">{isActive(link.href) ? 'Current' : 'Open'}</span>
-              </Link>
-            ))}
+      {mobileOpen && (
+        <>
+          <div
+            aria-hidden="true"
+            className="fixed inset-x-0 top-20 bottom-0 z-30 md:hidden"
+            onClick={() => setMobileOpen(false)}
+          />
+          <div
+            id={mobileMenuId}
+            className="fixed inset-x-0 top-20 z-40 max-h-[calc(100svh-5rem)] overflow-y-auto overscroll-contain bg-warm-white/98 text-deep-water shadow-[0_24px_48px_rgba(18,59,57,0.12)] backdrop-blur-xl md:hidden"
+          >
+            <div className="mx-auto max-w-xl px-5 py-5 sm:px-6">
+              <div className="grid gap-1">
+                {navLinks.map((link) => {
+                  const active = isActive(link.href)
+
+                  return (
+                    <Link
+                      key={link.label}
+                      to={link.href}
+                      aria-current={active ? 'page' : undefined}
+                      className={`flex min-h-12 items-center py-2 text-2xl font-bold leading-none transition-colors sm:text-3xl ${focusRing} ${
+                        active ? 'text-tidal' : 'text-deep-water hover:text-tidal'
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
           </div>
-          <p className="max-w-xs text-sm leading-relaxed text-ink-muted">{siteConfig.subtitle}</p>
-        </div>
-      </div>
-    </nav>
+        </>
+      )}
+    </>
   )
 }
