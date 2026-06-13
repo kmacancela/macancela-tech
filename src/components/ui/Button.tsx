@@ -12,6 +12,7 @@ interface ButtonProps {
   rel?: string
   download?: boolean | string
   ariaLabel?: string
+  disabled?: boolean
 }
 
 export function Button({
@@ -26,8 +27,10 @@ export function Button({
   rel,
   download,
   ariaLabel,
+  disabled = false,
 }: ButtonProps) {
   const base = 'inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-5 py-2.5 font-body text-sm font-bold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-tidal focus-visible:ring-offset-2 focus-visible:ring-offset-warm-white'
+  const disabledClasses = disabled ? 'pointer-events-none cursor-not-allowed opacity-60' : ''
 
   const variants: Record<string, string> = {
     primary: 'border-deep-water bg-deep-water text-warm-white hover:-translate-y-0.5 hover:bg-tidal',
@@ -35,7 +38,7 @@ export function Button({
     ghost: 'border-transparent text-tidal hover:border-paper-line hover:bg-warm-white hover:text-deep-water',
   }
 
-  const classes = `${base} ${variants[variant]} ${className}`
+  const classes = `${base} ${variants[variant]} ${disabledClasses} ${className}`
 
   if (to) {
     return (
@@ -61,7 +64,7 @@ export function Button({
   }
 
   return (
-    <button onClick={onClick} type={type} className={classes} aria-label={ariaLabel}>
+    <button onClick={onClick} type={type} className={classes} aria-label={ariaLabel} disabled={disabled}>
       {children}
     </button>
   )
