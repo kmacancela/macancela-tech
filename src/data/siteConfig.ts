@@ -11,7 +11,7 @@ export const siteConfig = {
     'I am a full-stack software engineer and technical product leader based in New York City. I like building products that make complex work feel clearer, faster, and more trustworthy.',
     'Across SaaS, analytics, healthcare, and secure enterprise systems, I have led projects from ambiguous product needs through shipped software, with a steady focus on thoughtful UI, reliable architecture, and cross-functional clarity.',
   ],
-  email: 'karymacancela@gmail.com',
+  email: 'hello@macancela.tech',
   location: 'New York, NY',
   yearsExperience: '9',
   resumeHref: '/Karina-Macancela-Resume.pdf',

@@ -5,6 +5,7 @@ import { siteConfig } from '../../data/siteConfig'
 import { ProfileIcon } from '../ui/ProfileIcon'
 
 const resumeLink = profileLinks.find((link) => link.name === 'Resume')
+const focusRing = 'focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tidal'
 
 function getActiveRoute(pathname: string) {
   const match = navLinks.find((link) => {
@@ -42,7 +43,7 @@ export function Navbar() {
         <Link
           to="/"
           aria-label={siteConfig.domain}
-          className="inline-flex ![font-family:var(--font-editorial)] text-xl leading-none !font-normal !tracking-normal text-deep-water sm:text-2xl"
+          className={`inline-flex ![font-family:var(--font-editorial)] text-xl leading-none !font-normal !tracking-normal text-deep-water sm:text-2xl ${focusRing}`}
         >
           macancela.tech
         </Link>
@@ -53,7 +54,7 @@ export function Navbar() {
               key={link.label}
               to={link.href}
               aria-current={isActive(link.href) ? 'page' : undefined}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${focusRing} ${
                 isActive(link.href) ? 'bg-warm-white text-deep-water shadow-[0_4px_14px_rgba(18,59,57,0.08)]' : 'text-ink-muted hover:bg-warm-white hover:text-deep-water'
               }`}
             >
@@ -67,7 +68,7 @@ export function Navbar() {
             <a
               href={resumeLink.href}
               download={resumeLink.download}
-              className="inline-flex min-h-11 items-center gap-2 rounded-full border border-paper-line bg-warm-white px-5 text-sm font-bold text-deep-water transition-colors hover:border-tidal hover:text-tidal"
+              className={`inline-flex min-h-11 items-center gap-2 rounded-full border border-paper-line bg-warm-white px-5 text-sm font-bold text-deep-water transition-colors hover:border-tidal hover:text-tidal ${focusRing}`}
             >
               <ProfileIcon icon={resumeLink.icon} className="h-4 w-4" />
               Resume
@@ -80,7 +81,7 @@ export function Navbar() {
             <a
               href={resumeLink.href}
               download={resumeLink.download}
-              className="inline-flex h-11 items-center gap-2 rounded-full border border-paper-line bg-parchment px-3 text-sm font-bold text-deep-water"
+              className={`inline-flex h-11 items-center gap-2 rounded-full border border-paper-line bg-parchment px-3 text-sm font-bold text-deep-water ${focusRing}`}
             >
               <ProfileIcon icon={resumeLink.icon} className="h-4 w-4" />
               Resume
@@ -88,7 +89,7 @@ export function Navbar() {
           )}
           <button
             onClick={() => setMobileOpen((open) => !open)}
-            className="relative z-50 flex h-11 w-11 items-center justify-center rounded-full border border-paper-line bg-parchment"
+            className={`relative z-50 flex h-11 w-11 items-center justify-center rounded-full border border-paper-line bg-parchment ${focusRing}`}
             aria-label="Toggle menu"
           >
             <div className="flex flex-col gap-1.5">
@@ -108,7 +109,7 @@ export function Navbar() {
                 key={link.label}
                 to={link.href}
                 aria-current={isActive(link.href) ? 'page' : undefined}
-                className={`flex items-baseline justify-between border-b border-paper-line py-5 text-3xl font-bold transition-colors ${
+                className={`flex items-baseline justify-between border-b border-paper-line py-5 text-3xl font-bold transition-colors ${focusRing} ${
                   isActive(link.href) ? 'text-tidal' : 'text-deep-water'
                 }`}
               >

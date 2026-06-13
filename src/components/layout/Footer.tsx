@@ -3,7 +3,9 @@ import { navLinks, profileLinks } from '../../data/profileLinks'
 import { siteConfig } from '../../data/siteConfig'
 import { ProfileIcon } from '../ui/ProfileIcon'
 
-const quickLinks = navLinks.filter((link) => link.href !== '/')
+const quickLinks = navLinks
+const quickLinkColumns = [quickLinks.slice(0, 3), quickLinks.slice(3)]
+const focusRing = 'focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tidal'
 
 export function Footer() {
   return (
@@ -14,7 +16,7 @@ export function Footer() {
             <Link
               to="/"
               aria-label="macancela.tech"
-              className="inline-flex items-baseline ![font-family:var(--font-editorial)] text-5xl leading-none !font-normal !tracking-normal text-deep-water"
+              className={`inline-flex items-baseline ![font-family:var(--font-editorial)] text-5xl leading-none !font-normal !tracking-normal text-deep-water ${focusRing}`}
             >
               <span aria-hidden="true">macancela</span>
               <span className="relative mx-[0.04em] inline-flex h-[0.16em] w-[0.16em] shrink-0 -translate-y-[0.05em]" aria-hidden="true">
@@ -29,20 +31,22 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-4 text-sm font-bold uppercase tracking-[0.08em] text-ink-muted">Navigate</h4>
-            <ul className="space-y-3">
-              {quickLinks.map((link) => (
-                <li key={link.label}>
-                  <Link to={link.href} className="text-sm font-semibold text-ink-muted transition-colors hover:text-tidal">
-                    {link.label}
-                  </Link>
-                </li>
+            <nav aria-label="Footer navigation" className="grid w-fit grid-flow-col auto-cols-max gap-x-8 gap-y-3 lg:block lg:w-auto">
+              {quickLinkColumns.map((column, columnIndex) => (
+                <ul key={columnIndex} className={`space-y-3 ${columnIndex > 0 ? 'lg:mt-3' : ''}`}>
+                  {column.map((link) => (
+                    <li key={link.label}>
+                      <Link to={link.href} className={`text-sm font-semibold text-ink-muted transition-colors hover:text-tidal ${focusRing}`}>
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               ))}
-            </ul>
+            </nav>
           </div>
 
           <div>
-            <h4 className="mb-4 text-sm font-bold uppercase tracking-[0.08em] text-ink-muted">Connect</h4>
             <div className="flex gap-4">
               {profileLinks.map((link) => (
                 <a
@@ -51,7 +55,7 @@ export function Footer() {
                   target={link.external ? '_blank' : undefined}
                   rel={link.external ? 'noopener noreferrer' : undefined}
                   download={link.download}
-                  className="text-ink-muted transition-colors hover:text-tidal"
+                  className={`text-ink-muted transition-colors hover:text-tidal ${focusRing}`}
                   aria-label={link.name}
                 >
                   <ProfileIcon icon={link.icon} />

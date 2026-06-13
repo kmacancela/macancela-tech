@@ -8,7 +8,7 @@ import { experience } from '../data/experience'
 import { profileLinks } from '../data/profileLinks'
 import { projects } from '../data/projects'
 import { siteConfig } from '../data/siteConfig'
-import { skillGroups } from '../data/skills'
+import { useInView } from '../hooks/useInView'
 
 const homeProjectIds = ['bird-haven', 'kary-waves', 'atrilyx']
 
@@ -30,7 +30,6 @@ const homeProjectStackChips: Record<string, HomeProjectChipLabel> = {
 const featuredProjects = homeProjectIds
   .map((projectId) => projects.find((project) => project.id === projectId))
   .filter((project) => project !== undefined)
-const leadProject = projects.find((project) => project.id === 'kary-waves')
 const resumeLink = profileLinks.find((link) => link.name === 'Resume')
 const socialLinks = profileLinks.filter((link) => link.name === 'LinkedIn' || link.name === 'GitHub')
 const heroBuildMetadata = [
@@ -61,13 +60,6 @@ const heroRoleLines = ["I'm a Software", 'Engineer']
 const heroGreetingText = heroGreetingLines.join('\n')
 const heroRoleText = heroRoleLines.join('\n')
 
-const proofPoints = [
-  { value: '9', label: 'Years building product systems' },
-  { value: '300+', label: 'SaaS clients supported' },
-  { value: '10M+', label: 'Daily events surfaced' },
-  { value: '40%', label: 'Onboarding time reduced' },
-]
-
 const clientLogos = [
   { name: 'Mediacom Business', src: '/logos/clients/mediacom-business.svg' },
   { name: 'Turtle Bay', src: '/logos/clients/turtle-bay.png' },
@@ -83,25 +75,76 @@ const clientLogos = [
   { name: 'Azamara Cruises', src: '/logos/clients/azamara-cruises.png' },
 ]
 
-const serviceCards = [
+const lifecycleSegments = [
   {
-    label: '01',
-    title: 'Product Frontend',
-    body: 'React, Vue, and React Native interfaces that make complex workflows easier to use.',
+    label: 'Discover',
+    strokeClass: 'stroke-tidal',
+    centerAngle: -90,
+    labelClass: 'fill-warm-white',
   },
   {
-    label: '02',
-    title: 'Full-stack Systems',
-    body: 'APIs, auth, data models, reporting, and integrations built with production constraints in mind.',
+    label: 'Scope',
+    strokeClass: 'stroke-moss-light',
+    centerAngle: -38.57,
+    labelClass: 'fill-warm-white',
   },
   {
-    label: '03',
-    title: 'Launch Clarity',
-    body: 'Ambiguous ideas shaped into scopes, beta loops, documentation, and shippable delivery paths.',
+    label: 'Plan',
+    strokeClass: 'stroke-sun',
+    centerAngle: 12.86,
+    reverseLabel: true,
+    labelClass: 'fill-deep-water',
+  },
+  {
+    label: 'Build',
+    strokeClass: 'stroke-clay',
+    centerAngle: 64.29,
+    reverseLabel: true,
+    labelClass: 'fill-warm-white',
+  },
+  {
+    label: 'QA',
+    strokeClass: 'stroke-deep-water',
+    centerAngle: 115.71,
+    labelClass: 'fill-warm-white',
+  },
+  {
+    label: 'Launch',
+    strokeClass: 'stroke-tidal-light',
+    centerAngle: 167.14,
+    labelClass: 'fill-deep-water',
+  },
+  {
+    label: 'Iterate',
+    strokeClass: 'stroke-moss',
+    centerAngle: 218.57,
+    reverseLabel: false,
+    labelClass: 'fill-warm-white',
   },
 ]
 
+const lifecycleArcRadius = 112
+const lifecycleArcSpan = 360 / lifecycleSegments.length + 0.45
+
+const capabilityHighlights = [
+  {
+    icon: 'clients',
+    title: '300+ SaaS clients supported',
+  },
+  {
+    icon: 'data',
+    title: '10M+ daily events surfaced',
+  },
+  {
+    icon: 'handoff',
+    title: '40% onboarding time reduced',
+  },
+] as const
+
+const capabilityHighlightDelayClasses = ['delay-75', 'delay-150', 'delay-300']
+
 const timelineColors = ['bg-tidal', 'bg-clay', 'bg-sun']
+const timelineDotDelayClasses = ['delay-300', 'delay-150', '']
 const introStorageKey = 'macancela-home-intro-seen'
 const introOverlayMs = 1650
 const introHandoffMs = 2500
@@ -113,6 +156,47 @@ function HomeProjectChipText({ label }: { label: HomeProjectChipLabel }) {
       <span className="xl:hidden">{label.compact}</span>
       <span className="hidden xl:inline">{label.full}</span>
     </>
+  )
+}
+
+type CapabilityHighlightIconName = (typeof capabilityHighlights)[number]['icon']
+
+function CapabilityHighlightIcon({ icon }: { icon: CapabilityHighlightIconName }) {
+  const iconClass = 'h-8 w-8'
+
+  if (icon === 'clients') {
+    return (
+      <svg aria-hidden="true" viewBox="0 0 24 24" className={iconClass} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="7" r="3" />
+        <circle cx="6" cy="18" r="2.5" />
+        <circle cx="18" cy="18" r="2.5" />
+        <path d="M10.5 9.7 7.3 15.8" />
+        <path d="m13.5 9.7 3.2 6.1" />
+        <path d="M8.5 18h7" />
+      </svg>
+    )
+  }
+
+  if (icon === 'data') {
+    return (
+      <svg aria-hidden="true" viewBox="0 0 24 24" className={iconClass} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <ellipse cx="12" cy="6" rx="7" ry="3" />
+        <path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6" />
+        <path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6" />
+        <path d="M8.5 13.6c1 .3 2.2.4 3.5.4s2.5-.1 3.5-.4" />
+      </svg>
+    )
+  }
+
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className={iconClass} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 7h8" />
+      <path d="m10 4 3 3-3 3" />
+      <path d="M19 17h-8" />
+      <path d="m14 14-3 3 3 3" />
+      <path d="M7 14a5 5 0 0 1 10-4" />
+      <path d="M17 10a5 5 0 0 1-10 4" />
+    </svg>
   )
 }
 
@@ -131,9 +215,12 @@ function ClientLogoGrid() {
     <AnimatedSection delay={0.18} className="mt-14 md:mt-18">
       <div
         className="py-8"
-        aria-label="Client and brand experience"
+        aria-labelledby="client-logo-heading"
       >
-        <div className="mx-auto grid max-w-[86rem] grid-cols-2 items-center gap-x-5 gap-y-7 sm:grid-cols-3 sm:gap-x-7 lg:grid-cols-6 lg:gap-x-8">
+        <h3 id="client-logo-heading" className="text-center text-lg font-bold tracking-[-0.01em] text-deep-water md:text-xl">
+          Recent Clients
+        </h3>
+        <div className="mx-auto mt-8 grid max-w-[86rem] grid-cols-2 items-center gap-x-5 gap-y-7 sm:grid-cols-3 sm:gap-x-7 lg:grid-cols-6 lg:gap-x-8">
           {clientLogos.map((logo) => (
             <div key={logo.name} className="flex h-16 items-center justify-center">
               <img
@@ -148,6 +235,152 @@ function ClientLogoGrid() {
         </div>
       </div>
     </AnimatedSection>
+  )
+}
+
+function getLifecyclePoint(angle: number, radius = lifecycleArcRadius) {
+  const radians = (angle * Math.PI) / 180
+  return {
+    x: 160 + Math.cos(radians) * radius,
+    y: 160 + Math.sin(radians) * radius,
+  }
+}
+
+function getLifecycleArcPath(centerAngle: number, reverse = false) {
+  const startAngle = centerAngle - lifecycleArcSpan / 2
+  const endAngle = centerAngle + lifecycleArcSpan / 2
+  const start = getLifecyclePoint(reverse ? endAngle : startAngle)
+  const end = getLifecyclePoint(reverse ? startAngle : endAngle)
+  const sweepFlag = reverse ? 0 : 1
+  return `M ${start.x} ${start.y} A ${lifecycleArcRadius} ${lifecycleArcRadius} 0 0 ${sweepFlag} ${end.x} ${end.y}`
+}
+
+function shouldReverseLifecycleLabel(centerAngle: number) {
+  return centerAngle > 90 && centerAngle < 270
+}
+
+function getLifecycleFanRotation(centerAngle: number) {
+  return -90 - centerAngle
+}
+
+function getLifecycleLabelPathId(label: string) {
+  return `lifecycle-label-${label.toLowerCase()}`
+}
+
+function shouldAnimateLifecycleWheel() {
+  if (typeof window === 'undefined') return false
+
+  try {
+    return !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  } catch {
+    return false
+  }
+}
+
+function LifecycleWheel() {
+  const { ref, isInView } = useInView('-90px')
+  const [canAnimateLifecycle] = useState(() => shouldAnimateLifecycleWheel())
+  const wheelStateClass = isInView ? 'rotate-0 scale-100 opacity-100' : '-rotate-28 scale-95 opacity-50'
+
+  return (
+    <div
+      ref={ref}
+      className="relative mx-auto aspect-square w-full max-w-[34rem] sm:max-w-[38rem] lg:-ml-6"
+      aria-label="Agile product lifecycle from discovery through iteration"
+    >
+      <div className={`absolute inset-[8%] transition duration-700 ease-out ${wheelStateClass}`}>
+        <svg
+          viewBox="0 0 320 320"
+          role="img"
+          aria-label="Circular lifecycle diagram"
+          className="h-full w-full overflow-visible"
+        >
+          <defs>
+            {lifecycleSegments.map((segment) => (
+              <path
+                key={`${segment.label}-label-path`}
+                id={getLifecycleLabelPathId(segment.label)}
+                d={getLifecycleArcPath(segment.centerAngle, segment.reverseLabel ?? shouldReverseLifecycleLabel(segment.centerAngle))}
+              />
+            ))}
+          </defs>
+          <circle
+            cx="160"
+            cy="160"
+            r={lifecycleArcRadius}
+            fill="none"
+            strokeWidth="30"
+            className="stroke-paper-line"
+          />
+            {lifecycleSegments.map((segment, index) => {
+              const fanRotation = getLifecycleFanRotation(segment.centerAngle)
+              const begin = `${index * 0.055}s`
+              const shouldFanOut = isInView && canAnimateLifecycle
+
+              return (
+                <g
+                  key={segment.label}
+                  transform={isInView ? 'rotate(0 160 160)' : `rotate(${fanRotation} 160 160)`}
+                  opacity={isInView ? 1 : 0}
+                >
+                  {shouldFanOut ? (
+                    <>
+                      <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from={`${fanRotation} 160 160`}
+                        to="0 160 160"
+                        begin={begin}
+                        dur="0.78s"
+                        fill="freeze"
+                        calcMode="spline"
+                        keyTimes="0;1"
+                        keySplines="0.22 1 0.36 1"
+                      />
+                      <animate
+                        attributeName="opacity"
+                        from="0"
+                        to="1"
+                        begin={begin}
+                        dur="0.22s"
+                        fill="freeze"
+                      />
+                    </>
+                  ) : null}
+                  <path
+                    d={getLifecycleArcPath(segment.centerAngle)}
+                    fill="none"
+                    strokeWidth="30"
+                    strokeLinecap="butt"
+                    className={segment.strokeClass}
+                  />
+                  <text
+                    dy="0.32em"
+                    className={`font-mono text-[0.5rem] font-bold uppercase tracking-[0.16em] sm:text-[0.56rem] ${segment.labelClass}`}
+                  >
+                    <textPath
+                      href={`#${getLifecycleLabelPathId(segment.label)}`}
+                      startOffset="50%"
+                      textAnchor="middle"
+                    >
+                      {segment.label}
+                    </textPath>
+                  </text>
+                </g>
+              )
+            })}
+        </svg>
+      </div>
+
+      <div className={`absolute inset-[34%] flex flex-col items-center justify-center rounded-full border border-paper-line bg-warm-white/95 text-center transition duration-700 ease-out ${isInView ? 'scale-100 opacity-100' : 'scale-90 opacity-0'}`}>
+        <span className="text-xl font-bold leading-tight text-deep-water sm:text-2xl">
+          Product
+          <br />
+          Lifecycle
+        </span>
+      </div>
+
+    </div>
   )
 }
 
@@ -382,6 +615,7 @@ export function HomePage() {
   const [introShouldPlay] = useState(shouldPlayIntro)
   const [showIntro, setShowIntro] = useState(introShouldPlay)
   const [introHandoffComplete, setIntroHandoffComplete] = useState(!introShouldPlay)
+  const { ref: timelineRef, isInView: timelineIsInView } = useInView('-90px')
 
   useEffect(() => {
     if (!introShouldPlay) return
@@ -609,48 +843,51 @@ export function HomePage() {
       </section>
 
       <section className="border-b border-paper-line bg-parchment px-6 py-20 md:py-28">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto w-full max-w-[94rem] px-3 md:px-6 xl:px-8">
           <AnimatedSection
             className="origin-left transition duration-700 ease-out"
-            initialClassName="translate-y-4 scale-95 opacity-100"
-            animationClassName="translate-y-0 scale-100 opacity-100"
+            initialClassName="translate-y-4 opacity-100"
+            animationClassName="translate-y-0 opacity-100"
           >
-            <h2 className="text-5xl font-bold leading-[1.02] tracking-[-0.03em] text-deep-water md:text-7xl">
+            <h2 className="home-capability-copy text-4xl font-bold leading-[1.03] tracking-[-0.03em] text-deep-water md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[5rem]">
               I turn product ideas into efficient, scalable software that’s ready for real users.
             </h2>
           </AnimatedSection>
+        </div>
 
-          <div className="mt-12 grid gap-12 lg:grid-cols-[0.86fr_1.14fr] lg:items-start">
-            <AnimatedSection>
-              <div className="space-y-4">
-                {serviceCards.map((item) => (
-                  <article key={item.title} className="grid gap-5 border border-paper-line bg-warm-white p-5 sm:grid-cols-[4.5rem_minmax(0,1fr)]">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-tidal text-sm font-bold text-warm-white">
-                      {item.label}
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold tracking-[-0.01em] text-deep-water">{item.title}</h3>
-                      <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink-muted">{item.body}</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </AnimatedSection>
+        <div className="mx-auto w-full max-w-7xl px-3 md:px-6 xl:px-0">
+          <div className="mt-6 grid gap-8 md:mt-7 xl:grid-cols-[0.95fr_1.05fr] xl:items-center xl:gap-x-10 xl:gap-y-8">
+            <div className="order-2 xl:order-1 xl:row-span-2">
+              <LifecycleWheel />
+            </div>
 
-            <AnimatedSection delay={0.12}>
-              <p className="max-w-2xl text-lg leading-relaxed text-ink-muted">
-                I like the middle space where product questions, frontend craft, backend reliability, and user trust all meet. That is where SaaS dashboards, mobile workflows, and internal tools either feel solid or start to fray.
+            <AnimatedSection delay={0.12} className="order-1 w-full max-w-[69.375rem] xl:order-2 xl:col-start-2 xl:max-w-none xl:self-end">
+              <p className="home-capability-copy text-xl font-medium leading-relaxed text-deep-water md:text-2xl">
+                Building systems, aligning teams, and shipping with care means moving through the full Agile lifecycle with both product judgment and engineering execution: clarifying scope, designing usable interfaces, shaping backend contracts, protecting data access, validating details through QA, and turning launch feedback into the next iteration.
               </p>
+            </AnimatedSection>
 
-              <div className="mt-10 grid gap-5 sm:grid-cols-2">
-                {proofPoints.map((item) => (
-                  <div key={item.label} className="border-t border-paper-line pt-5">
-                    <p className="font-display text-5xl font-bold leading-none text-deep-water">{item.value}</p>
-                    <p className="mt-2 max-w-44 text-sm font-semibold leading-tight text-ink-muted">{item.label}</p>
-                  </div>
+            <div className="order-3 w-full xl:col-start-2 xl:self-start">
+              <div className="grid gap-3 sm:grid-cols-3">
+                {capabilityHighlights.map((item, index) => (
+                  <AnimatedSection
+                    key={item.title}
+                    className={`h-full ${capabilityHighlightDelayClasses[index] ?? ''}`}
+                    initialClassName="translate-x-8 opacity-0"
+                    animationClassName="translate-x-0 opacity-100 transition duration-700 ease-out motion-reduce:transition-none"
+                  >
+                    <article className="flex min-h-36 flex-col rounded-lg border border-paper-line bg-warm-white/70 p-4">
+                      <div className="flex h-11 w-11 items-center justify-center text-tidal">
+                        <CapabilityHighlightIcon icon={item.icon} />
+                      </div>
+                      <h3 className="mt-4 text-xl font-bold leading-tight tracking-[-0.01em] text-deep-water">
+                        {item.title}
+                      </h3>
+                    </article>
+                  </AnimatedSection>
                 ))}
               </div>
-            </AnimatedSection>
+            </div>
           </div>
 
         </div>
@@ -662,25 +899,27 @@ export function HomePage() {
       <section id="experience" className="scroll-mt-28 border-b border-paper-line bg-warm-white px-6 py-20 md:py-28">
         <div className="mx-auto max-w-7xl">
           <AnimatedSection>
-            <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
+            <div className="grid gap-8 xl:grid-cols-[0.75fr_1.25fr]">
               <div>
-                <h2 className="max-w-xl text-5xl font-bold leading-[1.02] tracking-[-0.03em] text-deep-water md:text-6xl">
-                  Product sense from both sides of the table.
+                <h2 className="home-capability-copy max-w-none text-5xl font-bold leading-[1.02] tracking-[-0.03em] text-deep-water md:text-6xl xl:max-w-xl xl:![text-wrap-style:balance]">
+                  I understand software from multiple angles.
                 </h2>
               </div>
 
-              <div className="space-y-10">
+              <div ref={timelineRef} className="space-y-10">
                 {experience.slice(0, 3).map((item, index) => (
-                  <article key={item.id} className="grid gap-5 md:grid-cols-[0.55fr_2rem_1fr]">
-                    <div>
+                  <article key={item.id} className="grid grid-cols-[1.25rem_minmax(0,1fr)] gap-x-4 gap-y-5 md:grid-cols-[0.55fr_2rem_1fr] md:gap-5">
+                    <div className="col-start-2 md:col-start-auto">
                       <p className="font-bold text-deep-water">{item.company}</p>
                       <p className="mt-1 text-sm text-ink-muted">{item.startDate} - {item.endDate}</p>
                     </div>
-                    <div className="relative hidden justify-center md:flex">
-                      <span className={`relative z-10 mt-1 h-4 w-4 rounded-full ${timelineColors[index] ?? 'bg-tidal'}`} />
+                    <div className="relative col-start-1 row-span-2 row-start-1 flex justify-center md:col-start-auto md:row-auto md:row-span-1">
+                      <span
+                        className={`relative z-10 mt-1 h-4 w-4 rounded-full transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:delay-0 ${timelineColors[index] ?? 'bg-tidal'} ${timelineDotDelayClasses[index] ?? ''} ${timelineIsInView ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-3 scale-75 opacity-0'}`}
+                      />
                       <span className="absolute top-1 bottom-[-2.5rem] w-px border-l border-dashed border-paper-line" aria-hidden="true" />
                     </div>
-                    <div>
+                    <div className="col-start-2 md:col-start-auto">
                       <h3 className="text-2xl font-bold tracking-[-0.01em] text-deep-water">{item.role}</h3>
                       <p className="mt-3 text-sm leading-relaxed text-ink-muted">{item.context}</p>
                     </div>
@@ -692,49 +931,6 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="bg-parchment px-6 py-20 md:py-28">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-          <AnimatedSection>
-            <h2 className="max-w-2xl text-5xl font-bold leading-[1.02] tracking-[-0.03em] text-deep-water md:text-6xl">
-              Technical range, edited for hiring readers.
-            </h2>
-          </AnimatedSection>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            {skillGroups.slice(0, 4).map((group, index) => (
-              <AnimatedSection key={group.title} delay={index * 0.06}>
-                <article className="h-full border border-paper-line bg-warm-white p-5">
-                  <p className="font-mono text-xs text-ink-muted">[{String(index + 1).padStart(2, '0')}]</p>
-                  <h3 className="mt-5 text-xl font-bold text-deep-water">{group.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-ink-muted">{group.skills.join(', ')}</p>
-                </article>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-
-        {leadProject && (
-          <AnimatedSection delay={0.12}>
-            <div className="mx-auto mt-16 max-w-7xl border-t border-paper-line pt-10">
-              <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-                <div>
-                  <h2 className="max-w-xl text-4xl font-bold leading-[1.05] tracking-[-0.02em] text-deep-water md:text-5xl">
-                    {leadProject.title}
-                  </h2>
-                </div>
-                <div>
-                  <p className="text-lg leading-relaxed text-ink-muted">{leadProject.problem}</p>
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {leadProject.tech.map((tech) => (
-                      <Badge key={tech}>{tech}</Badge>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </AnimatedSection>
-        )}
-      </section>
     </>
   )
 }

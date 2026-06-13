@@ -70,5 +70,6 @@ export interface SkillGroup {
 
 export interface HobbyGroup {
   title: string
+  note: string
   items: string[]
 }

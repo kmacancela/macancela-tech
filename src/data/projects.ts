@@ -22,6 +22,11 @@ export const projects: Project[] = [
         href: 'https://karywaves.com/',
         external: true,
       },
+      {
+        label: 'GitHub',
+        href: 'https://github.com/kmacancela/kary-waves',
+        external: true,
+      },
     ],
     featured: true,
   },
@@ -46,6 +51,11 @@ export const projects: Project[] = [
         href: 'https://www.aimediagroup.com/atrilyx',
         external: true,
       },
+      {
+        label: 'Watch demo',
+        href: 'https://www.youtube.com/watch?v=B-CBh3Lq_eY&t=62s',
+        external: true,
+      },
     ],
     featured: true,
   },
@@ -63,13 +73,19 @@ export const projects: Project[] = [
       'Reduced onboarding time by 40% by centralizing internal access paths.',
     ],
     tech: ['React', 'TypeScript', 'SSO', 'JWT', 'Drag and Drop'],
-    links: [],
+    links: [
+      {
+        label: 'Watch demo',
+        href: 'https://www.youtube.com/watch?v=LCXywmKACjY',
+        external: true,
+      },
+    ],
     featured: true,
   },
   {
     id: 'bird-haven',
     title: "Bird Haven",
-    status: 'Shipped',
+    status: 'Active',
     kind: 'Live data product',
     summary: 'A public BirdNET-powered web app that turns neighborhood bird detections into a live collage, stats view, and species atlas.',
     problem: 'A local BirdNET-Pi setup needed a more inviting public interface for real-time detections while keeping recordings, admin tools, and calibration controls appropriately private.',
@@ -85,6 +101,11 @@ export const projects: Project[] = [
       {
         label: 'Check it out',
         href: 'https://karina-birdhaven.netlify.app/',
+        external: true,
+      },
+      {
+        label: 'GitHub',
+        href: 'https://github.com/kmacancela/AvianVisitors',
         external: true,
       },
     ],
