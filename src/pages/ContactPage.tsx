@@ -12,13 +12,6 @@ const formspreeEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT?.trim()
 
 type SubmissionStatus = 'idle' | 'submitting' | 'success' | 'error' | 'missing-endpoint'
 
-const contactActionDetails: Record<string, string> = {
-  Resume: 'A concise PDF for hiring loops and project context.',
-  LinkedIn: 'Roles, referrals, collaborations, and warm intros.',
-  GitHub: 'Public code, experiments, and product engineering work.',
-  Email: 'A direct note for anything that needs a human reply.',
-}
-
 export function ContactPage() {
   const [form, setForm] = useState<ContactFormData>({
     name: '',
@@ -73,29 +66,19 @@ export function ContactPage() {
               title="Reach out about roles, contract opportunities, or nonprofit volunteer work."
             />
 
-            <div className="grid gap-3 sm:grid-cols-2">
-              {profileLinks.map((link, index) => (
+            <div className="flex flex-wrap gap-3">
+              {profileLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
                   target={link.external ? '_blank' : undefined}
                   rel={link.external ? 'noopener noreferrer' : undefined}
                   download={link.download}
-                  className="group flex min-h-36 flex-col justify-between border border-sand-dark bg-parchment p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-deep-water hover:bg-deep-water hover:text-warm-white focus:outline-none focus-visible:ring-2 focus-visible:ring-tidal focus-visible:ring-offset-2 focus-visible:ring-offset-warm-white"
+                  className="inline-flex min-h-12 items-center gap-3 rounded-full border border-sand-dark bg-parchment px-5 py-3 text-sm font-bold text-deep-water transition-all duration-300 hover:-translate-y-0.5 hover:border-deep-water hover:bg-deep-water hover:text-warm-white focus:outline-none focus-visible:ring-2 focus-visible:ring-tidal focus-visible:ring-offset-2 focus-visible:ring-offset-warm-white"
                   aria-label={link.label}
                 >
-                  <span className="flex items-center justify-between gap-4 text-xs font-semibold uppercase tracking-[0.2em] text-ink-muted transition-colors group-hover:text-sand">
-                    {String(index + 1).padStart(2, '0')}
-                    <ProfileIcon icon={link.icon} className="h-5 w-5" />
-                  </span>
-                  <span>
-                    <span className="block text-lg font-bold text-ink transition-colors group-hover:text-warm-white">
-                      {link.label}
-                    </span>
-                    <span className="mt-2 block text-sm leading-relaxed text-ink-muted transition-colors group-hover:text-sand">
-                      {contactActionDetails[link.name]}
-                    </span>
-                  </span>
+                  <ProfileIcon icon={link.icon} className="h-5 w-5" />
+                  <span>{link.label}</span>
                 </a>
               ))}
             </div>
