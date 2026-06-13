@@ -177,6 +177,11 @@ p {
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes about-copy-arrival {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
 @keyframes panel-in {
   from { opacity: 0; transform: translateY(16px) scale(0.985); }
   to { opacity: 1; transform: translateY(0) scale(1); }
@@ -229,15 +234,23 @@ p {
   100% { opacity: 1; transform: scale(1) rotate(0deg); }
 }
 
+@keyframes about-photo-roll {
+  0% { transform: rotate(0deg) scale(1); }
+  28% { transform: rotate(-6deg) scale(1.02); }
+  52% { transform: rotate(4deg) scale(1.01); }
+  74% { transform: rotate(-2deg) scale(1); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
 @keyframes timeline-spine-draw {
   from { opacity: 0; transform: scaleY(0); }
   to { opacity: 1; transform: scaleY(1); }
 }
 
 @keyframes timeline-dot-in {
-  from { opacity: 0; transform: translateX(-50%) scale(0.55); }
-  55% { opacity: 1; transform: translateX(-50%) scale(1.08); }
-  to { opacity: 1; transform: translateX(-50%) scale(1); }
+  from { opacity: 0; transform: scale(0.55); }
+  55% { opacity: 1; transform: scale(1.08); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes timeline-date-pill-mobile-in {
@@ -319,10 +332,24 @@ p {
   will-change: opacity, transform;
 }
 
+.about-intro-copy {
+  animation: about-copy-arrival 0.88s cubic-bezier(0.22, 1, 0.36, 1) 0.04s both;
+  will-change: opacity, transform;
+}
+
 .about-photo-arrival {
   animation: about-photo-arrival 1.05s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
   transform-origin: 50% 82%;
   will-change: opacity, transform;
+}
+
+.about-photo-roll-target {
+  transform-origin: 50% 82%;
+}
+
+.about-photo-roll-target:hover {
+  animation: about-photo-roll 0.82s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: transform;
 }
 
 .timeline-spine {
@@ -516,6 +543,8 @@ p {
   .project-card-main,
   .project-card-side,
   .project-stack-badge,
+  .about-intro-copy,
+  .about-photo-roll-target,
   .about-photo-arrival {
     animation: none !important;
     opacity: 1;

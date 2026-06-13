@@ -7,7 +7,7 @@ import type { Experience } from '../types'
 const experienceTimelineItems = [
   {
     experienceId: 'exp-1',
-    callout: 'The strongest signal for teams that need a senior engineer who can own product surfaces, data boundaries, and launch details.',
+    callout: 'Senior full-stack ownership across product surfaces, multi-tenant data boundaries, SSO, and launch-ready analytics.',
     proof: '300+ SaaS clients / 10M+ daily events / 120+ internal SSO users',
     badgeVariant: 'tidal',
     dotClass: 'border-tidal bg-tidal',
@@ -15,24 +15,24 @@ const experienceTimelineItems = [
   },
   {
     experienceId: 'exp-2',
-    callout: 'I can keep scope, risk, compliance, and people moving in the same direction.',
-    proof: 'Roadmaps, Jira rituals, HIPAA/PII audits, executive alignment',
+    callout: 'Kept engineering, product, design, and leadership aligned on compliance-sensitive healthcare projects from kickoff to production.',
+    proof: 'Agile delivery / HIPAA + PII audits / executive alignment',
     badgeVariant: 'moss',
     dotClass: 'border-moss bg-moss',
     detailCount: 2,
   },
   {
     experienceId: 'exp-3',
-    callout: 'Useful in teams modernizing real infrastructure while protecting user trust.',
-    proof: 'OAuth2 flows, microservices migration, rollback-aware delivery',
+    callout: 'Backend modernization work with an emphasis on secure customer data, parallel delivery, and production-safe change management.',
+    proof: 'Microservices migration / OAuth2 mobile auth / rollback planning',
     badgeVariant: 'sun',
     dotClass: 'border-sun bg-sun',
     detailCount: 2,
   },
   {
     experienceId: 'exp-4',
-    callout: 'A practical support background that still shapes how I debug, document, and build for real people.',
-    proof: 'Campus IT support while completing CS and applied mathematics',
+    callout: 'Hands-on support experience that shaped how I troubleshoot, document, and build for people using software in real environments.',
+    proof: 'Campus IT support / systems imaging / network troubleshooting',
     badgeVariant: 'clay',
     dotClass: 'border-clay bg-clay',
     detailCount: 2,
@@ -42,8 +42,7 @@ const experienceTimelineItems = [
 const education = {
   school: 'CUNY Queens College',
   degree: 'Bachelor of Science in Computer Science and Applied Mathematics',
-  location: 'New York, NY',
-  detail: 'Formal technical foundation built alongside campus IT support work, with a practical mix of systems thinking, problem solving, and applied math.',
+  detail: 'Technical foundation in computer science and applied mathematics, completed while working in campus IT support.',
 }
 
 interface TimelineEntryProps {
@@ -69,8 +68,8 @@ function TimelineEntry({ item, card, index }: TimelineEntryProps) {
     <div
       className={`timeline-entry ${timelineStepClass} relative grid gap-0 pl-12 pt-12 md:grid-cols-[minmax(0,1fr)_3rem_minmax(0,1fr)] md:items-start md:pl-0`}
     >
-      <div className="timeline-dot absolute left-4 top-2 z-30 flex -translate-x-1/2 items-center justify-center md:left-1/2" aria-hidden="true">
-        <span className={`h-4 w-4 rounded-full border-4 ring-8 ring-warm-white ${card.dotClass}`} />
+      <div className="absolute left-4 top-2 z-30 flex -translate-x-1/2 items-center justify-center md:left-1/2" aria-hidden="true">
+        <span className={`timeline-dot h-4 w-4 rounded-full border-4 ring-8 ring-warm-white ${card.dotClass}`} />
       </div>
 
       <div className={`absolute left-4 top-0 z-20 md:left-1/2 ${dateClass}`}>
@@ -139,7 +138,7 @@ export function ExperiencePage() {
       <section className="bg-warm-white px-6 pt-8 pb-14 md:pt-10 md:pb-20">
         <div className="mx-auto max-w-6xl">
           <div className="relative">
-            <div className="absolute top-2 bottom-2 left-4 w-px md:left-1/2 md:-translate-x-1/2" aria-hidden="true">
+            <div className="absolute top-2 bottom-2 left-4 w-px -translate-x-1/2 md:left-1/2" aria-hidden="true">
               <span className="timeline-spine block h-full w-full bg-paper-line" />
             </div>
 
@@ -170,7 +169,6 @@ export function ExperiencePage() {
                   <h3 className="mt-3 font-display text-3xl leading-tight text-ink md:text-4xl">
                     {education.degree}
                   </h3>
-                  <p className="mt-5 text-sm font-bold text-deep-water">{education.location}</p>
                 </div>
               </div>
             </article>

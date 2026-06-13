@@ -11,7 +11,6 @@ interface ProjectCardProps {
 }
 
 const accentClasses = ['bg-deep-water', 'bg-clay', 'bg-moss', 'bg-tidal', 'bg-sun']
-const accentTextClasses = ['text-deep-water', 'text-clay-dark', 'text-moss', 'text-tidal', 'text-deep-water']
 const decodeCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 const decodableCharacterPattern = /[A-Za-z0-9]/
 
@@ -112,12 +111,11 @@ function StackFocusBadges({ tech }: StackFocusBadgesProps) {
 function ProjectCard({ project, index }: ProjectCardProps) {
   const reversed = index % 2 === 1
   const accentClass = accentClasses[index % accentClasses.length]
-  const accentTextClass = accentTextClasses[index % accentTextClasses.length]
   const entryStepClass = `project-card-step-${Math.min(index + 1, 5)}`
   const { ref, isInView } = useInView()
   const details = [
     {
-      label: 'Product pressure',
+      label: 'Challenge',
       value: project.problem,
     },
     {
@@ -161,7 +159,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
             </div>
 
             <div className="mt-8">
-              <h3 className="text-sm font-semibold text-deep-water">Decisions shipped</h3>
+              <h3 className="text-sm font-semibold text-deep-water">What shipped</h3>
               <ul className="mt-4 grid gap-x-8 md:grid-cols-2">
                 {project.highlights.map((item) => (
                   <li
@@ -182,21 +180,21 @@ function ProjectCard({ project, index }: ProjectCardProps) {
             } project-card-side`}
           >
             <div className="flex h-full flex-col justify-between gap-10">
-              <div className="space-y-8">
+              <div className="grid grid-cols-2 items-start gap-8 lg:block lg:space-y-8">
                 <div>
                   <dl className="space-y-4">
                     <div>
-                      <dt className="text-xs font-bold uppercase tracking-[0.08em] text-ink-muted">Surface</dt>
+                      <dt className="text-xs font-bold uppercase tracking-[0.08em] text-ink-muted">Type</dt>
                       <dd className="mt-1 text-base font-bold text-ink">{project.kind}</dd>
                     </div>
                     <div>
-                      <dt className="text-xs font-bold uppercase tracking-[0.08em] text-ink-muted">State</dt>
-                      <dd className={`mt-1 text-base font-bold ${accentTextClass}`}>{project.status}</dd>
+                      <dt className="text-xs font-bold uppercase tracking-[0.08em] text-ink-muted">Status</dt>
+                      <dd className="mt-1 text-base font-bold text-deep-water">{project.status}</dd>
                     </div>
                   </dl>
                 </div>
 
-                <div className="border-t border-sand-dark/70 pt-6">
+                <div className="lg:border-t lg:border-sand-dark/70 lg:pt-6">
                   <p className="font-mono text-xs font-semibold uppercase tracking-[0.08em] text-deep-water">Stack focus</p>
                   <StackFocusBadges tech={project.tech} />
                 </div>
