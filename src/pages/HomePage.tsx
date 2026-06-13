@@ -59,6 +59,11 @@ const heroGreetingLines = ['Hey There,', "I'm Karina"]
 const heroRoleLines = ["I'm a Software", 'Engineer']
 const heroGreetingText = heroGreetingLines.join('\n')
 const heroRoleText = heroRoleLines.join('\n')
+const heroPortraitSizes = '(max-width: 767px) 50vw, (max-width: 1279px) 36vw, 28rem'
+const heroPortraitAvifSrcSet = '/karina-portrait-480.avif 480w, /karina-portrait-800.avif 800w, /karina-portrait-1200.avif 1200w'
+const heroPortraitWebpSrcSet = '/karina-portrait-480.webp 480w, /karina-portrait-800.webp 800w, /karina-portrait-1200.webp 1200w'
+const heroPortraitJpegSrcSet = '/karina-portrait-480.jpg 480w, /karina-portrait-800.jpg 800w, /karina-portrait-1200.jpg 1200w'
+const homeSectionHeadingClass = 'home-capability-copy text-4xl font-bold leading-[1.03] tracking-[-0.03em] text-deep-water md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[5rem]'
 
 const clientLogos = [
   { name: 'Mediacom Business', src: '/logos/clients/mediacom-business.svg' },
@@ -288,7 +293,7 @@ function LifecycleWheel() {
       className="relative mx-auto aspect-square w-full max-w-[34rem] sm:max-w-[38rem] lg:-ml-6"
       aria-label="Agile product lifecycle from discovery through iteration"
     >
-      <div className={`absolute inset-[8%] transition duration-700 ease-out ${wheelStateClass}`}>
+      <div className={`absolute inset-[3%] transition duration-700 ease-out sm:inset-[8%] ${wheelStateClass}`}>
         <svg
           viewBox="0 0 320 320"
           role="img"
@@ -678,22 +683,29 @@ export function HomePage() {
             </AnimatedSection>
 
             <AnimatedSection delay={0.08} className="relative md:max-xl:col-start-2 md:max-xl:row-start-2 md:max-xl:h-full xl:-ml-24 xl:justify-self-start 2xl:-ml-24">
-              <div className="relative mx-auto grid w-full max-w-2xl grid-cols-2 items-stretch pt-4 md:block md:min-h-[28rem] md:max-w-none md:pt-6 md:max-xl:h-full xl:min-h-[38rem] xl:max-w-[46rem]">
+              <div className="relative mx-auto grid w-full max-w-2xl grid-cols-2 items-stretch pt-4 md:block md:min-h-[28rem] md:max-w-none md:pt-6 md:max-xl:h-full xl:min-h-[38rem] xl:w-[46rem] xl:max-w-[46rem]">
                 <div className="relative z-10 h-full min-h-64 w-full md:min-h-[24rem] md:w-[82%] md:max-xl:min-h-full md:max-xl:w-[60%] md:max-xl:max-w-sm xl:mx-0 xl:h-auto xl:min-h-0 xl:w-[60%] xl:max-w-none">
-                  <img
-                    src="/karina-portrait.jpg"
-                    alt="Karina Macancela"
-                    className="relative z-10 h-full w-full border border-r-0 border-paper-line bg-parchment object-cover object-center p-2 md:border-r xl:aspect-[4/5] xl:h-auto"
-                  />
+                  <picture className="contents">
+                    <source type="image/avif" srcSet={heroPortraitAvifSrcSet} sizes={heroPortraitSizes} />
+                    <source type="image/webp" srcSet={heroPortraitWebpSrcSet} sizes={heroPortraitSizes} />
+                    <img
+                      src="/karina-portrait-800.jpg"
+                      srcSet={heroPortraitJpegSrcSet}
+                      sizes={heroPortraitSizes}
+                      width="1200"
+                      height="1500"
+                      alt="Karina Macancela"
+                      loading="eager"
+                      fetchPriority="high"
+                      decoding="async"
+                      className="relative z-10 h-full w-full border border-r-0 border-paper-line bg-parchment object-cover object-center p-2 md:border-r xl:aspect-[4/5] xl:h-auto"
+                    />
+                  </picture>
                 </div>
 
                 <div className="relative z-30 -ml-3 flex h-full min-w-0 flex-col justify-between border border-l-0 border-paper-line bg-sun-light p-3 text-night sm:p-5 md:absolute md:top-16 md:right-4 md:ml-0 md:block md:h-auto md:w-[48%] md:border-l md:border-sand-dark md:p-5 md:shadow-xl md:transition-transform md:duration-300 md:-rotate-1 md:hover:rotate-0 lg:w-[47%] lg:p-6 xl:top-20 xl:right-auto xl:left-[52%] xl:w-96 xl:max-w-none xl:shadow-2xl">
                   <div
                     className="pointer-events-none absolute top-0 left-1/2 hidden h-10 w-24 -translate-x-1/2 -translate-y-1/2 rotate-3 border border-paper-line bg-warm-white/80 shadow-md md:block"
-                    aria-hidden="true"
-                  />
-                  <div
-                    className="pointer-events-none absolute right-0 bottom-0 hidden h-12 w-12 border-t border-l border-sand-dark bg-sand md:block"
                     aria-hidden="true"
                   />
 
@@ -723,7 +735,7 @@ export function HomePage() {
                     <Button to="/projects" variant="outline" className="min-h-10 px-4 py-2 text-xs">Projects</Button>
                   </div>
 
-                  <div className="mt-4 flex flex-wrap gap-2 border-t border-sand-dark pt-4 sm:gap-3 xl:hidden">
+                  <div className="mt-4 flex flex-wrap gap-2 border-t border-night/20 pt-4 sm:gap-3 xl:hidden">
                     {socialLinks.map((link) => (
                       <a
                         key={link.name}
@@ -756,7 +768,7 @@ export function HomePage() {
                     <Button to="/projects" variant="outline">Projects</Button>
                   </div>
 
-                  <div className="mt-7 hidden gap-5 border-t border-sand-dark pt-5 xl:flex">
+                  <div className="mt-7 hidden gap-5 border-t border-night/20 pt-5 xl:flex">
                     {socialLinks.map((link) => (
                       <a
                         key={link.name}
@@ -849,14 +861,14 @@ export function HomePage() {
             initialClassName="translate-y-4 opacity-100"
             animationClassName="translate-y-0 opacity-100"
           >
-            <h2 className="home-capability-copy text-4xl font-bold leading-[1.03] tracking-[-0.03em] text-deep-water md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[5rem]">
+            <h2 className={homeSectionHeadingClass}>
               I turn product ideas into efficient, scalable software that’s ready for real users.
             </h2>
           </AnimatedSection>
         </div>
 
         <div className="mx-auto w-full max-w-7xl px-3 md:px-6 xl:px-0">
-          <div className="mt-6 grid gap-8 md:mt-7 xl:grid-cols-[0.95fr_1.05fr] xl:items-center xl:gap-x-10 xl:gap-y-8">
+          <div className="mt-5 grid gap-4 md:mt-7 md:gap-8 xl:grid-cols-[0.95fr_1.05fr] xl:items-center xl:gap-x-10 xl:gap-y-8">
             <div className="order-2 xl:order-1 xl:row-span-2">
               <LifecycleWheel />
             </div>
@@ -868,7 +880,7 @@ export function HomePage() {
             </AnimatedSection>
 
             <div className="order-3 w-full xl:col-start-2 xl:self-start">
-              <div className="grid gap-3 sm:grid-cols-3">
+              <div className="mx-auto grid w-full max-w-[22rem] gap-3 sm:max-w-none sm:grid-cols-3">
                 {capabilityHighlights.map((item, index) => (
                   <AnimatedSection
                     key={item.title}
@@ -876,7 +888,7 @@ export function HomePage() {
                     initialClassName="translate-x-8 opacity-0"
                     animationClassName="translate-x-0 opacity-100 transition duration-700 ease-out motion-reduce:transition-none"
                   >
-                    <article className="flex min-h-36 flex-col rounded-lg border border-paper-line bg-warm-white/70 p-4">
+                    <article className="flex min-h-36 flex-col items-center justify-center rounded-lg border border-paper-line bg-warm-white/70 p-4 text-center">
                       <div className="flex h-11 w-11 items-center justify-center text-tidal">
                         <CapabilityHighlightIcon icon={item.icon} />
                       </div>
@@ -896,35 +908,51 @@ export function HomePage() {
         </div>
       </section>
 
-      <section id="experience" className="scroll-mt-28 border-b border-paper-line bg-warm-white px-6 py-20 md:py-28">
+      <section id="experience" className="scroll-mt-28 border-b border-paper-line bg-warm-white px-6 pt-20 pb-14 md:pt-28 md:pb-20">
         <div className="mx-auto max-w-7xl">
           <AnimatedSection>
             <div className="grid gap-8 xl:grid-cols-[0.75fr_1.25fr]">
               <div>
-                <h2 className="home-capability-copy max-w-none text-5xl font-bold leading-[1.02] tracking-[-0.03em] text-deep-water md:text-6xl xl:max-w-xl xl:![text-wrap-style:balance]">
+                <h2 className={`${homeSectionHeadingClass} max-w-none xl:max-w-xl xl:![text-wrap-style:balance]`}>
                   I understand software from multiple angles.
                 </h2>
               </div>
 
-              <div ref={timelineRef} className="space-y-10">
-                {experience.slice(0, 3).map((item, index) => (
-                  <article key={item.id} className="grid grid-cols-[1.25rem_minmax(0,1fr)] gap-x-4 gap-y-5 md:grid-cols-[0.55fr_2rem_1fr] md:gap-5">
-                    <div className="col-start-2 md:col-start-auto">
-                      <p className="font-bold text-deep-water">{item.company}</p>
-                      <p className="mt-1 text-sm text-ink-muted">{item.startDate} - {item.endDate}</p>
-                    </div>
-                    <div className="relative col-start-1 row-span-2 row-start-1 flex justify-center md:col-start-auto md:row-auto md:row-span-1">
-                      <span
-                        className={`relative z-10 mt-1 h-4 w-4 rounded-full transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:delay-0 ${timelineColors[index] ?? 'bg-tidal'} ${timelineDotDelayClasses[index] ?? ''} ${timelineIsInView ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-3 scale-75 opacity-0'}`}
-                      />
-                      <span className="absolute top-1 bottom-[-2.5rem] w-px border-l border-dashed border-paper-line" aria-hidden="true" />
-                    </div>
-                    <div className="col-start-2 md:col-start-auto">
-                      <h3 className="text-2xl font-bold tracking-[-0.01em] text-deep-water">{item.role}</h3>
-                      <p className="mt-3 text-sm leading-relaxed text-ink-muted">{item.context}</p>
-                    </div>
-                  </article>
-                ))}
+              <div>
+                <div ref={timelineRef} className="space-y-10">
+                  {experience.slice(0, 3).map((item, index) => (
+                    <article key={item.id} className="grid grid-cols-[1.25rem_minmax(0,1fr)] gap-x-4 gap-y-5 md:grid-cols-[0.55fr_2rem_1fr] md:gap-5">
+                      <div className="col-start-2 md:col-start-auto">
+                        <p className="font-bold text-deep-water">{item.company}</p>
+                        <p className="mt-1 text-sm text-ink-muted">{item.startDate} - {item.endDate}</p>
+                      </div>
+                      <div className="relative col-start-1 row-span-2 row-start-1 flex justify-center md:col-start-auto md:row-auto md:row-span-1">
+                        <span
+                          className={`relative z-10 mt-1 h-4 w-4 rounded-full transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:delay-0 ${timelineColors[index] ?? 'bg-tidal'} ${timelineDotDelayClasses[index] ?? ''} ${timelineIsInView ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-3 scale-75 opacity-0'}`}
+                        />
+                        <span className="absolute top-1 bottom-[-2.5rem] w-px border-l border-dashed border-paper-line" aria-hidden="true" />
+                      </div>
+                      <div className="col-start-2 md:col-start-auto">
+                        <h3 className="text-2xl font-bold tracking-[-0.01em] text-deep-water">{item.role}</h3>
+                        <p className="mt-3 text-sm leading-relaxed text-ink-muted">{item.context}</p>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+                <div className="mt-10 flex justify-end">
+                  <Link
+                    to="/experience"
+                    className="group inline-flex items-center gap-2 py-2 text-sm font-bold text-tidal transition-colors duration-300 hover:text-deep-water focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tidal"
+                  >
+                    View full experience
+                    <span
+                      aria-hidden="true"
+                      className="transition-transform duration-300 group-hover:translate-x-1"
+                    >
+                      →
+                    </span>
+                  </Link>
+                </div>
               </div>
             </div>
           </AnimatedSection>
