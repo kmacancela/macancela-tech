@@ -1,7 +1,7 @@
 import { AnimatedSection } from '../components/ui/AnimatedSection'
 import { siteConfig } from '../data/siteConfig'
 
-const introContext = 'I have been coding since I was 12, so building software has always felt like both a craft and a creative outlet for turning ideas into reality. Throughout my career, I have worked with teams across industries like SaaS startups, analytics, healthcare, and enterprise clients, but what has remained consistent is the opportunity to solve interesting, complex problems. I find fulfillment in understanding challenges from multiple perspectives, collaborating with innovative teams to explore solutions, and delivering results. Away from the keyboard, I find balance through hiking, biking, yoga, swimming, and by connecting with my local community.'
+const introContext = 'I have been coding since I was 12, so building software has always felt like both a craft and a creative outlet for turning ideas into reality. Throughout my career, I have worked with SaaS startups, analytics teams, healthcare organizations, and enterprise product teams, but what has remained consistent is the opportunity to solve interesting, complex problems. I find fulfillment in understanding challenges from multiple perspectives, collaborating with innovative teams to explore solutions, and delivering results. Away from the keyboard, I find balance through hiking, biking, yoga, swimming, and by connecting with my local community.'
 
 export function AboutPage() {
   return (

@@ -19,19 +19,13 @@ export function useInView(margin = '-60px') {
     if (!el) return
 
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    let observer: IntersectionObserver | undefined
-
-    function revealImmediately() {
-      setIsInView(true)
-      observer?.disconnect()
-    }
-
-    function handleMotionPreferenceChange(event: MediaQueryListEvent) {
-      if (event.matches) revealImmediately()
-    }
 
     if (motionQuery.matches) {
-      revealImmediately()
+      function handleMotionPreferenceChange(event: MediaQueryListEvent) {
+        if (event.matches) setIsInView(true)
+      }
+
+      setIsInView(true)
       motionQuery.addEventListener('change', handleMotionPreferenceChange)
 
       return () => {
@@ -39,7 +33,7 @@ export function useInView(margin = '-60px') {
       }
     }
 
-    observer = new IntersectionObserver(
+    const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsInView(true)
@@ -48,6 +42,13 @@ export function useInView(margin = '-60px') {
       },
       { rootMargin: margin }
     )
+
+    function handleMotionPreferenceChange(event: MediaQueryListEvent) {
+      if (!event.matches) return
+
+      setIsInView(true)
+      observer.disconnect()
+    }
 
     observer.observe(el)
     motionQuery.addEventListener('change', handleMotionPreferenceChange)

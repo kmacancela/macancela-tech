@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { DatabaseIcon, TimerIcon, UsersThreeIcon } from '@phosphor-icons/react'
 import { Link } from 'react-router'
 import { AnimatedSection } from '../components/ui/AnimatedSection'
 import { Badge } from '../components/ui/Badge'
@@ -10,7 +11,7 @@ import { projects } from '../data/projects'
 import { siteConfig } from '../data/siteConfig'
 import { useInView } from '../hooks/useInView'
 
-const homeProjectIds = ['bird-haven', 'kary-waves', 'atrilyx']
+const homeProjectIds = ['kary-waves', 'atrilyx', 'sso-portal']
 
 type HomeProjectChipLabel = {
   compact: string
@@ -18,14 +19,14 @@ type HomeProjectChipLabel = {
 }
 
 const homeProjectKindChips: Record<string, HomeProjectChipLabel> = {
-  'bird-haven': { compact: 'Live', full: 'Live data' },
   'kary-waves': { compact: 'App', full: 'Client app' },
   atrilyx: { compact: 'SaaS', full: 'SaaS' },
+  'sso-portal': { compact: 'SSO', full: 'Internal platform' },
 }
 const homeProjectStackChips: Record<string, HomeProjectChipLabel> = {
-  'bird-haven': { compact: 'TS/Py/PHP', full: 'TS, Python, PHP' },
   'kary-waves': { compact: 'RN/TS/Node/PG', full: 'RN, TS, Node, Postgres' },
   atrilyx: { compact: 'Vue/TS/PHP/PG', full: 'Vue, TS, PHP, Postgres' },
+  'sso-portal': { compact: 'React/SSO/JWT', full: 'React, SSO, JWT' },
 }
 const featuredProjects = homeProjectIds
   .map((projectId) => projects.find((project) => project.id === projectId))
@@ -168,40 +169,14 @@ type CapabilityHighlightIconName = (typeof capabilityHighlights)[number]['icon']
 
 function CapabilityHighlightIcon({ icon }: { icon: CapabilityHighlightIconName }) {
   const iconClass = 'h-8 w-8'
-
-  if (icon === 'clients') {
-    return (
-      <svg aria-hidden="true" viewBox="0 0 24 24" className={iconClass} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="7" r="3" />
-        <circle cx="6" cy="18" r="2.5" />
-        <circle cx="18" cy="18" r="2.5" />
-        <path d="M10.5 9.7 7.3 15.8" />
-        <path d="m13.5 9.7 3.2 6.1" />
-        <path d="M8.5 18h7" />
-      </svg>
-    )
-  }
-
-  if (icon === 'data') {
-    return (
-      <svg aria-hidden="true" viewBox="0 0 24 24" className={iconClass} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <ellipse cx="12" cy="6" rx="7" ry="3" />
-        <path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6" />
-        <path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6" />
-        <path d="M8.5 13.6c1 .3 2.2.4 3.5.4s2.5-.1 3.5-.4" />
-      </svg>
-    )
-  }
+  const Icon = {
+    clients: UsersThreeIcon,
+    data: DatabaseIcon,
+    handoff: TimerIcon,
+  }[icon]
 
   return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" className={iconClass} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M5 7h8" />
-      <path d="m10 4 3 3-3 3" />
-      <path d="M19 17h-8" />
-      <path d="m14 14-3 3 3 3" />
-      <path d="M7 14a5 5 0 0 1 10-4" />
-      <path d="M17 10a5 5 0 0 1-10 4" />
-    </svg>
+    <Icon aria-hidden="true" className={iconClass} weight="duotone" />
   )
 }
 
@@ -718,7 +693,7 @@ export function HomePage() {
                     className="mt-1 inline-block break-words text-sm font-semibold text-night/75 underline decoration-night/20 underline-offset-4 transition-colors hover:text-night max-[360px]:text-xs"
                   >
                     <span className="max-[420px]:hidden">{siteConfig.email}</span>
-                    <span className="hidden max-[420px]:inline">Email me</span>
+                    <span className="hidden max-[420px]:inline">Email</span>
                   </a>
 
                   <p className="mt-3 text-sm font-semibold leading-snug tracking-normal text-night sm:mt-5 sm:text-lg xl:hidden">
@@ -735,14 +710,14 @@ export function HomePage() {
                     <Button to="/projects" variant="outline" className="min-h-10 px-4 py-2 text-xs">Projects</Button>
                   </div>
 
-                  <div className="mt-4 flex flex-wrap gap-2 border-t border-night/20 pt-4 sm:gap-3 xl:hidden">
+                  <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 border-t border-night/20 pt-4 sm:gap-x-8 xl:hidden">
                     {socialLinks.map((link) => (
                       <a
                         key={link.name}
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-night transition-colors hover:text-clay-dark"
+                        className="inline-flex items-center gap-1.5 whitespace-nowrap text-xs font-bold text-night transition-colors hover:text-clay-dark"
                       >
                         {link.label}
                         <ProfileIcon icon={link.icon} className="h-3.5 w-3.5" />
@@ -768,14 +743,14 @@ export function HomePage() {
                     <Button to="/projects" variant="outline">Projects</Button>
                   </div>
 
-                  <div className="mt-7 hidden gap-5 border-t border-night/20 pt-5 xl:flex">
+                  <div className="mt-7 hidden gap-10 border-t border-night/20 pt-5 xl:flex">
                     {socialLinks.map((link) => (
                       <a
                         key={link.name}
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sm font-bold text-night transition-colors hover:text-clay-dark"
+                        className="inline-flex items-center gap-2 whitespace-nowrap text-sm font-bold text-night transition-colors hover:text-clay-dark"
                       >
                         {link.label}
                         <ProfileIcon icon={link.icon} className="h-4 w-4" />

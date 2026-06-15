@@ -70,7 +70,7 @@ export function ContactPage() {
               </h2>
             </div>
 
-            <div className="mx-auto grid w-full max-w-sm grid-cols-2 gap-x-10">
+            <div className="mx-auto grid w-full max-w-md grid-cols-2 gap-x-16">
               {contactProfileLinks.map((link) => (
                 <a
                   key={link.name}
@@ -90,7 +90,7 @@ export function ContactPage() {
             <div className="mx-auto mt-12 hidden max-w-xl text-center md:mt-14 lg:block">
               <div className="mx-auto flex max-w-md items-center gap-4 text-xs font-semibold uppercase tracking-[0.24em] text-ink-muted">
                 <span className="h-px flex-1 bg-sand-dark" />
-                <span>or email</span>
+                <span>Email</span>
                 <span className="h-px flex-1 bg-sand-dark" />
               </div>
               <a
@@ -176,7 +176,7 @@ export function ContactPage() {
                   </div>
                   {submissionStatus === 'missing-endpoint' && (
                     <p className="border border-clay bg-warm-white p-4 text-sm leading-relaxed text-clay" role="status">
-                      This form needs a Formspree endpoint before it can send. Email me directly at{' '}
+                      This form needs a Formspree endpoint before it can send. Use email at{' '}
                       <a href={`mailto:${siteConfig.email}`} className="font-semibold underline underline-offset-4">
                         {siteConfig.email}
                       </a>
@@ -185,7 +185,7 @@ export function ContactPage() {
                   )}
                   {submissionStatus === 'error' && (
                     <p className="border border-clay bg-warm-white p-4 text-sm leading-relaxed text-clay" role="alert">
-                      The message did not go through. Please try again or email me directly at{' '}
+                      The message did not go through. Please try again or use email at{' '}
                       <a href={`mailto:${siteConfig.email}`} className="font-semibold underline underline-offset-4">
                         {siteConfig.email}
                       </a>
@@ -206,7 +206,7 @@ export function ContactPage() {
             <div className="mx-auto max-w-xl text-center">
               <div className="mx-auto flex max-w-md items-center gap-4 text-xs font-semibold uppercase tracking-[0.24em] text-ink-muted">
                 <span className="h-px flex-1 bg-sand-dark" />
-                <span>or email</span>
+                <span>Email</span>
                 <span className="h-px flex-1 bg-sand-dark" />
               </div>
               <a
