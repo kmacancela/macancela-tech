@@ -265,7 +265,7 @@ function LifecycleWheel() {
   return (
     <div
       ref={ref}
-      className="relative mx-auto aspect-square w-full max-w-[34rem] sm:max-w-[38rem] lg:-ml-6"
+      className="relative mx-auto aspect-square w-full max-w-[34rem] sm:max-w-[38rem] lg:ml-auto lg:mr-0 xl:-ml-6 xl:mr-auto"
       aria-label="Agile product lifecycle from discovery through iteration"
     >
       <div className={`absolute inset-[3%] transition duration-700 ease-out sm:inset-[8%] ${wheelStateClass}`}>
