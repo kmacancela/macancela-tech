@@ -850,7 +850,7 @@ export function HomePage() {
               </p>
             </AnimatedSection>
 
-            <div className="order-2 grid gap-4 md:row-start-2 md:grid-cols-[minmax(0,1fr)_minmax(13rem,18rem)] md:items-center md:gap-x-6 md:gap-y-8 lg:grid-cols-[minmax(0,38rem)_minmax(13rem,18rem)] lg:justify-center xl:contents">
+            <div className="order-2 grid gap-4 md:row-start-2 md:grid-cols-[minmax(0,1fr)_minmax(13rem,18rem)] md:items-center md:gap-x-6 md:gap-y-8 lg:grid-cols-[minmax(0,38rem)_minmax(13rem,18rem)] lg:justify-center lg:-translate-x-12 min-[1180px]:-translate-x-20 xl:contents xl:translate-x-0">
               <div className="md:col-start-1 xl:order-1 xl:row-span-2 xl:row-start-1">
                 <LifecycleWheel />
               </div>
