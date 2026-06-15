@@ -168,7 +168,7 @@ function HomeProjectChipText({ label }: { label: HomeProjectChipLabel }) {
 type CapabilityHighlightIconName = (typeof capabilityHighlights)[number]['icon']
 
 function CapabilityHighlightIcon({ icon }: { icon: CapabilityHighlightIconName }) {
-  const iconClass = 'h-8 w-8'
+  const iconClass = 'h-10 w-10'
   const Icon = {
     clients: UsersThreeIcon,
     data: DatabaseIcon,
@@ -192,9 +192,9 @@ function getClientLogoClass(logo: (typeof clientLogos)[number]) {
 
 function ClientLogoGrid() {
   return (
-    <AnimatedSection delay={0.18} className="mt-14 md:mt-18">
+    <AnimatedSection delay={0.18} className="mt-14 md:mt-4 xl:mt-10">
       <div
-        className="py-8"
+        className="py-8 md:pt-4 md:pb-8 xl:pt-6 xl:pb-8"
         aria-labelledby="client-logo-heading"
       >
         <h3 id="client-logo-heading" className="text-center text-lg font-bold tracking-[-0.01em] text-deep-water md:text-xl">
@@ -865,7 +865,7 @@ export function HomePage() {
                       animationClassName="translate-x-0 opacity-100 transition duration-700 ease-out motion-reduce:transition-none"
                     >
                       <article className="flex min-h-36 flex-col items-center justify-center rounded-lg border border-paper-line bg-warm-white/70 p-4 text-center md:min-h-32 xl:min-h-36">
-                        <div className="flex h-11 w-11 items-center justify-center text-tidal">
+                        <div className="flex h-12 w-12 items-center justify-center text-tidal">
                           <CapabilityHighlightIcon icon={item.icon} />
                         </div>
                         <h3 className="mt-4 text-xl font-bold leading-tight tracking-[-0.01em] text-deep-water">

@@ -90,7 +90,7 @@ export function ContactPage() {
             <div className="mx-auto mt-12 hidden max-w-xl text-center md:mt-14 lg:block">
               <div className="mx-auto flex max-w-md items-center gap-4 text-xs font-semibold uppercase tracking-[0.24em] text-ink-muted">
                 <span className="h-px flex-1 bg-sand-dark" />
-                <span>Email</span>
+                <span>OR EMAIL</span>
                 <span className="h-px flex-1 bg-sand-dark" />
               </div>
               <a
@@ -206,7 +206,7 @@ export function ContactPage() {
             <div className="mx-auto max-w-xl text-center">
               <div className="mx-auto flex max-w-md items-center gap-4 text-xs font-semibold uppercase tracking-[0.24em] text-ink-muted">
                 <span className="h-px flex-1 bg-sand-dark" />
-                <span>Email</span>
+                <span>OR EMAIL</span>
                 <span className="h-px flex-1 bg-sand-dark" />
               </div>
               <a
