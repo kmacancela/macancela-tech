@@ -843,36 +843,38 @@ export function HomePage() {
         </div>
 
         <div className="mx-auto w-full max-w-7xl px-3 md:px-6 xl:px-0">
-          <div className="mt-5 grid gap-4 md:mt-7 md:grid-cols-[minmax(0,1fr)_minmax(13rem,18rem)] md:items-center md:gap-x-6 md:gap-y-8 xl:grid-cols-[0.95fr_1.05fr] xl:gap-x-10 xl:gap-y-8">
-            <div className="order-2 md:col-start-1 md:row-start-2 xl:order-1 xl:row-span-2 xl:row-start-1">
-              <LifecycleWheel />
-            </div>
-
-            <AnimatedSection delay={0.12} className="order-1 w-full max-w-[69.375rem] md:col-span-2 md:row-start-1 xl:order-2 xl:col-span-1 xl:col-start-2 xl:max-w-none xl:self-end">
+          <div className="mt-5 grid gap-4 md:mt-7 md:gap-y-8 xl:grid-cols-[0.95fr_1.05fr] xl:gap-x-10 xl:gap-y-8">
+            <AnimatedSection delay={0.12} className="order-1 w-full max-w-[69.375rem] md:row-start-1 xl:order-2 xl:col-span-1 xl:col-start-2 xl:max-w-none xl:self-end">
               <p className="home-capability-copy text-xl font-medium leading-relaxed text-deep-water md:text-2xl">
                 Building systems, aligning teams, and shipping with care means moving through the full Agile lifecycle with both product judgment and engineering execution: clarifying scope, designing usable interfaces, shaping backend contracts, protecting data access, validating details through QA, and turning launch feedback into the next iteration.
               </p>
             </AnimatedSection>
 
-            <div className="order-3 w-full md:col-start-2 md:row-start-2 md:self-center xl:col-start-2 xl:row-start-2 xl:self-start">
-              <div className="mx-auto grid w-full max-w-[22rem] gap-3 sm:max-w-none sm:grid-cols-3 md:max-w-[18rem] md:grid-cols-1 xl:max-w-none xl:grid-cols-3">
-                {capabilityHighlights.map((item, index) => (
-                  <AnimatedSection
-                    key={item.title}
-                    className={`h-full ${capabilityHighlightDelayClasses[index] ?? ''}`}
-                    initialClassName="translate-x-8 opacity-0"
-                    animationClassName="translate-x-0 opacity-100 transition duration-700 ease-out motion-reduce:transition-none"
-                  >
-                    <article className="flex min-h-36 flex-col items-center justify-center rounded-lg border border-paper-line bg-warm-white/70 p-4 text-center md:min-h-32 xl:min-h-36">
-                      <div className="flex h-11 w-11 items-center justify-center text-tidal">
-                        <CapabilityHighlightIcon icon={item.icon} />
-                      </div>
-                      <h3 className="mt-4 text-xl font-bold leading-tight tracking-[-0.01em] text-deep-water">
-                        {item.title}
-                      </h3>
-                    </article>
-                  </AnimatedSection>
-                ))}
+            <div className="order-2 grid gap-4 md:row-start-2 md:grid-cols-[minmax(0,1fr)_minmax(13rem,18rem)] md:items-center md:gap-x-6 md:gap-y-8 lg:grid-cols-[minmax(0,38rem)_minmax(13rem,18rem)] lg:justify-center xl:contents">
+              <div className="md:col-start-1 xl:order-1 xl:row-span-2 xl:row-start-1">
+                <LifecycleWheel />
+              </div>
+
+              <div className="w-full md:col-start-2 md:self-center xl:order-3 xl:col-start-2 xl:row-start-2 xl:self-start">
+                <div className="mx-auto grid w-full max-w-[22rem] gap-3 sm:max-w-none sm:grid-cols-3 md:max-w-[18rem] md:grid-cols-1 xl:max-w-none xl:grid-cols-3">
+                  {capabilityHighlights.map((item, index) => (
+                    <AnimatedSection
+                      key={item.title}
+                      className={`h-full ${capabilityHighlightDelayClasses[index] ?? ''}`}
+                      initialClassName="translate-x-8 opacity-0"
+                      animationClassName="translate-x-0 opacity-100 transition duration-700 ease-out motion-reduce:transition-none"
+                    >
+                      <article className="flex min-h-36 flex-col items-center justify-center rounded-lg border border-paper-line bg-warm-white/70 p-4 text-center md:min-h-32 xl:min-h-36">
+                        <div className="flex h-11 w-11 items-center justify-center text-tidal">
+                          <CapabilityHighlightIcon icon={item.icon} />
+                        </div>
+                        <h3 className="mt-4 text-xl font-bold leading-tight tracking-[-0.01em] text-deep-water">
+                          {item.title}
+                        </h3>
+                      </article>
+                    </AnimatedSection>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
