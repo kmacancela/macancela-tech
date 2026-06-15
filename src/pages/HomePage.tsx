@@ -898,8 +898,8 @@ export function HomePage() {
               <div>
                 <div ref={timelineRef} className="space-y-10">
                   {experience.slice(0, 3).map((item, index) => (
-                    <article key={item.id} className="grid grid-cols-[1.25rem_minmax(0,1fr)] gap-x-4 gap-y-5 md:grid-cols-[0.55fr_2rem_1fr] md:gap-5">
-                      <div className="col-start-2 md:col-start-auto">
+                    <article key={item.id} className="grid grid-cols-[1.25rem_minmax(0,1fr)] gap-x-4 gap-y-5 md:grid-cols-[12rem_2rem_minmax(0,1fr)] md:gap-5 lg:grid-cols-[13rem_2rem_minmax(0,1fr)] xl:grid-cols-[0.55fr_2rem_1fr]">
+                      <div className="col-start-2 md:col-start-auto md:text-right">
                         <p className="font-bold text-deep-water">{item.company}</p>
                         <p className="mt-1 text-sm text-ink-muted">{item.startDate} - {item.endDate}</p>
                       </div>
