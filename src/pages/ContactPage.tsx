@@ -9,10 +9,11 @@ import type { ContactFormData } from '../types'
 const fieldShellClasses = 'border border-sand-dark bg-warm-white px-5 py-4 transition-colors focus-within:border-deep-water focus-within:bg-parchment'
 const labelClasses = 'mb-2 block text-xs font-bold uppercase tracking-[0.18em] text-ink-muted'
 const inputClasses = 'w-full border-0 bg-transparent p-0 text-base text-ink placeholder:text-ink-muted/60 focus:outline-none'
-const formspreeEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT?.trim()
+const defaultFormspreeEndpoint = 'https://formspree.io/f/xkoaevpw'
+const formspreeEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT?.trim() || defaultFormspreeEndpoint
 const contactProfileLinks = profileLinks.filter((link) => link.name === 'LinkedIn' || link.name === 'GitHub')
 
-type SubmissionStatus = 'idle' | 'submitting' | 'success' | 'error' | 'missing-endpoint'
+type SubmissionStatus = 'idle' | 'submitting' | 'success' | 'error'
 
 export function ContactPage() {
   const [form, setForm] = useState<ContactFormData>({
@@ -24,18 +25,13 @@ export function ContactPage() {
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-    if (submissionStatus === 'error' || submissionStatus === 'missing-endpoint') {
+    if (submissionStatus === 'error') {
       setSubmissionStatus('idle')
     }
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-
-    if (!formspreeEndpoint) {
-      setSubmissionStatus('missing-endpoint')
-      return
-    }
 
     setSubmissionStatus('submitting')
 
@@ -174,15 +170,6 @@ export function ContactPage() {
                       />
                     </div>
                   </div>
-                  {submissionStatus === 'missing-endpoint' && (
-                    <p className="border border-clay bg-warm-white p-4 text-sm leading-relaxed text-clay" role="status">
-                      This form needs a Formspree endpoint before it can send. Use email at{' '}
-                      <a href={`mailto:${siteConfig.email}`} className="font-semibold underline underline-offset-4">
-                        {siteConfig.email}
-                      </a>
-                      .
-                    </p>
-                  )}
                   {submissionStatus === 'error' && (
                     <p className="border border-clay bg-warm-white p-4 text-sm leading-relaxed text-clay" role="alert">
                       The message did not go through. Please try again or use email at{' '}
