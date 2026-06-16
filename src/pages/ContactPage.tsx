@@ -102,7 +102,6 @@ export function ContactPage() {
             <div className="border border-sand-dark/70 bg-parchment p-4 md:p-5">
               {submissionStatus === 'success' ? (
                 <div className="border border-sand-dark bg-warm-white p-6 md:p-8">
-                  <span className="mb-8 block h-2 w-16 bg-leaf" />
                   <p className="font-display text-4xl leading-none text-ink">Message sent.</p>
                   <p className="mt-5 leading-relaxed text-ink-muted">
                     Thanks for reaching out. I will read it soon and reply from {siteConfig.email}.
