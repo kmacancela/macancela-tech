@@ -101,17 +101,25 @@ export function ContactPage() {
           <AnimatedSection delay={0.12} className="mx-auto w-full max-w-2xl lg:max-w-none">
             <div className="border border-sand-dark/70 bg-parchment p-4 md:p-5">
               {submissionStatus === 'success' ? (
-                <div className="border border-sand-dark bg-warm-white p-6 md:p-8">
-                  <p className="font-display text-4xl leading-none text-ink">Message sent.</p>
-                  <p className="mt-5 leading-relaxed text-ink-muted">
-                    Thanks for reaching out. I will read it soon and reply from {siteConfig.email}.
-                  </p>
-                  <button
-                    onClick={() => setSubmissionStatus('idle')}
-                    className="mt-8 text-sm font-semibold text-ink-muted underline underline-offset-4 hover:text-ink"
-                  >
-                    Send another message
-                  </button>
+                <div className="contact-success-card relative min-h-80 overflow-hidden border border-sand-dark bg-warm-white px-6 py-8 text-center md:min-h-72 md:px-8">
+                  <div className="contact-success-mark absolute left-1/2 top-1/2 flex h-28 w-28 items-center justify-center rounded-full bg-leaf/10 text-leaf ring-1 ring-leaf/20" aria-hidden="true">
+                    <svg className="h-20 w-20" viewBox="0 0 96 96" fill="none">
+                      <circle className="contact-success-mark-circle" cx="48" cy="48" r="33" stroke="currentColor" strokeWidth="6" />
+                      <path className="contact-success-mark-check" d="M33 49.5L43.5 60L65 37.5" stroke="currentColor" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                  <div className="contact-success-copy mx-auto max-w-sm pt-24" role="status" aria-live="polite">
+                    <p className="font-display text-4xl leading-none text-ink">Message sent.</p>
+                    <p className="mt-5 leading-relaxed text-ink-muted">
+                      Thanks for reaching out. I will read it soon and reply from {siteConfig.email}.
+                    </p>
+                    <button
+                      onClick={() => setSubmissionStatus('idle')}
+                      className="mt-8 text-sm font-semibold text-ink-muted underline underline-offset-4 transition-colors hover:text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-tidal focus-visible:ring-offset-4 focus-visible:ring-offset-warm-white"
+                    >
+                      Send another message
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <form

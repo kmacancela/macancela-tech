@@ -298,6 +298,22 @@ p {
   to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
+@keyframes contact-success-mark-flight {
+  0% { opacity: 0; transform: translate3d(-50%, -50%, 0) scale(0.76); }
+  18% { opacity: 1; transform: translate3d(-50%, -50%, 0) scale(1.04); }
+  54% { opacity: 1; transform: translate3d(-50%, -50%, 0) scale(1); }
+  100% { opacity: 1; transform: translate3d(-50%, calc(-50% - 5.8rem), 0) scale(0.42); }
+}
+
+@keyframes contact-success-copy-in {
+  from { opacity: 0; transform: translate3d(0, 12px, 0) scale(0.99); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes contact-success-stroke-in {
+  to { stroke-dashoffset: 0; }
+}
+
 .home-intro-overlay {
   animation: intro-overlay-exit 1.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   will-change: opacity;
@@ -462,6 +478,31 @@ p {
   animation-delay: calc(var(--project-delay) + 0.36s);
 }
 
+.contact-success-mark {
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0) scale(0.76);
+  animation: contact-success-mark-flight 0.76s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: opacity, transform;
+}
+
+.contact-success-copy {
+  opacity: 0;
+  animation: contact-success-copy-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+  will-change: opacity, transform;
+}
+
+.contact-success-mark-circle {
+  stroke-dasharray: 208;
+  stroke-dashoffset: 208;
+  animation: contact-success-stroke-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+.contact-success-mark-check {
+  stroke-dasharray: 52;
+  stroke-dashoffset: 52;
+  animation: contact-success-stroke-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+}
+
 @media (min-width: 768px) {
   .build-profile-intro-handoff {
     --build-profile-start-y: -10.5rem;
@@ -543,6 +584,7 @@ p {
   .project-card-main,
   .project-card-side,
   .project-stack-badge,
+  .contact-success-copy,
   .about-intro-copy,
   .about-photo-roll-target,
   .about-photo-arrival {
@@ -550,5 +592,16 @@ p {
     opacity: 1;
     transform: none !important;
     will-change: auto;
+  }
+  .contact-success-mark {
+    animation: none !important;
+    opacity: 1;
+    transform: translate3d(-50%, calc(-50% - 5.8rem), 0) scale(0.42) !important;
+    will-change: auto;
+  }
+  .contact-success-mark-circle,
+  .contact-success-mark-check {
+    animation: none !important;
+    stroke-dashoffset: 0;
   }
 }
