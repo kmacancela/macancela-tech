@@ -152,8 +152,8 @@ const capabilityHighlightDelayClasses = ['delay-75', 'delay-150', 'delay-300']
 const timelineColors = ['bg-tidal', 'bg-clay', 'bg-sun']
 const timelineDotDelayClasses = ['delay-300', 'delay-150', '']
 const introStorageKey = 'macancela-home-intro-seen'
-const introOverlayMs = 1650
-const introHandoffMs = 2500
+const introOverlayMs = 1950
+const introHandoffMs = 2800
 const initialGreetingHoldMs = 420
 
 function HomeProjectChipText({ label }: { label: HomeProjectChipLabel }) {
