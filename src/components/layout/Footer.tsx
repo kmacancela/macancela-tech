@@ -26,7 +26,7 @@ export function Footer() {
               <span aria-hidden="true">tech</span>
             </Link>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-muted">
-              {siteConfig.role} in {siteConfig.location}. Full-stack credibility, frontend taste, and product systems that hold up under real use.
+              {siteConfig.role} in New York City, building scalable, reliable products across web, mobile, and backend systems.
             </p>
           </div>
 
