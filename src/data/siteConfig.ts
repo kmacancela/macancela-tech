@@ -5,7 +5,7 @@ export const siteConfig = {
   lastName: 'Macancela',
   role: 'Full-Stack Software Engineer',
   roleDetail: 'Frontend-leaning product engineer',
-  tagline: 'Building useful, secure, and polished web products.',
+  tagline: 'Full-stack software engineer focused on intuitive interfaces, solid architecture, and product clarity.',
   subtitle: 'Full-stack software engineer in NYC with 9 years of experience building SaaS products, AI-powered analytics platforms, and secure enterprise systems.',
   bio: [
     'I am a full-stack software engineer and technical product leader based in New York City. I like building products that make complex work feel clearer, faster, and more trustworthy.',

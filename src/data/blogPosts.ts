@@ -14,7 +14,7 @@ export const blogPosts: BlogPost[] = [
     id: 'post-2',
     title: 'What I Learned Turning Internal Tools Into SaaS',
     date: '2026-09-01',
-    excerpt: 'How product polish, extensibility, and multi-tenant architecture change when software grows beyond an internal workflow.',
+    excerpt: 'How product experience, extensibility, and multi-tenant architecture change when software grows beyond an internal workflow.',
     tags: ['SaaS', 'Architecture', 'Vue.js'],
     readingTime: 'Coming soon',
     slug: 'internal-tools-to-saas',

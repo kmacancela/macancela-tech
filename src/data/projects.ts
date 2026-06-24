@@ -51,11 +51,6 @@ export const projects: Project[] = [
         href: 'https://www.aimediagroup.com/atrilyx',
         external: true,
       },
-      {
-        label: 'Watch demo',
-        href: 'https://www.youtube.com/watch?v=B-CBh3Lq_eY&t=62s',
-        external: true,
-      },
     ],
     featured: true,
   },
@@ -98,11 +93,6 @@ export const projects: Project[] = [
         href: 'https://github.com/kmacancela/jpdraws',
         external: true,
       },
-      {
-        label: 'Watch demo',
-        href: 'https://youtu.be/NZ8XEAmZELM',
-        external: true,
-      },
     ],
     featured: false,
   },
@@ -125,11 +115,6 @@ export const projects: Project[] = [
       {
         label: 'GitHub',
         href: 'https://github.com/kmacancela/stocks-api',
-        external: true,
-      },
-      {
-        label: 'Watch demo',
-        href: 'https://youtu.be/-if-txPZPec',
         external: true,
       },
     ],

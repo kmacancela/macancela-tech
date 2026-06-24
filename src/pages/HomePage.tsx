@@ -684,20 +684,21 @@ export function HomePage() {
                     aria-hidden="true"
                   />
 
-                  <p className="text-sm font-bold uppercase tracking-[0.08em] text-night max-[360px]:text-xs md:pr-12">
-                    <span className="max-[360px]:hidden">Contact Me</span>
-                    <span className="hidden max-[360px]:inline">Contact</span>
-                  </p>
-                  <a
-                    href={`mailto:${siteConfig.email}`}
-                    className="mt-1 inline-block break-words text-sm font-semibold text-night/75 underline decoration-night/20 underline-offset-4 transition-colors hover:text-night max-[360px]:text-xs"
-                  >
-                    <span className="max-[420px]:hidden">{siteConfig.email}</span>
-                    <span className="hidden max-[420px]:inline">Email</span>
-                  </a>
+                  <div className="min-w-0">
+                    <p className="text-sm font-bold uppercase tracking-[0.08em] text-night max-[360px]:text-xs md:pr-12">
+                      <span className="max-[360px]:hidden">Contact Me</span>
+                      <span className="hidden max-[360px]:inline">Contact</span>
+                    </p>
+                    <a
+                      href={`mailto:${siteConfig.email}`}
+                      className="mt-0 inline-block max-w-full break-words text-sm font-semibold text-night/75 underline decoration-night/20 underline-offset-4 transition-colors hover:text-night max-[360px]:text-xs md:mt-1"
+                    >
+                      {siteConfig.email}
+                    </a>
+                  </div>
 
-                  <p className="mt-3 text-sm font-semibold leading-snug tracking-normal text-night sm:mt-5 sm:text-lg xl:hidden">
-                    Full-stack SWE focused on frontend polish and clear systems.
+                  <p className="mt-3 text-sm font-semibold leading-snug tracking-normal text-night min-[500px]:max-sm:text-lg sm:mt-5 sm:text-lg xl:hidden">
+                    Full-stack software engineer focused on intuitive interfaces, solid architecture, and product clarity.
                   </p>
 
                   <div className="mt-4 flex flex-wrap gap-2 sm:mt-5 xl:hidden">
