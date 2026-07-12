@@ -89,7 +89,7 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Book a call"
-            className={`inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-full border border-deep-water bg-deep-water px-5 text-sm font-bold text-warm-white transition-[color,background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-moss hover:bg-moss max-[782px]:h-11 max-[782px]:w-11 max-[782px]:px-0 ${focusRing}`}
+            className={`inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-deep-water bg-deep-water px-5 text-sm font-bold text-warm-white transition-[color,background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-moss hover:bg-moss max-[782px]:h-11 max-[782px]:w-11 max-[782px]:px-0 ${focusRing}`}
           >
             <CalendarBlankIcon className="h-4 w-4" weight="bold" aria-hidden="true" />
             <span className="max-[782px]:sr-only">Book a Call</span>
