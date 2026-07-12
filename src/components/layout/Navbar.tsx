@@ -87,7 +87,7 @@ export function Navbar() {
             href={siteConfig.bookingHref}
             target="_blank"
             rel="noopener noreferrer"
-            className={`inline-flex min-h-11 items-center gap-2 rounded-full border border-deep-water bg-deep-water px-5 text-sm font-bold text-warm-white transition-[color,background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-tidal ${focusRing}`}
+            className={`inline-flex min-h-11 items-center gap-2 rounded-full border border-deep-water bg-deep-water px-5 text-sm font-bold text-warm-white transition-[color,background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-moss hover:bg-moss ${focusRing}`}
           >
             <CalendarBlankIcon className="h-4 w-4" weight="bold" aria-hidden="true" />
             Book a Call
@@ -100,7 +100,7 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Book a call"
-            className={`inline-flex h-11 items-center justify-center gap-2 rounded-full border border-deep-water bg-deep-water px-4 text-sm font-bold text-warm-white transition-colors hover:bg-tidal max-[420px]:w-11 max-[420px]:px-0 ${focusRing}`}
+            className={`inline-flex h-11 items-center justify-center gap-2 rounded-full border border-deep-water bg-deep-water px-4 text-sm font-bold text-warm-white transition-colors hover:border-moss hover:bg-moss max-[420px]:w-11 max-[420px]:px-0 ${focusRing}`}
           >
             <CalendarBlankIcon className="h-4 w-4 shrink-0" weight="bold" aria-hidden="true" />
             <span className="max-[420px]:sr-only">Book a Call</span>
