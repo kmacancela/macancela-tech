@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
+import { CalendarBlankIcon } from '@phosphor-icons/react'
 import { Link, useLocation } from 'react-router'
-import { navLinks, profileLinks } from '../../data/profileLinks'
+import { navLinks } from '../../data/profileLinks'
 import { siteConfig } from '../../data/siteConfig'
-import { ProfileIcon } from '../ui/ProfileIcon'
 
-const resumeLink = profileLinks.find((link) => link.name === 'Resume')
 const focusRing = 'focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tidal'
 
 function getActiveRoute(pathname: string) {
@@ -84,30 +83,28 @@ export function Navbar() {
         </div>
 
         <div className="hidden items-center justify-end gap-2 md:flex">
-          {resumeLink && (
-            <a
-              href={resumeLink.href}
-              download={resumeLink.download}
-              className={`inline-flex min-h-11 items-center gap-2 rounded-full border border-paper-line bg-warm-white px-5 text-sm font-bold text-deep-water transition-colors hover:border-tidal hover:text-tidal ${focusRing}`}
-            >
-              <ProfileIcon icon={resumeLink.icon} className="h-4 w-4" />
-              Resume
-            </a>
-          )}
+          <a
+            href={siteConfig.bookingHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`inline-flex min-h-11 items-center gap-2 rounded-full border border-deep-water bg-deep-water px-5 text-sm font-bold text-warm-white transition-[color,background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-tidal ${focusRing}`}
+          >
+            <CalendarBlankIcon className="h-4 w-4" weight="bold" aria-hidden="true" />
+            Book a Call
+          </a>
         </div>
 
         <div className="absolute right-4 top-1/2 flex shrink-0 -translate-y-1/2 items-center gap-1 md:hidden">
-          {resumeLink && (
-            <a
-              href={resumeLink.href}
-              download={resumeLink.download}
-              aria-label="Download resume"
-              className={`inline-flex h-11 items-center justify-center gap-2 rounded-full border border-paper-line bg-parchment px-3 text-sm font-bold text-deep-water max-[360px]:w-11 max-[360px]:px-0 ${focusRing}`}
-            >
-              <ProfileIcon icon={resumeLink.icon} className="h-4 w-4" />
-              <span className="max-[360px]:sr-only">Resume</span>
-            </a>
-          )}
+          <a
+            href={siteConfig.bookingHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Book a call"
+            className={`inline-flex h-11 items-center justify-center gap-2 rounded-full border border-deep-water bg-deep-water px-4 text-sm font-bold text-warm-white transition-colors hover:bg-tidal max-[420px]:w-11 max-[420px]:px-0 ${focusRing}`}
+          >
+            <CalendarBlankIcon className="h-4 w-4 shrink-0" weight="bold" aria-hidden="true" />
+            <span className="max-[420px]:sr-only">Book a Call</span>
+          </a>
           <button
             onClick={() => setMobileOpen((open) => !open)}
             className={`relative z-50 flex h-11 w-11 items-center justify-center rounded-full border border-paper-line bg-parchment ${focusRing}`}

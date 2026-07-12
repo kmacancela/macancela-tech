@@ -12,6 +12,7 @@ export const siteConfig = {
     'Across SaaS, analytics, healthcare, and secure enterprise systems, I have led projects from ambiguous product needs through shipped software, with a steady focus on thoughtful UI, reliable architecture, and cross-functional clarity.',
   ],
   email: 'hello@macancela.tech',
+  bookingHref: 'https://cal.com/karywaves',
   location: 'New York, NY',
   yearsExperience: '9',
   resumeHref: '/Karina-Macancela-Resume.pdf',
