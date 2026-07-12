@@ -62,9 +62,10 @@ export function Navbar() {
         <Link
           to="/"
           aria-label={siteConfig.domain}
-          className={`inline-flex ![font-family:var(--font-editorial)] text-xl leading-none !font-normal !tracking-normal text-deep-water max-[360px]:text-lg sm:text-2xl ${focusRing}`}
+          className={`inline-flex ![font-family:var(--font-editorial)] text-base leading-none !font-normal !tracking-normal text-deep-water sm:text-xl lg:text-2xl ${focusRing}`}
         >
-          macancela.tech
+          <span className="lg:hidden">Macancela Tech</span>
+          <span className="hidden lg:inline">Macancela Technologies</span>
         </Link>
 
         <div className="hidden justify-self-center rounded-full border border-paper-line bg-parchment/70 p-1 md:flex md:items-center md:gap-1">
