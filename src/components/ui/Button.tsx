@@ -33,7 +33,7 @@ export function Button({
   const disabledClasses = disabled ? 'pointer-events-none cursor-not-allowed opacity-60' : ''
 
   const variants: Record<string, string> = {
-    primary: 'border-deep-water bg-deep-water text-warm-white hover:-translate-y-0.5 hover:bg-tidal',
+    primary: 'border-deep-water bg-deep-water text-warm-white hover:-translate-y-0.5 hover:border-moss hover:bg-moss',
     outline: 'border-paper-line bg-warm-white text-deep-water hover:-translate-y-0.5 hover:border-tidal hover:text-tidal',
     ghost: 'border-transparent text-tidal hover:border-paper-line hover:bg-warm-white hover:text-deep-water',
   }
