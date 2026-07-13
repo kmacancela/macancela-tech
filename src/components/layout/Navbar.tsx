@@ -61,11 +61,24 @@ export function Navbar() {
       <div className="relative mx-auto grid h-20 max-w-[94rem] grid-cols-[auto_1fr_auto] items-center gap-4 px-4 sm:px-6">
         <Link
           to="/"
-          aria-label={siteConfig.domain}
-          className={`inline-flex ![font-family:var(--font-editorial)] text-base leading-none !font-normal !tracking-normal text-deep-water sm:text-xl lg:text-2xl ${focusRing}`}
+          aria-label="Macancela Technologies home"
+          className={`group inline-flex flex-col items-stretch text-deep-water ${focusRing}`}
         >
-          <span className="lg:hidden">Macancela Tech</span>
-          <span className="hidden lg:inline">Macancela Technologies</span>
+          <span
+            className="relative text-2xl font-bold leading-none tracking-normal sm:text-3xl"
+            aria-hidden="true"
+          >
+            Macancela
+            <span className="pointer-events-none absolute inset-0 text-moss [clip-path:inset(0_100%_0_0)] transition-[clip-path] duration-200 ease-out group-hover:[clip-path:inset(0_0_0_0)] group-focus-visible:[clip-path:inset(0_0_0_0)] motion-reduce:transition-none">
+              Macancela
+            </span>
+          </span>
+          <span
+            className="w-full text-center text-xs font-normal uppercase leading-none tracking-normal text-ink-muted"
+            aria-hidden="true"
+          >
+            Technologies
+          </span>
         </Link>
 
         <div className="hidden justify-self-center rounded-full border border-paper-line bg-parchment/70 p-1 md:flex md:items-center md:gap-1">
