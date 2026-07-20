@@ -2,6 +2,35 @@ import type { Project } from '../types'
 
 export const projects: Project[] = [
   {
+    id: 'flea-finder',
+    title: 'Flea Finder',
+    status: 'Active',
+    kind: 'Product web app',
+    summary: 'A source-backed catalog that helps independent NYC sellers find current market opportunities and understand where they can apply next.',
+    problem: 'Vendor opportunities were scattered across organizer sites and social channels, leaving independent sellers to piece together deadlines, requirements, fees, and application links on their own.',
+    role: 'Product-minded full-stack engineer owning product definition, interface design, catalog architecture, curator workflows, deployment, and research automation.',
+    highlights: [
+      'Built a source-backed catalog with deterministic application and freshness labels, detailed opportunity pages, and tracked outbound application links.',
+      'Created public suggestion and correction flows alongside a protected curator desk for reviewing, editing, and publishing market records.',
+      'Added a private R2 photo library with searchable metadata, reusable collections, duplicate detection, and ZIP exports.',
+      'Automated recurring market research while preserving transparent added, refreshed, and past-opportunity change history.',
+    ],
+    tech: ['React', 'TypeScript', 'Next.js', 'Cloudflare D1', 'Cloudflare R2', 'Vitest', 'Playwright'],
+    links: [
+      {
+        label: 'Check it out',
+        href: 'https://flea-finder-nyc.karymacancela.chatgpt.site/',
+        external: true,
+      },
+      {
+        label: 'GitHub',
+        href: 'https://github.com/kmacancela/flea-finder',
+        external: true,
+      },
+    ],
+    featured: true,
+  },
+  {
     id: 'kary-waves',
     title: 'Kary Waves',
     status: 'Active',
