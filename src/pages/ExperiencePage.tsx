@@ -6,12 +6,20 @@ import type { Experience } from '../types'
 
 const experienceTimelineItems = [
   {
+    experienceId: 'exp-0',
+    callout: 'Independent full-stack work across product direction, frontend experiences, backend services, and production delivery.',
+    proof: 'Independent delivery / web + mobile products / end-to-end ownership',
+    badgeVariant: 'leaf',
+    dotClass: 'border-leaf bg-leaf',
+    side: 'right',
+  },
+  {
     experienceId: 'exp-1',
     callout: 'Senior full-stack ownership across product surfaces, multi-tenant data boundaries, SSO, and launch-ready analytics.',
     proof: '300+ SaaS clients / 10M+ daily events / 120+ internal SSO users',
     badgeVariant: 'tidal',
     dotClass: 'border-tidal bg-tidal',
-    detailCount: 3,
+    side: 'left',
   },
   {
     experienceId: 'exp-2',
@@ -19,7 +27,7 @@ const experienceTimelineItems = [
     proof: 'Agile delivery / HIPAA + PII audits / executive alignment',
     badgeVariant: 'moss',
     dotClass: 'border-moss bg-moss',
-    detailCount: 2,
+    side: 'right',
   },
   {
     experienceId: 'exp-3',
@@ -27,7 +35,7 @@ const experienceTimelineItems = [
     proof: 'Microservices migration / OAuth2 mobile auth / rollback planning',
     badgeVariant: 'sun',
     dotClass: 'border-sun bg-sun',
-    detailCount: 2,
+    side: 'left',
   },
   {
     experienceId: 'exp-4',
@@ -35,7 +43,7 @@ const experienceTimelineItems = [
     proof: 'Campus IT support / systems imaging / network troubleshooting',
     badgeVariant: 'clay',
     dotClass: 'border-clay bg-clay',
-    detailCount: 2,
+    side: 'right',
   },
 ] as const
 
@@ -51,10 +59,10 @@ interface TimelineEntryProps {
   index: number
 }
 
-const timelineStepClasses = ['timeline-step-1', 'timeline-step-2', 'timeline-step-3', 'timeline-step-4'] as const
+const timelineStepClasses = ['timeline-step-1', 'timeline-step-2', 'timeline-step-3', 'timeline-step-4', 'timeline-step-5'] as const
 
 function TimelineEntry({ item, card, index }: TimelineEntryProps) {
-  const isLeft = index % 2 === 0
+  const isLeft = card.side === 'left'
   const contentClass = isLeft ? 'md:pr-10 md:text-right' : 'md:col-start-3 md:pl-10'
   const proofClass = isLeft ? 'md:col-start-3 md:pl-10' : 'md:col-start-1 md:row-start-1 md:pr-10 md:text-right'
   const dateClass = isLeft ? 'ml-6 md:-ml-6 md:-translate-x-full' : 'ml-6'
@@ -66,7 +74,7 @@ function TimelineEntry({ item, card, index }: TimelineEntryProps) {
 
   return (
     <div
-      className={`timeline-entry ${timelineStepClass} relative grid gap-0 pl-12 pt-12 md:grid-cols-[minmax(0,1fr)_3rem_minmax(0,1fr)] md:items-start md:pl-0`}
+      className={`timeline-entry ${timelineStepClass} relative grid gap-0 pl-12 pt-12 md:grid-cols-[minmax(0,1fr)_3rem_minmax(0,1fr)] md:items-center md:pl-0`}
     >
       <div className="absolute left-4 top-2 z-30 flex -translate-x-1/2 items-center justify-center md:left-1/2" aria-hidden="true">
         <span className={`timeline-dot h-4 w-4 rounded-full border-4 ring-8 ring-warm-white ${card.dotClass}`} />
@@ -91,6 +99,9 @@ function TimelineEntry({ item, card, index }: TimelineEntryProps) {
             <p className="mt-5 text-base leading-relaxed text-ink-light">
               {item.context}
             </p>
+            <p className="mt-5 text-sm leading-relaxed text-ink-muted">
+              {item.description[0]}
+            </p>
           </div>
 
           <div className={`mt-6 flex flex-wrap gap-2 ${metaClass}`}>
@@ -110,7 +121,7 @@ function TimelineEntry({ item, card, index }: TimelineEntryProps) {
             {card.callout}
           </p>
           <div className="mt-5 space-y-3">
-            {item.description.slice(0, card.detailCount).map((detail) => (
+            {item.description.slice(1, 3).map((detail) => (
               <p key={detail} className="border-t border-sand-dark/70 pt-3 text-sm leading-relaxed text-ink-muted">
                 {detail}
               </p>
@@ -153,20 +164,20 @@ export function ExperiencePage() {
           </div>
 
           <AnimatedSection delay={0.12} className="lg:col-span-6">
-            <article className="mt-14 rounded-3xl border border-paper-line bg-sand p-6 md:mt-20 md:p-8">
+            <article className="mt-14 bg-sand/60 p-6 md:mt-20 md:p-8">
               <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
                 <div>
-                  <h2 className="font-display text-4xl leading-[1.04] tracking-[-0.02em] text-deep-water md:text-5xl">
+                  <h2 className="font-display text-3xl leading-[1.04] tracking-[-0.02em] text-deep-water md:text-4xl">
                     Education
                   </h2>
-                  <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-muted">
+                  <p className="mt-4 max-w-md text-base leading-relaxed text-ink-muted">
                     {education.detail}
                   </p>
                 </div>
 
-                <div className="rounded-2xl border border-sand-dark/70 bg-warm-white p-5 md:p-6">
+                <div className="lg:pt-1">
                   <p className="text-sm font-bold text-ink-muted">{education.school}</p>
-                  <h3 className="mt-3 font-display text-3xl leading-tight text-ink md:text-4xl">
+                  <h3 className="mt-3 font-display text-2xl leading-tight text-ink md:text-3xl">
                     {education.degree}
                   </h3>
                 </div>

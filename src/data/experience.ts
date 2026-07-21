@@ -2,6 +2,22 @@ import type { Experience } from '../types'
 
 export const experience: Experience[] = [
   {
+    id: 'exp-0',
+    company: 'Macancela Technologies',
+    role: 'Freelance Full-Stack Software Engineer',
+    location: 'New York, NY',
+    startDate: 'January 2026',
+    endDate: 'Present',
+    context: 'Building and maintaining software products through independent full-stack work.',
+    description: [
+      'Own work end to end, from product planning and interface implementation through backend development, testing, and deployment.',
+      'Develop responsive web experiences and supporting services with an emphasis on maintainable systems and clear product decisions.',
+      'Iterate on active products after launch, refining features and usability as requirements evolve.',
+    ],
+    tech: ['React', 'TypeScript', 'Node.js', 'API Design', 'Product Delivery'],
+    current: true,
+  },
+  {
     id: 'exp-1',
     company: 'Ai Media Group',
     role: 'Senior Software Engineer',

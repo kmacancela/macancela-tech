@@ -381,6 +381,10 @@ p {
   --timeline-delay: 0.66s;
 }
 
+.timeline-step-5 {
+  --timeline-delay: 0.82s;
+}
+
 .timeline-dot {
   animation: timeline-dot-in 0.48s cubic-bezier(0.22, 1, 0.36, 1) var(--timeline-delay) both;
   will-change: opacity, transform;
