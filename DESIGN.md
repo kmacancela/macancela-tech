@@ -17,7 +17,7 @@ Warm editorial software portfolio.
 ## Theme
 
 - Background: warm cream and pale sage, not stark white.
-- Ink: deep-water teal for primary identity moments, warm ink for body.
+- Ink: favicon charcoal for primary identity moments, warm green-black ink for body.
 - Accent: teal brush marks and actions, with warm gold used as a soft supporting field.
 - Support: clay and leaf used sparingly for status or secondary emphasis.
 - Rules: pale sage borders and bracketed labels should create the Serene Fit Illustrator restraint.
@@ -42,19 +42,19 @@ Warm editorial software portfolio.
 ### Chosen Stack
 
 - Display/UI/body: `Source Sans 3`, weights 400-700.
-- Editorial accent: `Ogg`, weights 400-500, used only for signature/brand moments.
+- Editorial accent: `Ogg`, weights 400-500, used only for occasional signature moments.
 - Technical labels: `JetBrains Mono`, weights 400-600, used sparingly.
 
 ### Why This Stack
 
 - `Source Sans 3` keeps resumes, project summaries, UI labels, and section headings easy to scan.
-- `Ogg` gives the portfolio a personal, editorial voice when used in very small doses, starting with the macancela.tech wordmark.
+- `Ogg` gives the portfolio a personal, editorial voice when used in very small doses, starting with the homepage opening wordmark.
 - `JetBrains Mono` is reserved for compact evidence labels, stack tags, and machine-like metadata only when the label genuinely benefits from alignment.
 
 ### Typography Rules
 
 - Sans display text should stay below `6rem` and use tracking no tighter than `-0.02em`.
-- Ogg should be reserved for the macancela.tech wordmark, one about-page pull quote, and future blog titles.
+- Ogg should be reserved for the homepage opening wordmark, one about-page pull quote, and future blog titles.
 - Body text should stay at `1rem` or larger with line-height around `1.55`.
 - Long prose should max out around `65ch`.
 - Use 3 useful levels most of the time: label, body, section heading.

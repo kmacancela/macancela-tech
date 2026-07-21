@@ -13,27 +13,30 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-14">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_0.8fr_0.8fr]">
           <div>
-            <Link
-              to="/"
-              aria-label="macancela.tech"
-              className={`inline-flex items-baseline ![font-family:var(--font-editorial)] text-5xl leading-none !font-normal !tracking-normal text-deep-water ${focusRing}`}
-            >
-              <span aria-hidden="true">macancela</span>
-              <span className="relative mx-[0.04em] inline-flex h-[0.16em] w-[0.16em] shrink-0 -translate-y-[0.05em]" aria-hidden="true">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-tidal opacity-50" />
-                <span className="relative inline-flex h-full w-full rounded-full bg-tidal" />
-              </span>
-              <span aria-hidden="true">tech</span>
-            </Link>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-muted">
-              {siteConfig.role} in New York City, building scalable, reliable products across web, mobile, and backend systems.
-            </p>
+            <div className="flex max-w-lg items-start gap-4">
+              <Link
+                to="/"
+                aria-label="Macancela Technologies home"
+                className={`mt-1 shrink-0 transition-transform duration-200 ease-out hover:-translate-y-0.5 ${focusRing}`}
+              >
+                <img
+                  src="/favicon.png"
+                  alt=""
+                  width="40"
+                  height="40"
+                  className="h-10 w-10"
+                />
+              </Link>
+              <p className="text-base leading-relaxed text-ink-muted">
+                {siteConfig.role} in New York City, building scalable, reliable products across web, mobile, and backend systems.
+              </p>
+            </div>
           </div>
 
           <div>
-            <nav aria-label="Footer navigation" className="grid w-fit grid-flow-col auto-cols-max gap-x-8 gap-y-3 lg:block lg:w-auto">
+            <nav aria-label="Footer navigation" className="grid w-fit grid-cols-2 gap-x-10 sm:gap-x-12">
               {quickLinkColumns.map((column, columnIndex) => (
-                <ul key={columnIndex} className={`space-y-3 ${columnIndex > 0 ? 'lg:mt-3' : ''}`}>
+                <ul key={columnIndex} className="space-y-3">
                   {column.map((link) => (
                     <li key={link.label}>
                       <Link to={link.href} className={`text-sm font-semibold text-ink-muted transition-colors hover:text-tidal ${focusRing}`}>

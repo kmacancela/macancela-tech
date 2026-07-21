@@ -73,7 +73,7 @@ function TimelineEntry({ item, card, index }: TimelineEntryProps) {
       </div>
 
       <div className={`absolute left-4 top-0 z-20 md:left-1/2 ${dateClass}`}>
-        <span className={`timeline-date-pill ${datePillClass} block whitespace-nowrap rounded-full border border-paper-line bg-warm-white px-3 py-1.5 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.08em] text-deep-water shadow-[0_10px_24px_rgba(18,54,64,0.045)]`}>
+        <span className={`timeline-date-pill ${datePillClass} block whitespace-nowrap rounded-full border border-paper-line bg-warm-white px-3 py-1.5 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.08em] text-deep-water shadow-[0_10px_24px_rgba(27,28,23,0.045)]`}>
           {item.startDate} - {item.endDate}
         </span>
       </div>

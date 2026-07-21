@@ -3,6 +3,7 @@ import { CalendarBlankIcon } from '@phosphor-icons/react'
 import { Link, useLocation } from 'react-router'
 import { navLinks } from '../../data/profileLinks'
 import { siteConfig } from '../../data/siteConfig'
+import { BrandLockup } from '../ui/BrandLockup'
 
 const focusRing = 'focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tidal'
 
@@ -57,29 +58,9 @@ export function Navbar() {
 
   return (
     <>
-      <nav className={`fixed inset-x-0 top-0 z-50 border-b border-paper-line bg-warm-white/88 backdrop-blur-xl transition-shadow duration-300 ${scrolled || mobileOpen ? 'shadow-[0_16px_34px_rgba(18,59,57,0.08)]' : ''}`}>
+      <nav className={`fixed inset-x-0 top-0 z-50 border-b border-paper-line bg-warm-white/88 backdrop-blur-xl transition-shadow duration-300 ${scrolled || mobileOpen ? 'shadow-[0_16px_34px_rgba(27,28,23,0.08)]' : ''}`}>
       <div className="relative mx-auto grid h-20 max-w-[94rem] grid-cols-[auto_1fr_auto] items-center gap-4 px-4 sm:px-6">
-        <Link
-          to="/"
-          aria-label="Macancela Technologies home"
-          className={`group inline-flex flex-col items-stretch text-deep-water ${focusRing}`}
-        >
-          <span
-            className="relative text-2xl font-bold leading-none tracking-normal sm:text-3xl"
-            aria-hidden="true"
-          >
-            Macancela
-            <span className="pointer-events-none absolute inset-0 text-moss [clip-path:inset(0_100%_0_0)] transition-[clip-path] duration-200 ease-out group-hover:[clip-path:inset(0_0_0_0)] group-focus-visible:[clip-path:inset(0_0_0_0)] motion-reduce:transition-none">
-              Macancela
-            </span>
-          </span>
-          <span
-            className="w-full text-center text-xs font-normal uppercase leading-none tracking-normal text-ink-muted"
-            aria-hidden="true"
-          >
-            Technologies
-          </span>
-        </Link>
+        <BrandLockup />
 
         <div className="hidden justify-self-center rounded-full border border-paper-line bg-parchment/70 p-1 md:flex md:items-center md:gap-1">
           {navLinks.map((link) => (
@@ -88,7 +69,7 @@ export function Navbar() {
               to={link.href}
               aria-current={isActive(link.href) ? 'page' : undefined}
               className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${focusRing} ${
-                isActive(link.href) ? 'bg-warm-white text-deep-water shadow-[0_4px_14px_rgba(18,59,57,0.08)]' : 'text-ink-muted hover:bg-warm-white hover:text-deep-water'
+                isActive(link.href) ? 'bg-warm-white text-deep-water shadow-[0_4px_14px_rgba(27,28,23,0.08)]' : 'text-ink-muted hover:bg-warm-white hover:text-deep-water'
               }`}
             >
               {link.label}
@@ -147,7 +128,7 @@ export function Navbar() {
           />
           <div
             id={mobileMenuId}
-            className="fixed inset-x-0 top-20 z-40 max-h-[calc(100svh-5rem)] overflow-y-auto overscroll-contain bg-warm-white/98 text-deep-water shadow-[0_24px_48px_rgba(18,59,57,0.12)] backdrop-blur-xl md:hidden"
+            className="fixed inset-x-0 top-20 z-40 max-h-[calc(100svh-5rem)] overflow-y-auto overscroll-contain bg-warm-white/98 text-deep-water shadow-[0_24px_48px_rgba(27,28,23,0.12)] backdrop-blur-xl md:hidden"
           >
             <div className="mx-auto max-w-xl px-5 py-5 sm:px-6">
               <div className="grid gap-1">

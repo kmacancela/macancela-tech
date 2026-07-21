@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ArrowUpIcon, ArrowUpRightIcon, PlusIcon } from '@phosphor-icons/react'
 import { Link } from 'react-router'
+import { AnimatedSection } from '../components/ui/AnimatedSection'
 import { Badge } from '../components/ui/Badge'
 import { projects } from '../data/projects'
 import type { Project } from '../types'
@@ -54,8 +55,11 @@ function ProjectLinks({ project }: { project: Project }) {
 }
 
 function FeaturedProject({ project, index, isDetailsOpen, onToggleDetails }: FeaturedProjectProps) {
+  const [imageLoaded, setImageLoaded] = useState(false)
   const imageFollowsCopy = index % 2 === 1
   const detailsId = `${project.id}-details`
+  const imageBasePath = project.image.replace(/\.[^.]+$/, '')
+  const loadImmediately = index < 2
   const sectionSpacing = index === 0
     ? 'pt-0'
     : 'pt-12 md:pt-16 lg:pt-20'
@@ -64,17 +68,34 @@ function FeaturedProject({ project, index, isDetailsOpen, onToggleDetails }: Fea
     <article id={project.id} className={`scroll-mt-28 ${sectionSpacing}`}>
       <div className="grid min-w-0 gap-9 xl:grid-cols-[minmax(0,1.12fr)_minmax(24rem,0.88fr)] xl:items-start xl:gap-14">
         <figure className={`min-w-0 ${imageFollowsCopy ? 'xl:order-2' : ''}`}>
-          <div className="project-preview-frame aspect-[8/5] overflow-hidden border border-paper-line bg-sand/60">
-            <img
-              src={project.image}
-              alt={project.imageAlt}
-              width="1440"
-              height="900"
-              loading={index === 0 ? 'eager' : 'lazy'}
-              fetchPriority={index === 0 ? 'high' : 'auto'}
-              decoding="async"
-              className="h-full w-full object-cover object-top"
+          <div className="project-preview-frame relative aspect-[8/5] overflow-hidden border border-paper-line bg-sand/60">
+            <div
+              aria-hidden="true"
+              className={`absolute inset-0 bg-sand/60 transition-opacity duration-300 motion-reduce:transition-none ${imageLoaded ? 'opacity-0' : 'opacity-100'}`}
             />
+            <picture className="block h-full w-full">
+              <source
+                type="image/avif"
+                srcSet={`${imageBasePath}-720.avif 720w, ${imageBasePath}-1280.avif 1280w`}
+                sizes="(min-width: 1280px) 55vw, calc(100vw - 3rem)"
+              />
+              <source
+                type="image/webp"
+                srcSet={`${imageBasePath}-720.webp 720w, ${imageBasePath}-1280.webp 1280w`}
+                sizes="(min-width: 1280px) 55vw, calc(100vw - 3rem)"
+              />
+              <img
+                src={project.image}
+                alt={project.imageAlt}
+                width="1440"
+                height="900"
+                loading={loadImmediately ? 'eager' : 'lazy'}
+                fetchPriority={index === 0 ? 'high' : 'auto'}
+                decoding="async"
+                onLoad={() => setImageLoaded(true)}
+                className={`h-full w-full object-cover object-top transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${imageLoaded ? 'scale-100 opacity-100' : 'scale-[1.006] opacity-0'}`}
+              />
+            </picture>
           </div>
         </figure>
 
@@ -309,52 +330,60 @@ export function ProjectsPage() {
           <section aria-label="Current projects">
             <div>
               {featuredProjects.map((project, index) => (
-                <FeaturedProject
+                <AnimatedSection
                   key={project.id}
-                  project={project}
-                  index={index}
-                  isDetailsOpen={expandedProjectId === project.id}
-                  onToggleDetails={() => setProjectExpanded(project.id, expandedProjectId !== project.id)}
-                />
+                  delay={index === 0 ? 0 : Math.min(index * 0.08, 0.15)}
+                >
+                  <FeaturedProject
+                    project={project}
+                    index={index}
+                    isDetailsOpen={expandedProjectId === project.id}
+                    onToggleDetails={() => setProjectExpanded(project.id, expandedProjectId !== project.id)}
+                  />
+                </AnimatedSection>
               ))}
             </div>
           </section>
 
-          <section aria-label="Additional projects" className="pt-12 md:pt-16">
-            <div>
-              {archiveProjects.map((project, index) => (
-                <ArchiveProject
-                  key={project.id}
-                  project={project}
-                  isFirst={index === 0}
-                  isLast={index === archiveProjects.length - 1}
-                  isOpen={expandedProjectId === project.id}
-                  showFullWidthBoundaries={expandedProjectId === project.id || closingProjectId === project.id}
-                  isPreviousExpandedVisual={index > 0 && (
-                    expandedProjectId === archiveProjects[index - 1].id
-                    || closingProjectId === archiveProjects[index - 1].id
-                  )}
-                  onToggle={(shouldOpen) => setProjectExpanded(project.id, shouldOpen)}
-                />
-              ))}
-            </div>
-          </section>
+          <AnimatedSection delay={0.08}>
+            <section aria-label="Additional projects" className="pt-12 md:pt-16">
+              <div>
+                {archiveProjects.map((project, index) => (
+                  <ArchiveProject
+                    key={project.id}
+                    project={project}
+                    isFirst={index === 0}
+                    isLast={index === archiveProjects.length - 1}
+                    isOpen={expandedProjectId === project.id}
+                    showFullWidthBoundaries={expandedProjectId === project.id || closingProjectId === project.id}
+                    isPreviousExpandedVisual={index > 0 && (
+                      expandedProjectId === archiveProjects[index - 1].id
+                      || closingProjectId === archiveProjects[index - 1].id
+                    )}
+                    onToggle={(shouldOpen) => setProjectExpanded(project.id, shouldOpen)}
+                  />
+                ))}
+              </div>
+            </section>
+          </AnimatedSection>
 
-          <aside className="mt-16 border-t border-paper-line pt-8 md:mt-24 md:grid md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-10 md:pt-10">
-            <div>
-              <h2 className="text-2xl font-bold text-ink md:text-3xl">Interested in how I work?</h2>
-              <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-light">
-                I can walk through product decisions, implementation tradeoffs, and the systems behind this work.
-              </p>
-            </div>
-            <Link
-              to="/contact"
-              className="mt-6 inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-full border border-deep-water bg-deep-water px-6 py-3 text-sm font-bold text-warm-white transition-[background-color,border-color] duration-200 hover:border-moss hover:bg-moss focus:outline-none focus-visible:ring-2 focus-visible:ring-tidal focus-visible:ring-offset-4 focus-visible:ring-offset-warm-white md:mt-0"
-            >
-              Start a conversation
-              <ArrowUpRightIcon aria-hidden="true" className="h-4 w-4" weight="bold" />
-            </Link>
-          </aside>
+          <AnimatedSection delay={0.08}>
+            <aside className="mt-16 border-t border-paper-line pt-8 md:mt-24 md:grid md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-10 md:pt-10">
+              <div>
+                <h2 className="text-2xl font-bold text-ink md:text-3xl">Interested in how I work?</h2>
+                <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-light">
+                  I can walk through product decisions, implementation tradeoffs, and the systems behind this work.
+                </p>
+              </div>
+              <Link
+                to="/contact"
+                className="mt-6 inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-full border border-deep-water bg-deep-water px-6 py-3 text-sm font-bold text-warm-white transition-[background-color,border-color] duration-200 hover:border-moss hover:bg-moss focus:outline-none focus-visible:ring-2 focus-visible:ring-tidal focus-visible:ring-offset-4 focus-visible:ring-offset-warm-white md:mt-0"
+              >
+                Start a conversation
+                <ArrowUpRightIcon aria-hidden="true" className="h-4 w-4" weight="bold" />
+              </Link>
+            </aside>
+          </AnimatedSection>
         </div>
       </section>
     </div>
