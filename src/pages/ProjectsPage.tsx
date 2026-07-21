@@ -1,233 +1,360 @@
 import { useEffect, useState } from 'react'
+import { ArrowUpIcon, ArrowUpRightIcon, PlusIcon } from '@phosphor-icons/react'
+import { Link } from 'react-router'
 import { Badge } from '../components/ui/Badge'
-import { Button } from '../components/ui/Button'
 import { projects } from '../data/projects'
-import { useInView } from '../hooks/useInView'
 import type { Project } from '../types'
 
-interface ProjectCardProps {
-  project: Project
+type FeaturedProjectData = Project & Required<Pick<Project, 'image' | 'imageAlt'>>
+
+interface FeaturedProjectProps {
+  project: FeaturedProjectData
   index: number
+  isDetailsOpen: boolean
+  onToggleDetails: () => void
 }
 
-const accentClasses = ['bg-deep-water', 'bg-clay', 'bg-moss', 'bg-tidal', 'bg-sun']
-const decodeCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-const decodableCharacterPattern = /[A-Za-z0-9]/
-
-function countDecodableCharacters(label: string) {
-  return Array.from(label).filter((character) => decodableCharacterPattern.test(character)).length
+function isFeaturedProject(project: Project): project is FeaturedProjectData {
+  return Boolean(project.image && project.imageAlt)
 }
 
-function scrambleLabel(label: string, revealedCharacters: number) {
-  let decodableIndex = 0
-
-  return Array.from(label).map((character) => {
-    if (!decodableCharacterPattern.test(character)) return character
-
-    decodableIndex += 1
-    if (decodableIndex <= revealedCharacters) return character
-
-    const nextIndex = Math.floor(Math.random() * decodeCharacters.length)
-    return decodeCharacters[nextIndex]
-  }).join('')
-}
-
-interface DecodingStackBadgeProps {
-  active: boolean
-  delayIndex: number
-  label: string
-}
-
-function DecodingStackBadge({ active, delayIndex, label }: DecodingStackBadgeProps) {
-  const [displayText, setDisplayText] = useState(label)
-
-  useEffect(() => {
-    if (!active) return
-
-    if (typeof window === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setDisplayText(label)
-      return
-    }
-
-    const decodableCount = countDecodableCharacters(label)
-    if (decodableCount === 0) {
-      setDisplayText(label)
-      return
-    }
-
-    let frame = 0
-    let intervalId: number | undefined
-    const startDelay = 120 + delayIndex * 44
-
-    const timeoutId = window.setTimeout(() => {
-      setDisplayText(scrambleLabel(label, 0))
-
-      intervalId = window.setInterval(() => {
-        frame += 1
-        const revealedCharacters = Math.min(decodableCount, Math.floor(frame / 2))
-
-        if (revealedCharacters >= decodableCount) {
-          setDisplayText(label)
-          if (intervalId !== undefined) window.clearInterval(intervalId)
-          return
-        }
-
-        setDisplayText(scrambleLabel(label, revealedCharacters))
-      }, 38)
-    }, startDelay)
-
-    return () => {
-      window.clearTimeout(timeoutId)
-      if (intervalId !== undefined) window.clearInterval(intervalId)
-    }
-  }, [active, delayIndex, label])
-
+function StackBadges({ tech }: { tech: string[] }) {
   return (
-    <span className="project-stack-badge">
-      <Badge>
-        <span aria-hidden="true">{displayText}</span>
-        <span className="sr-only">{label}</span>
-      </Badge>
-    </span>
-  )
-}
-
-interface StackFocusBadgesProps {
-  tech: string[]
-}
-
-function StackFocusBadges({ tech }: StackFocusBadgesProps) {
-  const { ref, isInView } = useInView('-20px')
-
-  return (
-    <div ref={ref} className="mt-4 flex flex-wrap gap-2">
-      {tech.map((item, techIndex) => (
-        <DecodingStackBadge key={item} active={isInView} delayIndex={techIndex} label={item} />
+    <div className="flex flex-wrap gap-2">
+      {tech.map((item) => (
+        <Badge key={item} variant="water">{item}</Badge>
       ))}
     </div>
   )
 }
 
-function ProjectCard({ project, index }: ProjectCardProps) {
-  const reversed = index % 2 === 1
-  const accentClass = accentClasses[index % accentClasses.length]
-  const entryStepClass = `project-card-step-${Math.min(index + 1, 5)}`
-  const { ref, isInView } = useInView()
-  const details = [
-    {
-      label: 'Challenge',
-      value: project.problem,
-    },
-    {
-      label: 'My role',
-      value: project.role,
-    },
-  ]
+function ProjectLinks({ project }: { project: Project }) {
+  if (project.links.length === 0) return null
 
   return (
-    <div
-      ref={ref}
-      className={`project-card-entry ${entryStepClass} ${isInView ? 'project-card-in' : 'project-card-initial'}`}
-    >
-      <article
-        id={project.id}
-        className="scroll-mt-28 overflow-hidden border border-paper-line bg-warm-white shadow-sm"
-      >
-        <div className="grid lg:grid-cols-3">
-          <section
-            className={`order-1 p-6 sm:p-8 lg:col-span-2 lg:p-10 ${
-              reversed ? 'lg:order-2' : 'lg:order-1'
-            } project-card-main`}
-          >
-            <div className="max-w-4xl">
-              <h2 className="font-display text-4xl leading-[1.02] tracking-[-0.02em] text-ink md:text-6xl">
-                {project.title}
-              </h2>
-              <p className="mt-6 max-w-3xl text-lg leading-relaxed text-ink-light md:text-xl">{project.summary}</p>
-            </div>
-
-            <div className="mt-8 grid gap-6 md:grid-cols-2 md:gap-8">
-              {details.map((detail, detailIndex) => (
-                <section
-                  key={detail.label}
-                  className={detailIndex === 0 ? 'md:pr-8' : 'md:pl-8'}
-                >
-                  <h3 className="text-sm font-semibold text-deep-water">{detail.label}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-ink-muted">{detail.value}</p>
-                </section>
-              ))}
-            </div>
-
-            <div className="mt-8">
-              <h3 className="text-sm font-semibold text-deep-water">What shipped</h3>
-              <ul className="mt-4 grid gap-x-8 md:grid-cols-2">
-                {project.highlights.map((item) => (
-                  <li
-                    key={item}
-                    className="flex gap-3 py-4 text-sm leading-relaxed text-ink-light"
-                  >
-                    <span className={`mt-2 h-2 w-2 shrink-0 ${accentClass}`} aria-hidden="true" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
-
-          <aside
-            className={`order-2 border-t border-paper-line bg-sand/60 p-6 sm:p-8 lg:col-span-1 lg:border-t-0 ${
-              reversed ? 'lg:order-1 lg:border-r' : 'lg:order-2 lg:border-l'
-            } project-card-side`}
-          >
-            <div className="flex h-full flex-col justify-between gap-10">
-              <div className="grid grid-cols-2 items-start gap-8 lg:block lg:space-y-8">
-                <div>
-                  <dl className="space-y-4">
-                    <div>
-                      <dt className="text-xs font-bold uppercase tracking-[0.08em] text-ink-muted">Type</dt>
-                      <dd className="mt-1 text-base font-bold text-ink">{project.kind}</dd>
-                    </div>
-                    <div>
-                      <dt className="text-xs font-bold uppercase tracking-[0.08em] text-ink-muted">Status</dt>
-                      <dd className="mt-1 text-base font-bold text-deep-water">{project.status}</dd>
-                    </div>
-                  </dl>
-                </div>
-
-                <div className="lg:border-t lg:border-sand-dark/70 lg:pt-6">
-                  <p className="font-mono text-xs font-semibold uppercase tracking-[0.08em] text-deep-water">Stack focus</p>
-                  <StackFocusBadges tech={project.tech} />
-                </div>
-              </div>
-
-              {project.links.length > 0 && (
-                <div className="flex flex-wrap gap-3 border-t border-sand-dark/70 pt-6">
-                  {project.links.map((link) => (
-                    <Button key={link.href} href={link.href} target={link.external ? '_blank' : undefined} variant="outline" className="w-full">
-                      {link.label}
-                    </Button>
-                  ))}
-                </div>
-              )}
-            </div>
-          </aside>
-        </div>
-      </article>
+    <div className="flex flex-wrap gap-x-6 gap-y-3">
+      {project.links.map((link) => (
+        <a
+          key={link.href}
+          href={link.href}
+          target={link.external ? '_blank' : undefined}
+          rel={link.external ? 'noopener noreferrer' : undefined}
+          className="inline-flex min-h-11 items-center gap-2 whitespace-nowrap border-b border-deep-water py-2 text-sm font-bold text-deep-water transition-colors duration-200 hover:text-tidal focus:outline-none focus-visible:ring-2 focus-visible:ring-tidal focus-visible:ring-offset-4 focus-visible:ring-offset-warm-white"
+        >
+          {link.label}
+          <ArrowUpRightIcon
+            aria-hidden="true"
+            className="h-4 w-4"
+            weight="bold"
+          />
+        </a>
+      ))}
     </div>
   )
 }
 
-export function ProjectsPage() {
+function FeaturedProject({ project, index, isDetailsOpen, onToggleDetails }: FeaturedProjectProps) {
+  const imageFollowsCopy = index % 2 === 1
+  const detailsId = `${project.id}-details`
+  const sectionSpacing = index === 0
+    ? 'pt-0'
+    : 'pt-12 md:pt-16 lg:pt-20'
+
   return (
-    <div className="animate-[fade-in_0.4s_ease_both]">
-      <section className="px-6 pt-24 pb-16 md:pt-32 md:pb-24">
+    <article id={project.id} className={`scroll-mt-28 ${sectionSpacing}`}>
+      <div className="grid min-w-0 gap-9 xl:grid-cols-[minmax(0,1.12fr)_minmax(24rem,0.88fr)] xl:items-start xl:gap-14">
+        <figure className={`min-w-0 ${imageFollowsCopy ? 'xl:order-2' : ''}`}>
+          <div className="project-preview-frame aspect-[8/5] overflow-hidden border border-paper-line bg-sand/60">
+            <img
+              src={project.image}
+              alt={project.imageAlt}
+              width="1440"
+              height="900"
+              loading={index === 0 ? 'eager' : 'lazy'}
+              fetchPriority={index === 0 ? 'high' : 'auto'}
+              decoding="async"
+              className="h-full w-full object-cover object-top"
+            />
+          </div>
+        </figure>
+
+        <div className={`min-w-0 ${imageFollowsCopy ? 'xl:order-1' : ''}`}>
+          <div className="flex min-w-0 items-start justify-between gap-4">
+            <h3 className="min-w-0 font-display text-4xl leading-[1.02] tracking-[-0.02em] text-ink sm:text-5xl lg:text-6xl">
+              {project.title}
+            </h3>
+            <Badge variant={project.status === 'Active' ? 'moss' : 'water'}>{project.status}</Badge>
+          </div>
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-light md:text-xl">{project.summary}</p>
+          <div className="mt-8 space-y-7 border-t border-paper-line pt-7">
+            <StackBadges tech={project.tech} />
+            <ProjectLinks project={project} />
+          </div>
+        </div>
+      </div>
+
+      <div className={`relative left-1/2 mt-10 w-[100dvw] -translate-x-1/2 overflow-hidden border-y border-paper-line transition-colors duration-300 ${isDetailsOpen ? 'bg-sand/65' : 'bg-sand/35'}`}>
+        <div className="mx-auto grid w-full max-w-7xl grid-cols-[minmax(0,1fr)_auto] px-6">
+          <div
+            aria-hidden={isDetailsOpen}
+            className={`col-start-1 row-start-1 grid transition-[grid-template-rows,opacity] ease-[cubic-bezier(0.22,1,0.36,1)] ${isDetailsOpen ? 'grid-rows-[0fr] opacity-0 duration-[380ms]' : 'grid-rows-[1fr] opacity-100 duration-500'}`}
+          >
+            <div className="min-h-0 overflow-hidden">
+              <div className="flex min-h-20 items-center py-5">
+                <span className={`min-w-0 transition-[opacity,transform] duration-200 ${isDetailsOpen ? '-translate-y-1 opacity-0' : 'translate-y-0 opacity-100'}`}>
+                  <span className="block text-base font-bold text-deep-water">
+                    View project details
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id={detailsId}
+            aria-hidden={!isDetailsOpen}
+            className={`col-span-2 row-start-2 grid transition-[grid-template-rows,opacity] ease-[cubic-bezier(0.22,1,0.36,1)] ${isDetailsOpen ? 'grid-rows-[1fr] opacity-100 duration-500' : 'grid-rows-[0fr] opacity-0 duration-[380ms]'}`}
+          >
+            <div className="min-h-0 overflow-hidden">
+              <div className={`grid gap-8 pt-8 transition-[opacity,transform] ease-[cubic-bezier(0.22,1,0.36,1)] md:grid-cols-2 md:pt-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,0.9fr)_minmax(0,1.2fr)] lg:gap-10 ${isDetailsOpen ? 'translate-y-0 opacity-100 duration-500' : '-translate-y-2 opacity-0 duration-[280ms]'}`}>
+                <div>
+                  <h4 className="text-sm font-bold text-deep-water">The challenge</h4>
+                  <p className="mt-2 text-base leading-relaxed text-ink-light">{project.problem}</p>
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-deep-water">My role</h4>
+                  <p className="mt-2 text-base leading-relaxed text-ink-light">{project.role}</p>
+                </div>
+                <div className="md:col-span-2 lg:col-span-1">
+                  <h4 className="text-sm font-bold text-deep-water">Selected proof</h4>
+                  <ul className="mt-3 space-y-3">
+                    {project.highlights.slice(0, 3).map((item) => (
+                      <li key={item} className="flex gap-3 text-base leading-relaxed text-ink-light">
+                        <span className="mt-[0.7rem] h-1.5 w-1.5 shrink-0 bg-tidal" aria-hidden="true" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            aria-controls={detailsId}
+            aria-expanded={isDetailsOpen}
+            aria-label={isDetailsOpen ? 'Collapse project details' : 'View project details'}
+            onClick={onToggleDetails}
+            className={`group/detail relative z-10 flex cursor-pointer items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-tidal focus-visible:ring-offset-4 focus-visible:ring-offset-sand ${isDetailsOpen ? 'col-start-2 row-start-3 my-[18px] h-11 w-11 justify-self-end' : 'col-span-2 row-start-1 h-full w-full justify-end justify-self-stretch'}`}
+          >
+            <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-paper-line bg-warm-white/70 text-deep-water transition-[background-color,border-color,color,transform] duration-200 group-hover/detail:border-tidal group-hover/detail:bg-warm-white group-hover/detail:text-tidal group-active/detail:scale-95">
+              <PlusIcon
+                aria-hidden="true"
+                className={`absolute h-5 w-5 transition-[opacity,transform] duration-200 ${isDetailsOpen ? '-translate-y-1 scale-75 rotate-90 opacity-0' : 'translate-y-0 scale-100 rotate-0 opacity-100'}`}
+                weight="bold"
+              />
+              <ArrowUpIcon
+                aria-hidden="true"
+                className={`absolute h-5 w-5 transition-[opacity,transform] duration-200 ${isDetailsOpen ? 'translate-y-0 scale-100 opacity-100 delay-150' : 'translate-y-1 scale-75 opacity-0'}`}
+                weight="bold"
+              />
+            </span>
+          </button>
+        </div>
+      </div>
+    </article>
+  )
+}
+
+interface ArchiveProjectProps {
+  project: Project
+  isFirst: boolean
+  isLast: boolean
+  isOpen: boolean
+  showFullWidthBoundaries: boolean
+  isPreviousExpandedVisual: boolean
+  onToggle: (shouldOpen: boolean) => void
+}
+
+function ArchiveProject({
+  project,
+  isFirst,
+  isLast,
+  isOpen,
+  showFullWidthBoundaries,
+  isPreviousExpandedVisual,
+  onToggle,
+}: ArchiveProjectProps) {
+  const detailsId = `${project.id}-details`
+
+  return (
+    <article
+      id={project.id}
+      className={`relative left-1/2 w-[100dvw] -translate-x-1/2 scroll-mt-28 transition-colors duration-300 before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:z-10 before:h-px before:bg-paper-line before:transition-opacity before:duration-300 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:z-10 after:h-px after:bg-paper-line after:transition-opacity after:duration-300 ${isOpen ? 'bg-sand/65' : 'bg-transparent'} ${showFullWidthBoundaries && !isFirst ? 'before:opacity-100' : 'before:opacity-0'} ${showFullWidthBoundaries && !isLast ? 'after:opacity-100' : 'after:opacity-0'}`}
+    >
+      <div className="mx-auto w-full max-w-[83rem] px-6">
+        <div className={`grid grid-cols-[minmax(0,1fr)_3.75rem] ${isFirst ? '' : `border-t transition-colors duration-300 ${showFullWidthBoundaries || isPreviousExpandedVisual ? 'border-transparent' : 'border-paper-line'}`}`}>
+          <div className="col-start-1 row-start-1">
+            <div className="grid min-h-28 gap-4 py-7 pr-5 md:grid-cols-[minmax(12rem,0.7fr)_minmax(0,1.3fr)] md:items-center md:gap-8">
+              <div className="min-w-0">
+                <h3 className="text-2xl font-bold leading-tight text-ink sm:text-3xl">{project.title}</h3>
+                <p className="mt-2 text-sm font-semibold text-ink-light">{project.kind} · {project.status}</p>
+              </div>
+              <p className="max-w-3xl text-base leading-relaxed text-ink-light">{project.summary}</p>
+            </div>
+          </div>
+
+          <div
+            id={detailsId}
+            aria-hidden={!isOpen}
+            className={`col-span-2 row-start-2 grid transition-[grid-template-rows,opacity] ease-[cubic-bezier(0.22,1,0.36,1)] ${isOpen ? 'grid-rows-[1fr] opacity-100 duration-500' : 'grid-rows-[0fr] opacity-0 duration-[380ms]'}`}
+          >
+            <div className="min-h-0 overflow-hidden">
+              <div className={`grid gap-8 pt-8 transition-[opacity,transform] ease-[cubic-bezier(0.22,1,0.36,1)] md:grid-cols-2 md:pt-10 lg:gap-12 ${isOpen ? 'translate-y-0 opacity-100 duration-500' : '-translate-y-2 opacity-0 duration-[280ms]'}`}>
+                <div className="space-y-7">
+                  <div>
+                    <h4 className="text-sm font-bold text-deep-water">The challenge</h4>
+                    <p className="mt-2 text-base leading-relaxed text-ink-light">{project.problem}</p>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-deep-water">My role</h4>
+                    <p className="mt-2 text-base leading-relaxed text-ink-light">{project.role}</p>
+                  </div>
+                  <StackBadges tech={project.tech} />
+                  <ProjectLinks project={project} />
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-bold text-deep-water">What shipped</h4>
+                  <ul className="mt-3 space-y-3">
+                    {project.highlights.map((item) => (
+                      <li key={item} className="flex gap-3 text-base leading-relaxed text-ink-light">
+                        <span className="mt-[0.7rem] h-1.5 w-1.5 shrink-0 bg-moss" aria-hidden="true" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            aria-controls={detailsId}
+            aria-expanded={isOpen}
+            aria-label={isOpen ? `Collapse ${project.title} details` : `View ${project.title} details`}
+            onClick={() => onToggle(!isOpen)}
+            className={`group/archive-toggle relative z-10 flex cursor-pointer items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-tidal focus-visible:ring-offset-4 focus-visible:ring-offset-sand ${isOpen ? 'col-start-2 row-start-3 my-[18px] h-11 w-11 justify-self-end' : 'col-span-2 row-start-1 h-full w-full justify-end justify-self-stretch'}`}
+          >
+            <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-paper-line bg-warm-white/70 text-deep-water transition-[background-color,border-color,color,transform] duration-200 group-hover/archive-toggle:border-tidal group-hover/archive-toggle:bg-warm-white group-hover/archive-toggle:text-tidal group-active/archive-toggle:scale-95">
+              <PlusIcon
+                aria-hidden="true"
+                className={`absolute h-5 w-5 transition-[opacity,transform] duration-200 ${isOpen ? '-translate-y-1 scale-75 rotate-90 opacity-0' : 'translate-y-0 scale-100 rotate-0 opacity-100'}`}
+                weight="bold"
+              />
+              <ArrowUpIcon
+                aria-hidden="true"
+                className={`absolute h-5 w-5 transition-[opacity,transform] duration-200 ${isOpen ? 'translate-y-0 scale-100 opacity-100 delay-150' : 'translate-y-1 scale-75 opacity-0'}`}
+                weight="bold"
+              />
+            </span>
+          </button>
+        </div>
+      </div>
+    </article>
+  )
+}
+
+export function ProjectsPage() {
+  const featuredProjects = projects.filter(isFeaturedProject)
+  const archiveProjects = projects.filter((project) => !isFeaturedProject(project))
+  const [expandedProjectId, setExpandedProjectId] = useState<string | null>(null)
+  const [closingProjectId, setClosingProjectId] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!closingProjectId) return
+
+    const respectsReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const timeoutId = window.setTimeout(
+      () => setClosingProjectId(null),
+      respectsReducedMotion ? 0 : 400,
+    )
+
+    return () => window.clearTimeout(timeoutId)
+  }, [closingProjectId])
+
+  const setProjectExpanded = (projectId: string, shouldOpen: boolean) => {
+    if (shouldOpen) {
+      if (expandedProjectId && expandedProjectId !== projectId) {
+        setClosingProjectId(expandedProjectId)
+      }
+      setExpandedProjectId(projectId)
+      return
+    }
+
+    if (expandedProjectId === projectId) {
+      setClosingProjectId(projectId)
+      setExpandedProjectId(null)
+    }
+  }
+
+  return (
+    <div className="projects-page animate-[fade-in_0.4s_ease_both]">
+      <section className="px-6 pb-20 pt-28 md:pb-28 md:pt-32">
         <div className="mx-auto max-w-7xl">
           <h1 className="sr-only">Projects</h1>
-          <div className="space-y-8 md:space-y-10">
-            {projects.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} />
-            ))}
-          </div>
+
+          <section aria-label="Current projects">
+            <div>
+              {featuredProjects.map((project, index) => (
+                <FeaturedProject
+                  key={project.id}
+                  project={project}
+                  index={index}
+                  isDetailsOpen={expandedProjectId === project.id}
+                  onToggleDetails={() => setProjectExpanded(project.id, expandedProjectId !== project.id)}
+                />
+              ))}
+            </div>
+          </section>
+
+          <section aria-label="Additional projects" className="pt-12 md:pt-16">
+            <div>
+              {archiveProjects.map((project, index) => (
+                <ArchiveProject
+                  key={project.id}
+                  project={project}
+                  isFirst={index === 0}
+                  isLast={index === archiveProjects.length - 1}
+                  isOpen={expandedProjectId === project.id}
+                  showFullWidthBoundaries={expandedProjectId === project.id || closingProjectId === project.id}
+                  isPreviousExpandedVisual={index > 0 && (
+                    expandedProjectId === archiveProjects[index - 1].id
+                    || closingProjectId === archiveProjects[index - 1].id
+                  )}
+                  onToggle={(shouldOpen) => setProjectExpanded(project.id, shouldOpen)}
+                />
+              ))}
+            </div>
+          </section>
+
+          <aside className="mt-16 border-t border-paper-line pt-8 md:mt-24 md:grid md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-10 md:pt-10">
+            <div>
+              <h2 className="text-2xl font-bold text-ink md:text-3xl">Interested in how I work?</h2>
+              <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-light">
+                I can walk through product decisions, implementation tradeoffs, and the systems behind this work.
+              </p>
+            </div>
+            <Link
+              to="/contact"
+              className="mt-6 inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-full border border-deep-water bg-deep-water px-6 py-3 text-sm font-bold text-warm-white transition-[background-color,border-color] duration-200 hover:border-moss hover:bg-moss focus:outline-none focus-visible:ring-2 focus-visible:ring-tidal focus-visible:ring-offset-4 focus-visible:ring-offset-warm-white md:mt-0"
+            >
+              Start a conversation
+              <ArrowUpRightIcon aria-hidden="true" className="h-4 w-4" weight="bold" />
+            </Link>
+          </aside>
         </div>
       </section>
     </div>

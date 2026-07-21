@@ -17,6 +17,7 @@ export interface Project {
   links: ProjectLink[]
   featured: boolean
   image?: string
+  imageAlt?: string
 }
 
 export interface Experience {

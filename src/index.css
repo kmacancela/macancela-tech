@@ -1,3 +1,4 @@
+/* Hallmark · macrostructure: Case-study index · genre: warm editorial · design-system: DESIGN.md · pre-emit critique: P5 H5 E5 S5 R5 V5 · contrast: pass (46–50) · nav: N5 · footer: Ft4 · slop: pass (51–55) · honest: pass (56) · chrome: pass (57) · tokens: pass (58) · responsive: pass (59) · icons: pass (60) · mobile: pass (36, 59, 61–69) */
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -121,7 +122,17 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: -0.015em;
+  min-width: 0;
+  overflow-wrap: anywhere;
   text-wrap: balance;
+}
+
+.projects-page {
+  min-width: 0;
+}
+
+.project-preview-frame {
+  box-shadow: 0 18px 42px -28px color-mix(in oklch, var(--color-night) 24%, transparent);
 }
 
 .contact-heading-wrap {
@@ -278,26 +289,6 @@ p {
   to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
 }
 
-@keyframes project-card-shell-in {
-  from { opacity: 0; transform: translate3d(0, 18px, 0); }
-  to { opacity: 1; transform: translate3d(0, 0, 0); }
-}
-
-@keyframes project-card-main-in {
-  from { opacity: 0; transform: translate3d(0, 12px, 0); }
-  to { opacity: 1; transform: translate3d(0, 0, 0); }
-}
-
-@keyframes project-card-side-in {
-  from { opacity: 0; transform: translate3d(12px, 0, 0); }
-  to { opacity: 1; transform: translate3d(0, 0, 0); }
-}
-
-@keyframes project-stack-badge-in {
-  from { opacity: 0; transform: translate3d(0, 8px, 0); }
-  to { opacity: 1; transform: translate3d(0, 0, 0); }
-}
-
 @keyframes contact-success-mark-flight {
   0% { opacity: 0; transform: translate3d(-50%, -50%, 0) scale(0.76); }
   18% { opacity: 1; transform: translate3d(-50%, -50%, 0) scale(1.04); }
@@ -416,68 +407,6 @@ p {
   animation-delay: calc(var(--timeline-delay) + 0.2s);
 }
 
-.project-card-entry {
-  --project-delay: 0s;
-}
-
-.project-card-step-2 {
-  --project-delay: 0.08s;
-}
-
-.project-card-step-3 {
-  --project-delay: 0.16s;
-}
-
-.project-card-step-4 {
-  --project-delay: 0.24s;
-}
-
-.project-card-step-5 {
-  --project-delay: 0.32s;
-}
-
-.project-card-initial {
-  opacity: 0;
-  transform: translate3d(0, 18px, 0);
-}
-
-.project-card-in {
-  animation: project-card-shell-in 0.58s cubic-bezier(0.22, 1, 0.36, 1) var(--project-delay) both;
-  will-change: opacity, transform;
-}
-
-.project-card-in .project-card-main {
-  animation: project-card-main-in 0.56s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--project-delay) + 0.08s) both;
-  will-change: opacity, transform;
-}
-
-.project-card-in .project-card-side {
-  animation: project-card-side-in 0.58s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--project-delay) + 0.15s) both;
-  will-change: opacity, transform;
-}
-
-.project-card-in .project-stack-badge {
-  display: inline-block;
-  animation: project-stack-badge-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--project-delay) + 0.2s) both;
-  will-change: opacity, transform;
-}
-
-.project-card-in .project-stack-badge:nth-child(2) {
-  animation-delay: calc(var(--project-delay) + 0.24s);
-}
-
-.project-card-in .project-stack-badge:nth-child(3) {
-  animation-delay: calc(var(--project-delay) + 0.28s);
-}
-
-.project-card-in .project-stack-badge:nth-child(4) {
-  animation-delay: calc(var(--project-delay) + 0.32s);
-}
-
-.project-card-in .project-stack-badge:nth-child(n + 5) {
-  animation-delay: calc(var(--project-delay) + 0.36s);
-}
-
 .contact-success-mark {
   opacity: 0;
   transform: translate3d(-50%, -50%, 0) scale(0.76);
@@ -580,10 +509,6 @@ p {
   .timeline-dot,
   .timeline-date-pill,
   .timeline-panel,
-  .project-card-in,
-  .project-card-main,
-  .project-card-side,
-  .project-stack-badge,
   .contact-success-copy,
   .about-intro-copy,
   .about-photo-roll-target,

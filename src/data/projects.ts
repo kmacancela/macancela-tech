@@ -16,15 +16,121 @@ export const projects: Project[] = [
       'Automated recurring market research while preserving transparent added, refreshed, and past-opportunity change history.',
     ],
     tech: ['React', 'TypeScript', 'Next.js', 'Cloudflare D1', 'Cloudflare R2', 'Vitest', 'Playwright'],
+    image: '/projects/flea-finder-catalog.jpg',
+    imageAlt: 'Flea Finder opportunity catalog showing current New York City markets and application status.',
     links: [
       {
-        label: 'Check it out',
+        label: 'View live app',
         href: 'https://flea-finder-nyc.karymacancela.chatgpt.site/',
         external: true,
       },
       {
-        label: 'GitHub',
+        label: 'View source',
         href: 'https://github.com/kmacancela/flea-finder',
+        external: true,
+      },
+    ],
+    featured: true,
+  },
+  {
+    id: 'job-huntress',
+    title: 'Job Huntress',
+    status: 'Active',
+    kind: 'Private product workspace',
+    summary: 'A local-first, review-first job-search workspace for ranking live roles, tailoring application materials from confirmed facts, and learning from review feedback.',
+    problem: 'Job-search work was spread across resume files, live listings, tailored drafts, and tracking notes, while common automation approaches risked inventing facts or exposing private candidate data.',
+    role: 'Product-minded full-stack engineer owning product definition, data models, local architecture, resume onboarding, review workflows, and application-packet foundations.',
+    highlights: [
+      'Built revision-protected private workspaces with atomic records, verified migrations, safe exports, and deliberate deletion controls.',
+      'Created DOCX, DOC, and Apple Pages resume onboarding with extraction evidence, confidence, and required human confirmation.',
+      'Developed a live resume review surface with direct text editing, undo and redo, immutable source downloads, and pagination safeguards.',
+      'Connected job ranking and review feedback to later matching while keeping every application and factual claim under user control.',
+    ],
+    tech: ['Node.js', 'JavaScript', 'Python', 'JSON Schema', 'Local-first architecture'],
+    image: '/projects/job-huntress-home.jpg',
+    imageAlt: 'Job Huntress first-time-user homepage prompting a new user to upload a resume and showing the three-step workflow.',
+    links: [
+      {
+        label: 'View source',
+        href: 'https://github.com/kmacancela/job-huntress',
+        external: true,
+      },
+    ],
+    featured: true,
+  },
+  {
+    id: 'bird-seeker',
+    title: 'Bird Seeker',
+    status: 'Active',
+    kind: 'Learning web app',
+    summary: 'A privacy-conscious daily learning loop that helps beginner birders discover, recognize, and practice birds recently reported near them.',
+    problem: 'Beginner birders often face dense field guides and disconnected observation data when they mainly need one trustworthy, locally relevant species to learn at a time.',
+    role: 'Product-minded full-stack engineer owning product definition, privacy boundaries, local discovery, learning flows, source attribution, and deployment architecture.',
+    highlights: [
+      'Turned recent local observations into a deterministic Bird of the Day and a short daily practice loop.',
+      'Built progressive nearby search with visible radius evidence, sparse-data handling, and source-aware species records.',
+      'Protected location privacy by using temporary browser location, public centroids, and a filtered view of a real BirdNET station.',
+      'Added anonymous progress with optional account sync, responsive navigation, reduced-motion support, and automated accessibility coverage.',
+    ],
+    tech: ['React', 'TypeScript', 'Vite', 'Netlify Functions', 'Supabase', 'Vitest', 'Playwright'],
+    image: '/projects/bird-seeker-home.jpg',
+    imageAlt: 'Bird Seeker homepage showing a daily Bald Eagle lesson, local observation evidence, and practice controls.',
+    links: [
+      {
+        label: 'View source',
+        href: 'https://github.com/kmacancela/bird-seeker',
+        external: true,
+      },
+    ],
+    featured: true,
+  },
+  {
+    id: 'emote-hue',
+    title: 'Emote Hue',
+    status: 'Active',
+    kind: 'Mobile art journal',
+    summary: 'A private emotional art journal that turns spoken or typed reflections into living color portraits users can shape by touch or calibrated phone tilt, then keep over time.',
+    problem: 'Feelings can be difficult to capture in conventional journal entries, while many emotion tools feel clinical or ask users to surrender more private data than necessary.',
+    role: 'Mobile product engineer owning the emotional-expression model, first-run experience, procedural portrait system, journal interactions, and privacy-safe architecture.',
+    highlights: [
+      'Created voice and text reflection flows that translate expression into adjustable visual parameters without diagnostic language.',
+      'Built procedural Hue Portraits with Skia so each entry remains expressive without generating and storing a new AI image.',
+      'Designed a private local journal, curated palette controls, intensity adjustment, and privacy-safe sharing formats.',
+      'Added tablet-aware layouts, reduced-motion support, text-size controls, and fallbacks for users who decline microphone access.',
+    ],
+    tech: ['Expo', 'React Native', 'TypeScript', 'Skia', 'Reanimated', 'Jest'],
+    image: '/projects/emote-hue-home.jpg',
+    imageAlt: 'An Emote Hue portrait with its Adjust tools expanded beside a phone-tilt ring for intensity, color, and brightness, plus the private visual journal.',
+    links: [
+      {
+        label: 'View source',
+        href: 'https://github.com/kmacancela/emote-hue',
+        external: true,
+      },
+    ],
+    featured: true,
+  },
+  {
+    id: 'seedy',
+    title: 'Seedy',
+    status: 'Active',
+    kind: 'Website pet system',
+    summary: 'A visual website-pet studio for creating or importing a tiny companion, previewing its behavior, and producing a transparent self-hosted embed.',
+    problem: 'Adding a characterful website companion usually demands custom animation, asset, and integration work—and existing shortcuts can obscure security, accessibility, and ownership limits.',
+    role: 'Product and platform engineer owning the Studio workflow, renderer and loader contracts, origin authorization, asset validation, accessibility, and phased delivery strategy.',
+    highlights: [
+      'Built an account-free browser-local Studio for naming, importing, validating, previewing, and customizing a website pet.',
+      'Created a versioned self-hosted renderer for direct images and manifest-defined sprites with strict size and lifecycle boundaries.',
+      'Proved exact-origin authorization, copied-key rejection, strict CSP behavior, and isolated failure handling across browser fixtures.',
+      'Added deterministic browser tests for reduced motion, accessibility, teardown, sleep behavior, hostile host styles, and performance budgets.',
+    ],
+    tech: ['TypeScript', 'Vite', 'Web Components', 'Canvas', 'Playwright', 'Vitest'],
+    image: '/projects/seedy-studio.jpg',
+    imageAlt: 'Seedy Studio homepage showing its four-step workflow, pet naming controls, and live preview workbench.',
+    links: [
+      {
+        label: 'View source',
+        href: 'https://github.com/kmacancela/seedy',
         external: true,
       },
     ],
@@ -33,7 +139,7 @@ export const projects: Project[] = [
   {
     id: 'kary-waves',
     title: 'Kary Waves',
-    status: 'Active',
+    status: 'Shipped',
     kind: 'Client app',
     summary: 'A React Native client app for a NYC apparel manufacturing company that brings project progress, bookings, messaging, and files into one place.',
     problem: 'Clients needed a single, reliable place to track manufacturing progress, communicate with the team, manage bookings, and access project files without scattered handoffs.',
@@ -47,12 +153,12 @@ export const projects: Project[] = [
     tech: ['React Native', 'TypeScript', 'Fastify', 'PostgreSQL', 'Expo'],
     links: [
       {
-        label: 'Check it out',
+        label: 'Visit product site',
         href: 'https://karywaves.com/',
         external: true,
       },
       {
-        label: 'GitHub',
+        label: 'View source',
         href: 'https://github.com/kmacancela/kary-waves',
         external: true,
       },
@@ -76,7 +182,7 @@ export const projects: Project[] = [
     tech: ['Vue.js', 'TypeScript', 'Node.js', 'SQL', 'Power BI', 'Databricks', 'JWT'],
     links: [
       {
-        label: 'Check it out',
+        label: 'Visit product site',
         href: 'https://www.aimediagroup.com/atrilyx',
         external: true,
       },
@@ -118,7 +224,7 @@ export const projects: Project[] = [
     tech: ['Ruby on Rails', 'JavaScript', 'Node.js', 'Stripe API', 'JWT', 'bcrypt'],
     links: [
       {
-        label: 'GitHub',
+        label: 'View source',
         href: 'https://github.com/kmacancela/jpdraws',
         external: true,
       },
@@ -142,7 +248,7 @@ export const projects: Project[] = [
     tech: ['Ruby on Rails', 'JavaScript', 'SQLite', 'Alpha Vantage API'],
     links: [
       {
-        label: 'GitHub',
+        label: 'View source',
         href: 'https://github.com/kmacancela/stocks-api',
         external: true,
       },
