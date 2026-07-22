@@ -17,7 +17,7 @@ export const projects: Project[] = [
     ],
     tech: ['React', 'TypeScript', 'Next.js', 'Cloudflare D1', 'Cloudflare R2', 'Vitest', 'Playwright'],
     image: '/projects/flea-finder-catalog.jpg',
-    imageAlt: 'Flea Finder opportunity catalog showing current New York City markets and application status.',
+    imageAlt: 'Flea Finder list view showing the illustrated New York City market finder and current vendor opportunities.',
     links: [
       {
         label: 'View live app',
@@ -48,7 +48,7 @@ export const projects: Project[] = [
     ],
     tech: ['Node.js', 'JavaScript', 'Python', 'JSON Schema', 'Local-first architecture'],
     image: '/projects/job-huntress-home.jpg',
-    imageAlt: 'Job Huntress first-time-user homepage prompting a new user to upload a resume and showing the three-step workflow.',
+    imageAlt: 'Job Huntress dark-mode homepage showing a completed Wednesday workflow, top job match, and three active days.',
     links: [
       {
         label: 'View source',
@@ -74,8 +74,13 @@ export const projects: Project[] = [
     ],
     tech: ['React', 'TypeScript', 'Vite', 'Netlify Functions', 'Supabase', 'Vitest', 'Playwright'],
     image: '/projects/bird-seeker-home.jpg',
-    imageAlt: 'Bird Seeker homepage showing a daily Bald Eagle lesson, local observation evidence, and practice controls.',
+    imageAlt: 'Bird Seeker homepage showing a daily Carolina Wren lesson for New York, New York, with local observation evidence and practice controls.',
     links: [
+      {
+        label: 'View live app',
+        href: 'https://bird-seeker.netlify.app/',
+        external: true,
+      },
       {
         label: 'View source',
         href: 'https://github.com/kmacancela/bird-seeker',
@@ -105,32 +110,6 @@ export const projects: Project[] = [
       {
         label: 'View source',
         href: 'https://github.com/kmacancela/emote-hue',
-        external: true,
-      },
-    ],
-    featured: true,
-  },
-  {
-    id: 'seedy',
-    title: 'Seedy',
-    status: 'Active',
-    kind: 'Website pet system',
-    summary: 'A visual website-pet studio for creating or importing a tiny companion, previewing its behavior, and producing a transparent self-hosted embed.',
-    problem: 'Adding a characterful website companion usually demands custom animation, asset, and integration work—and existing shortcuts can obscure security, accessibility, and ownership limits.',
-    role: 'Product and platform engineer owning the Studio workflow, renderer and loader contracts, origin authorization, asset validation, accessibility, and phased delivery strategy.',
-    highlights: [
-      'Built an account-free browser-local Studio for naming, importing, validating, previewing, and customizing a website pet.',
-      'Created a versioned self-hosted renderer for direct images and manifest-defined sprites with strict size and lifecycle boundaries.',
-      'Proved exact-origin authorization, copied-key rejection, strict CSP behavior, and isolated failure handling across browser fixtures.',
-      'Added deterministic browser tests for reduced motion, accessibility, teardown, sleep behavior, hostile host styles, and performance budgets.',
-    ],
-    tech: ['TypeScript', 'Vite', 'Web Components', 'Canvas', 'Playwright', 'Vitest'],
-    image: '/projects/seedy-studio.jpg',
-    imageAlt: 'Seedy Studio homepage showing its four-step workflow, pet naming controls, and live preview workbench.',
-    links: [
-      {
-        label: 'View source',
-        href: 'https://github.com/kmacancela/seedy',
         external: true,
       },
     ],
