@@ -152,8 +152,8 @@ const capabilityHighlightDelayClasses = ['delay-75', 'delay-150', 'delay-300']
 const timelineColors = ['bg-tidal', 'bg-clay', 'bg-sun']
 const timelineDotDelayClasses = ['delay-300', 'delay-150', '']
 const introStorageKey = 'macancela-home-intro-seen'
-const introOverlayMs = 1950
-const introHandoffMs = 2800
+const introOverlayMs = 1750
+const introHandoffMs = 1850
 const initialGreetingHoldMs = 420
 
 function HomeProjectChipText({ label }: { label: HomeProjectChipLabel }) {
@@ -628,17 +628,17 @@ export function HomePage() {
     <>
       {showIntro && (
         <div className="home-intro-overlay pointer-events-none fixed inset-0 z-[80] overflow-hidden bg-warm-white text-deep-water" aria-hidden="true">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(239,183,62,0.2),transparent_35%)]" />
-          <div className="home-intro-wordmark absolute inset-0 grid place-items-center px-6 text-center">
-            <div>
-              <p className="inline-flex items-baseline ![font-family:var(--font-editorial)] text-5xl leading-none !font-normal !tracking-normal sm:text-7xl">
-                macancela
-                <span className="home-intro-dot mx-[0.05em] inline-flex h-[0.18em] w-[0.18em] rounded-full bg-tidal" />
-                tech
-              </p>
-              <p className="mt-5 font-mono text-xs uppercase tracking-[0.18em] text-ink-muted">
-                product design / full-stack engineering / data-driven
-              </p>
+          <div className="absolute inset-0 grid place-items-center px-4 sm:px-6">
+            <div className="home-intro-wordmark">
+              <div className="home-intro-name text-center font-display font-bold uppercase text-deep-water">
+                Macancela
+              </div>
+              <div className="home-intro-label relative isolate overflow-hidden">
+                <span className="home-intro-label-sweep absolute inset-0 -z-10 bg-sun-light" />
+                <span className="home-intro-technologies block font-display font-bold uppercase text-deep-water">
+                  Technologies
+                </span>
+              </div>
             </div>
           </div>
         </div>

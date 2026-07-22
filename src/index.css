@@ -199,21 +199,23 @@ p {
 }
 
 @keyframes intro-overlay-exit {
-  0%, 72% { opacity: 1; }
+  0%, 74% { opacity: 1; }
   100% { opacity: 0; visibility: hidden; }
 }
 
-@keyframes intro-wordmark {
-  0% { opacity: 0; transform: translateY(16px); }
-  16%, 74% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(-8px); }
+@keyframes intro-name-enter {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes intro-dot-pulse {
-  0% { opacity: 0; transform: scale(0.55); }
-  22% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(47, 126, 120, 0.3); }
-  68% { box-shadow: 0 0 0 12px rgba(47, 126, 120, 0); }
-  100% { opacity: 0; transform: scale(0.85); box-shadow: 0 0 0 0 rgba(47, 126, 120, 0); }
+@keyframes intro-label-sweep {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes intro-technologies-reveal {
+  from { opacity: 0; clip-path: inset(0 100% 0 0); }
+  to { opacity: 1; clip-path: inset(0 0 0 0); }
 }
 
 @keyframes hero-after-intro {
@@ -306,22 +308,47 @@ p {
 }
 
 .home-intro-overlay {
-  animation: intro-overlay-exit 1.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: intro-overlay-exit 1.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   will-change: opacity;
 }
 
 .home-intro-wordmark {
-  animation: intro-wordmark 1.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  width: fit-content;
+  max-width: 84vw;
+}
+
+.home-intro-name {
+  font-size: clamp(3rem, 15vw, 12.5rem);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  animation: intro-name-enter 0.42s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both;
   will-change: opacity, transform;
 }
 
-.home-intro-dot {
-  animation: intro-dot-pulse 1.58s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+.home-intro-label {
+  margin-top: clamp(0.15rem, 0.4vw, 0.4rem);
+  padding: clamp(0.5rem, 0.9vw, 0.85rem) clamp(0.75rem, 1.5vw, 1.5rem);
+}
+
+.home-intro-label-sweep {
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: intro-label-sweep 0.64s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+  will-change: transform;
+}
+
+.home-intro-technologies {
+  font-size: clamp(0.75rem, 1.8vw, 1.65rem);
+  line-height: 1;
+  letter-spacing: 0.18em;
+  animation: intro-technologies-reveal 0.58s cubic-bezier(0.16, 1, 0.3, 1) 0.36s both;
+  will-change: opacity, clip-path;
 }
 
 .home-hero-after-intro {
   opacity: 0;
-  animation: hero-after-intro 0.72s cubic-bezier(0.22, 1, 0.36, 1) 1.35s both;
+  animation: hero-after-intro 0.58s cubic-bezier(0.22, 1, 0.36, 1) 1.2s both;
   will-change: opacity, transform;
 }
 
@@ -335,7 +362,7 @@ p {
 
 .build-profile-intro-handoff {
   --build-profile-start-y: -8rem;
-  animation: build-profile-handoff 1.04s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.64s both;
+  animation: build-profile-handoff 0.72s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.06s both;
   will-change: opacity, transform;
 }
 
