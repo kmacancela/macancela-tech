@@ -33,32 +33,6 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: 'job-huntress',
-    title: 'Job Huntress',
-    status: 'Active',
-    kind: 'Private product workspace',
-    summary: 'A local-first, review-first job-search workspace for ranking live roles, tailoring application materials from confirmed facts, and learning from review feedback.',
-    problem: 'Job-search work was spread across resume files, live listings, tailored drafts, and tracking notes, while common automation approaches risked inventing facts or exposing private candidate data.',
-    role: 'Product-minded full-stack engineer owning product definition, data models, local architecture, resume onboarding, review workflows, and application-packet foundations.',
-    highlights: [
-      'Built revision-protected private workspaces with atomic records, verified migrations, safe exports, and deliberate deletion controls.',
-      'Created DOCX, DOC, and Apple Pages resume onboarding with extraction evidence, confidence, and required human confirmation.',
-      'Developed a live resume review surface with direct text editing, undo and redo, immutable source downloads, and pagination safeguards.',
-      'Connected job ranking and review feedback to later matching while keeping every application and factual claim under user control.',
-    ],
-    tech: ['Node.js', 'JavaScript', 'Python', 'JSON Schema', 'Local-first architecture'],
-    image: '/projects/job-huntress-home.jpg',
-    imageAlt: 'Job Huntress dark-mode homepage showing a completed Wednesday workflow, top job match, and three active days.',
-    links: [
-      {
-        label: 'View source',
-        href: 'https://github.com/kmacancela/job-huntress',
-        external: true,
-      },
-    ],
-    featured: true,
-  },
-  {
     id: 'bird-seeker',
     title: 'Bird Seeker',
     status: 'Active',
