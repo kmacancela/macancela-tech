@@ -4,7 +4,7 @@ export const experience: Experience[] = [
   {
     id: 'exp-0',
     company: 'Macancela Technologies',
-    role: 'Freelance Full-Stack Software Engineer',
+    role: 'Product Engineer',
     location: 'New York, NY',
     startDate: 'January 2026',
     endDate: 'Present',
