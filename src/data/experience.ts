@@ -8,7 +8,7 @@ export const experience: Experience[] = [
     location: 'New York, NY',
     startDate: 'January 2026',
     endDate: 'Present',
-    context: 'Building and maintaining software products through independent full-stack work.',
+    context: 'Partnering with clients to transform early-stage ideas into production-ready software products, from discovery and planning through engineering and launch.',
     description: [
       'Own work end to end, from product planning and interface implementation through backend development, testing, and deployment.',
       'Develop responsive web experiences and supporting services with an emphasis on maintainable systems and clear product decisions.',
