@@ -325,21 +325,7 @@ export function ProjectsPage() {
     <div className="projects-page animate-[fade-in_0.4s_ease_both]">
       <section className="px-6 pb-20 pt-28 md:pb-28 md:pt-32">
         <div className="mx-auto max-w-7xl">
-          <AnimatedSection>
-            <header className="mb-14 border-b border-paper-line pb-10 md:mb-20 md:pb-12">
-              <h1
-                id="projects-heading"
-                className="max-w-5xl font-display text-5xl font-semibold leading-[0.98] tracking-[-0.035em] text-ink sm:text-6xl md:text-7xl lg:text-8xl"
-              >
-                See What I’m Building
-              </h1>
-              <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-light sm:text-xl md:mt-6">
-                Independent projects I’m currently bringing to life.
-              </p>
-            </header>
-          </AnimatedSection>
-
-          <section aria-labelledby="projects-heading">
+          <section aria-label="Projects">
             <div>
               {featuredProjects.map((project, index) => (
                 <AnimatedSection
