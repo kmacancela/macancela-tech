@@ -12,7 +12,7 @@ export const experience: Experience[] = [
     description: [
       'Built a React Native/TypeScript app with Fastify APIs and PostgreSQL for project tracking, bookings, messaging, and files.',
       'Added local SEO metadata, structured business data, and a sitemap to help prospective clients discover garment services online.',
-      'Create tech packs and 3D CAD garment simulations to assess fit, construction, and fabric drape before sampling.',
+      'Create tech packs and 3D CAD garment simulations to assess fit, construction, and fabric drape before sampling, helping reduce fabric waste and support more sustainable garment development.',
     ],
     tech: ['React Native', 'TypeScript', 'Fastify', 'PostgreSQL', '3D CAD'],
     current: true,
