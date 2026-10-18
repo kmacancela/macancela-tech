@@ -10,7 +10,7 @@ export const experience: Experience[] = [
     endDate: 'Present',
     context: 'Apparel development and manufacturing for independent designers and brands, combining 3D garment design with client-facing software.',
     description: [
-      'Built a React Native/TypeScript app with Fastify APIs and PostgreSQL for project tracking, bookings, messaging, and files.',
+      'Built a React Native/TypeScript dashboard with Fastify and PostgreSQL for company staff and clients, centralizing bookings, invoices, client details, project progress, messaging, and files, with AI voice dictation for client-linked project briefs.',
       'Grew the client base by 75% through SEO and marketing automation, improving visibility across search engines and AI tools.',
       'Create tech packs and 3D CAD garment simulations to assess fit, construction, and fabric drape before sampling, helping reduce fabric waste and support more sustainable garment development.',
     ],
