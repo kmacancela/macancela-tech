@@ -7,8 +7,8 @@ import type { Experience } from '../types'
 const experienceTimelineItems = [
   {
     experienceId: 'exp-0',
-    callout: 'Independent full-stack work across product direction, frontend experiences, backend services, and production delivery.',
-    proof: 'Independent delivery / web + mobile products / end-to-end ownership',
+    callout: 'Built a full-stack client app alongside 3D garment design work for an apparel development and manufacturing business.',
+    proof: 'Client app / Fastify APIs / PostgreSQL',
     badgeVariant: 'leaf',
     dotClass: 'border-leaf bg-leaf',
     side: 'right',
@@ -16,7 +16,7 @@ const experienceTimelineItems = [
   {
     experienceId: 'exp-1',
     callout: 'Senior full-stack ownership across product surfaces, multi-tenant data boundaries, SSO, and launch-ready analytics.',
-    proof: '300+ SaaS clients / 10M+ daily events / 120+ internal SSO users',
+    proof: '300+ clients / 10M+ daily events / 120+ internal SSO users',
     badgeVariant: 'tidal',
     dotClass: 'border-tidal bg-tidal',
     side: 'left',
@@ -48,7 +48,7 @@ const experienceTimelineItems = [
 ] as const
 
 const education = {
-  school: 'CUNY Queens College',
+  school: 'Queens College',
   degree: 'Bachelor of Science in Computer Science and Applied Mathematics',
   detail: 'Technical foundation in computer science and applied mathematics, completed while working in campus IT support.',
 }
