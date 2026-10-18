@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { CalendarBlankIcon } from '@phosphor-icons/react'
+import { CalendarBlankIcon, FileTextIcon } from '@phosphor-icons/react'
 import { Link, useLocation } from 'react-router'
 import { navLinks } from '../../data/profileLinks'
 import { siteConfig } from '../../data/siteConfig'
@@ -79,18 +79,38 @@ export function Navbar() {
 
         <div className="hidden items-center justify-end gap-2 md:flex">
           <a
+            href={siteConfig.resumeHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Resume (opens in a new tab)"
+            className={`inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-paper-line bg-transparent px-5 text-sm font-bold text-deep-water transition-[color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-tidal hover:text-tidal max-lg:h-11 max-lg:w-11 max-lg:px-0 ${focusRing}`}
+          >
+            <FileTextIcon className="h-4 w-4" weight="bold" aria-hidden="true" />
+            <span className="max-lg:sr-only">Resume</span>
+          </a>
+          <a
             href={siteConfig.bookingHref}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Book a call"
-            className={`inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-deep-water bg-deep-water px-5 text-sm font-bold text-warm-white transition-[color,background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-moss hover:bg-moss max-[782px]:h-11 max-[782px]:w-11 max-[782px]:px-0 ${focusRing}`}
+            className={`inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-deep-water bg-deep-water px-5 text-sm font-bold text-warm-white transition-[color,background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-moss hover:bg-moss max-lg:h-11 max-lg:w-11 max-lg:px-0 ${focusRing}`}
           >
             <CalendarBlankIcon className="h-4 w-4" weight="bold" aria-hidden="true" />
-            <span className="max-[782px]:sr-only">Book a Call</span>
+            <span className="max-lg:sr-only">Book a Call</span>
           </a>
         </div>
 
         <div className="absolute right-4 top-1/2 flex shrink-0 -translate-y-1/2 items-center gap-1 md:hidden">
+          <a
+            href={siteConfig.resumeHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Resume (opens in a new tab)"
+            className={`inline-flex h-11 w-11 items-center justify-center gap-2 rounded-full border border-paper-line bg-transparent text-sm font-bold text-deep-water transition-colors hover:border-tidal hover:text-tidal sm:w-auto sm:px-4 ${focusRing}`}
+          >
+            <FileTextIcon className="h-4 w-4 shrink-0" weight="bold" aria-hidden="true" />
+            <span className="sr-only sm:not-sr-only">Resume</span>
+          </a>
           <a
             href={siteConfig.bookingHref}
             target="_blank"

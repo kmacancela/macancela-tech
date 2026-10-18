@@ -37,7 +37,7 @@ const heroBuildMetadata = [
   {
     field: 'experience',
     value: `${siteConfig.yearsExperience} years`,
-    detail: 'Healthcare / AdTech / SaaS startups',
+    detail: 'Fashion / Healthcare / AdTech / SaaS',
   },
   {
     field: 'region',
