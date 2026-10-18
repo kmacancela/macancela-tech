@@ -11,6 +11,7 @@ export const experience: Experience[] = [
     context: 'Apparel development and manufacturing for independent designers and brands, combining 3D garment design with client-facing software.',
     description: [
       'Built a React Native/TypeScript app with Fastify APIs and PostgreSQL for project tracking, bookings, messaging, and files.',
+      'Added local SEO metadata, structured business data, and a sitemap to help prospective clients discover garment services online.',
       'Create tech packs and 3D CAD garment simulations to assess fit, construction, and fabric drape before sampling.',
     ],
     tech: ['React Native', 'TypeScript', 'Fastify', 'PostgreSQL', '3D CAD'],

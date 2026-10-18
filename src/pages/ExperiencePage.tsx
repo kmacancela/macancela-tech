@@ -7,8 +7,8 @@ import type { Experience } from '../types'
 const experienceTimelineItems = [
   {
     experienceId: 'exp-0',
-    callout: 'Built a full-stack client app alongside 3D garment design work for an apparel development and manufacturing business.',
-    proof: 'Client app / Fastify APIs / PostgreSQL',
+    callout: 'Built English/Spanish voice dictation with on-device AI transcription and custom garment-service parsing, turning spoken requirements into reviewable project briefs with services, deadlines, and pricing, linked to each client record.',
+    proof: 'Voice dictation / AI project briefs',
     badgeVariant: 'leaf',
     dotClass: 'border-leaf bg-leaf',
     side: 'right',
